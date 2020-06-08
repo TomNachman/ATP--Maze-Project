@@ -1,5 +1,6 @@
 package sample;
 
+import Model.MyModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,15 +16,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../View/MyView.fxml"));
-        primaryStage.setTitle("Hello World");
-        b = new Button();
-        b.setText("TOM");
-        b.setOnAction(e->{
-            System.out.println("i did it");
-        });
-        StackPane pane = new StackPane();
-        pane.getChildren().add(b);
-        primaryStage.setScene(new Scene(pane, 300, 275));
+        MyModel model = new MyModel();
+        model.StartServers();
+        primaryStage.setTitle("Kings Maze");
+        primaryStage.setScene(new Scene(root, 900, 900));
         primaryStage.show();
     }
 

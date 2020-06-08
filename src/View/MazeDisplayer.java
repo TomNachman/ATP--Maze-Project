@@ -8,9 +8,7 @@ public class MazeDisplayer extends Canvas {
 
     private int [][] maze;
 
-
-    public void drawMaze(int [][] maze)
-    {
+    public void setMaze(int[][] maze) {
         this.maze = maze;
         draw();
     }
@@ -46,4 +44,6 @@ public class MazeDisplayer extends Canvas {
 
         }
     }
+
+
 }
