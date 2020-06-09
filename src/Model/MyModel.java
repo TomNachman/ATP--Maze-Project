@@ -17,7 +17,6 @@ public class MyModel implements IModel {
     private Server mazeGenerateServer;
     private Server solveMazeServer;
     private Maze myMaze;
-    private int[][] Intmaze;
 
     public void StartServers() {
         mazeGenerateServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
@@ -32,8 +31,7 @@ public class MyModel implements IModel {
 
     @Override
     public int[][] getMaze() {
-        return null;
-        //TODO: need to add to Maze Class method that returns the maze as int[][]
+        return myMaze.getMazeArray();
     }
 
     @Override
