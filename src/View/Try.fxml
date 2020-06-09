@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import View.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+   <children>
+      <Pane layoutX="150.0" layoutY="168.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="500.0">
+          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="500.0" layoutX="-2.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+              <MazeDisplayer fx:id="mazeDisplayer" height="500.0" layoutX="-2.0" nodeOrientation="INHERIT" width="500.0" />
+          </children>
+      </Pane>
+      <GridPane layoutX="280.0" layoutY="50.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="134.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="66.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="18.0" prefWidth="140.0" text="Maze Rows:" />
+            <Label prefHeight="18.0" prefWidth="140.0" text="Maze Columns:" GridPane.rowIndex="1" />
+            <TextField fx:id="textField_mazeColumns" alignment="CENTER" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#GenerateMaze" prefHeight="26.0" prefWidth="265.0" text="Generate" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#SolveMaze" prefHeight="26.0" prefWidth="104.0" text="Solve" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textField_mazeRows" alignment="CENTER" text="50" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+
+       <VBox BorderPane.alignment="CENTER">
+           <children>
+               <MenuBar minWidth="800.0">
+                   <menus>
+                       <Menu mnemonicParsing="false" text="File">
+                           <items>
+                               <MenuItem mnemonicParsing="false" text="New" />
+                               <MenuItem mnemonicParsing="false" text="Save" />
+                               <MenuItem mnemonicParsing="false" text="Load" />
+                           </items>
+                       </Menu>
+                       <Menu mnemonicParsing="false" text="Options">
+                           <items>
+                               <MenuItem mnemonicParsing="false" text="Properties" />
+                           </items>
+                       </Menu>
+                       <Menu mnemonicParsing="false" text="Exit">
+                       </Menu>
+                       <Menu mnemonicParsing="false" text="Help">
+                       </Menu>
+                       <Menu mnemonicParsing="false" text="About">
+                       </Menu>
+                   </menus>
+               </MenuBar>
+           </children>
+       </VBox>
+      <ImageView fitHeight="116.0" fitWidth="81.0" layoutX="698.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Images/Rick.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="116.0" fitWidth="114.0" layoutX="28.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Images/Morty.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="304.0" layoutY="723.0" text="&quot;wubba lubba dub dub&quot;">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="310.0" layoutY="753.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Rick Catch Phrase " />
+      <ImageView fitHeight="162.0" fitWidth="114.0" layoutX="28.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Images/bird.png" />
+         </image>
+      </ImageView>
+
+   </children>
+</Pane>
