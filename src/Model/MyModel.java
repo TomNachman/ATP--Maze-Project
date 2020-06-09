@@ -61,7 +61,5 @@ public class MyModel implements IModel {
         catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
     }
-
 }
