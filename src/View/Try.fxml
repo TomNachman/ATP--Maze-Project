@@ -7,7 +7,8 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<Pane maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController"
+    onKeyPressed="#keyPressed">
    <children>
       <Pane layoutX="150.0" layoutY="168.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="500.0">
           <children>
@@ -41,9 +42,9 @@
                    <menus>
                        <Menu mnemonicParsing="false" text="File">
                            <items>
-                               <MenuItem mnemonicParsing="false" text="New" />
-                               <MenuItem mnemonicParsing="false" text="Save" />
-                               <MenuItem mnemonicParsing="false" text="Load" />
+                               <MenuItem mnemonicParsing="false" onAction="#GenerateMaze" text="New    Ctrl+F1" />
+                               <MenuItem mnemonicParsing="false" text="Save   Ctrl+F2" />
+                               <MenuItem mnemonicParsing="false" text="Load   Ctrl+F3" />
                            </items>
                        </Menu>
                        <Menu mnemonicParsing="false" text="Options">
@@ -61,25 +62,40 @@
                </MenuBar>
            </children>
        </VBox>
-      <ImageView fitHeight="116.0" fitWidth="81.0" layoutX="698.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="126.0" fitWidth="77.0" layoutX="685.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/Images/Rick.png" />
+            <Image url="@Images/Rick.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="116.0" fitWidth="114.0" layoutX="28.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="126.0" fitWidth="125.0" layoutX="18.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/Images/Morty.png" />
+            <Image url="@Images/Morty.png" />
          </image>
       </ImageView>
-      <Label layoutX="304.0" layoutY="723.0" text="&quot;wubba lubba dub dub&quot;">
+      <Label fx:id="labelCatch" alignment="CENTER" contentDisplay="CENTER" layoutX="149.0" layoutY="712.0" prefHeight="23.0" prefWidth="500.0" text="&quot;wubba lubba dub dub&quot;">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="310.0" layoutY="753.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Rick Catch Phrase " />
-      <ImageView fitHeight="162.0" fitWidth="114.0" layoutX="28.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="310.0" layoutY="753.0" mnemonicParsing="false" onAction="#catchPhrase" prefHeight="25.0" prefWidth="188.0" text="Catch Phrase " />
+      <ImageView fitHeight="152.0" fitWidth="134.0" layoutX="42.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/Images/bird.png" />
+            <Image url="@Images/bird.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="152.0" fitWidth="122.0" layoutX="669.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/mr-poopy-buttholee.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="174.0" fitWidth="165.0" layoutX="649.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/Mr_Meeseeks.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="193.0" fitWidth="101.0" layoutX="24.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/ScaryTerrytransparent.gif" />
          </image>
       </ImageView>
 

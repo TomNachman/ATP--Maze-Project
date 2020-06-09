@@ -1,8 +1,12 @@
 package View;
 
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
+
+import javax.naming.ldap.Control;
 
 public class MazeDisplayer extends Canvas {
 
@@ -42,5 +46,25 @@ public class MazeDisplayer extends Canvas {
             }
 
         }
+    }
+
+    public void Zoom(){
+        setOnScroll(event -> {
+            if(event.isControlDown()) {
+                double zoomfactor = 1.05;
+                double deltaY = event.getDeltaY();
+                if (deltaY < 0) {
+                    zoomfactor = 0.95;
+                    setScaleX(getScaleX() * zoomfactor);
+                    setScaleY(getScaleY() * zoomfactor);
+                    event.consume();
+                } else {
+                    zoomfactor = 1.05;
+                    setScaleX(getScaleX() * zoomfactor);
+                    setScaleY(getScaleY() * zoomfactor);
+                    event.consume();
+                }
+            }
+        });
     }
 }
