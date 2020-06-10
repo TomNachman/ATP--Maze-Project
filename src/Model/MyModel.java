@@ -31,6 +31,7 @@ public class MyModel implements IModel {
         mazeGenerateServer.start();
         solveMazeServer.start();
     }
+
     public void stopServers() {
         mazeGenerateServer.stop();
         solveMazeServer.stop();

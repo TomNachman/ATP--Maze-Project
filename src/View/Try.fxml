@@ -49,14 +49,13 @@
                                <MenuItem mnemonicParsing="false" onAction="#GenerateMaze" text="New    Ctrl+F1" />
                                <MenuItem mnemonicParsing="false" text="Save   Ctrl+F2" />
                                <MenuItem mnemonicParsing="false" text="Load   Ctrl+F3" />
+                               <MenuItem mnemonicParsing="false" onAction="#Exit" text="Exit" />
                            </items>
                        </Menu>
                        <Menu mnemonicParsing="false" text="Options">
                            <items>
                                <MenuItem mnemonicParsing="false" text="Properties" />
                            </items>
-                       </Menu>
-                       <Menu mnemonicParsing="false" text="Exit">
                        </Menu>
                        <Menu mnemonicParsing="false" text="Help">
                        </Menu>

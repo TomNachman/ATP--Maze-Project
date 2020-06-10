@@ -23,7 +23,7 @@ public class Main extends Application {
         vm = new MyViewModel(model);
         Parent root = FXMLLoader.load(getClass().getResource("../View/Try.fxml"));
         primaryStage.setTitle("Rick And Morty - Maze Game");
-        primaryStage.setScene(new Scene(root, 800, 800));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 
