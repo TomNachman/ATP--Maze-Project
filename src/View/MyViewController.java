@@ -2,6 +2,7 @@ package View;
 
 import ViewModel.MyViewModel;
 import javafx.event.ActionEvent;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -12,6 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import sample.Main;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.Random;
 
 public class MyViewController implements IView {
@@ -141,7 +143,10 @@ public class MyViewController implements IView {
     public void keyPressed(javafx.scene.input.KeyEvent keyEvent) {
         switch(keyEvent.getCode()){
             case F1: GenerateMaze(); break;
-            case CONTROL: mazeDisplayer.Zoom();
+            case CONTROL: {
+                mazeDisplayer.Zoom();
+                //mazeDisplayer.requestFocus();
+            }
         }
     }
 
@@ -164,4 +169,28 @@ public class MyViewController implements IView {
         sounds[index] = new Media(path);
         mediaPlayers[index] = new MediaPlayer(sounds[index]);
     }
+    //---------------------------help------------------------//
+    public void openHelp(){
+
+    }
+    //---------------------------Properties------------------------//
+    public void openProperties(){
+
+    }
+    //-------------------------About--------------------//
+    public void openAbout(){
+
+    }
+    //-------------------------Exit--------------------//
+    public void Exit(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Are you sure ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            System.exit(0);
+        }
+
+    }
+
+
 }

@@ -17,5 +17,4 @@ public interface IModel {
     void stopServers();
     Solution getMySolution();
 
-
 }
