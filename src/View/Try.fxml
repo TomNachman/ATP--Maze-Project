@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="MainPane" maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" onKeyPressed="#keyPressed" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<Pane fx:id="MainPane" maxHeight="800.0" maxWidth="800.0" minHeight="758.0" minWidth="800.0" onKeyPressed="#keyPressed" prefHeight="763.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <children>
       <Pane layoutX="150.0" layoutY="168.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="500.0">
           <children>
@@ -75,12 +75,12 @@
             <Image url="@Images/Morty.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelCatch" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="706.0" prefHeight="23.0" prefWidth="500.0">
+      <Label fx:id="labelCatch" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="676.0" prefHeight="23.0" prefWidth="500.0">
          <font>
             <Font name="Yellowtail" size="25.0" />
          </font>
       </Label>
-      <Button layoutX="310.0" layoutY="753.0" mnemonicParsing="false" onAction="#catchPhrase" prefHeight="25.0" prefWidth="188.0" text="Catch Phrase " />
+      <Button layoutX="306.0" layoutY="719.0" mnemonicParsing="false" onAction="#catchPhrase" prefHeight="25.0" prefWidth="188.0" text="Catch Phrase " />
       <ImageView fitHeight="152.0" fitWidth="134.0" layoutX="42.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/bird.png" />
