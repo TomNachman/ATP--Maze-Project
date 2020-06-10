@@ -7,13 +7,17 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController"
-    onKeyPressed="#keyPressed">
+<Pane maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" onKeyPressed="#keyPressed" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <children>
       <Pane layoutX="150.0" layoutY="168.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="500.0">
           <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="500.0" layoutX="-2.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
               <MazeDisplayer fx:id="mazeDisplayer" height="500.0" layoutX="-2.0" nodeOrientation="INHERIT" width="500.0" />
+            <ImageView fx:id="finishImage" fitHeight="423.0" fitWidth="420.0" layoutX="40.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@Images/finish-White.jpg" />
+               </image>
+            </ImageView>
           </children>
       </Pane>
       <GridPane layoutX="280.0" layoutY="50.0">
@@ -72,9 +76,9 @@
             <Image url="@Images/Morty.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelCatch" alignment="CENTER" contentDisplay="CENTER" layoutX="149.0" layoutY="712.0" prefHeight="23.0" prefWidth="500.0" text="&quot;wubba lubba dub dub&quot;">
+      <Label fx:id="labelCatch" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="706.0" prefHeight="23.0" prefWidth="500.0">
          <font>
-            <Font name="Calibri Bold" size="20.0" />
+            <Font name="Yellowtail" size="25.0" />
          </font>
       </Label>
       <Button layoutX="310.0" layoutY="753.0" mnemonicParsing="false" onAction="#catchPhrase" prefHeight="25.0" prefWidth="188.0" text="Catch Phrase " />
@@ -98,6 +102,7 @@
             <Image url="@Images/ScaryTerrytransparent.gif" />
          </image>
       </ImageView>
+      <Button layoutX="49.0" layoutY="218.0" mnemonicParsing="false" onAction="#finishMaze" text="bbb" />
 
    </children>
 </Pane>

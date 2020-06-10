@@ -23,6 +23,7 @@ public class MyModel implements IModel {
     private int CharacterPosCol = 1;
     private Position Goal;
     private boolean finished = false;
+    private Solution mySolution;
 
     public void StartServers() {
         mazeGenerateServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
@@ -43,6 +44,36 @@ public class MyModel implements IModel {
     public boolean isFinished() {
         return finished;
     }
+    public Solution getMySolution(){
+        solveMaze();
+        return mySolution;
+    }
+
+    @Override
+    public void solveMaze(){
+        try {
+            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+                @Override
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.flush();
+                        Maze maze = myMaze;
+                        toServer.writeObject(maze);
+                        toServer.flush();
+                        mySolution = (Solution) fromServer.readObject();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            client.communicateWithServer();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void generateMaze(int width, int height) {
@@ -153,4 +184,13 @@ public class MyModel implements IModel {
     @Override
     public int GetCharacterColPos(){ return CharacterPosCol;}
 
+    @Override
+    public void SaveMaze(File file) {
+
+    }
+
+    @Override
+    public void LoadMaze(File file) {
+
+    }
 }

@@ -21,7 +21,7 @@ public class Main extends Application {
         model.StartServers();
         vm = new MyViewModel(model);
         Parent root = FXMLLoader.load(getClass().getResource("../View/Try.fxml"));
-        primaryStage.setTitle("Kings Maze");
+        primaryStage.setTitle("Rick And Morty - Maze Game");
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
     }
