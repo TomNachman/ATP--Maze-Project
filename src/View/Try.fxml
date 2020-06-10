@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" onKeyPressed="#keyPressed" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<Pane fx:id="MainPane" maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" onKeyPressed="#keyPressed" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <children>
       <Pane layoutX="150.0" layoutY="168.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="500.0">
           <children>
@@ -42,7 +42,7 @@
 
        <VBox BorderPane.alignment="CENTER">
            <children>
-               <MenuBar minWidth="800.0">
+               <MenuBar fx:id="options" maxWidth="900.0" minWidth="900.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300" AnchorPane.rightAnchor="200" AnchorPane.topAnchor="0.0">
                    <menus>
                        <Menu mnemonicParsing="false" text="File">
                            <items>
@@ -51,7 +51,7 @@
                                <MenuItem mnemonicParsing="false" text="Load   Ctrl+F3" />
                            </items>
                        </Menu>
-                       <Menu mnemonicParsing="false" text="Options">
+                       <Menu mnemonicParsing="false" onMenuValidation="#GenerateMaze" text="Options">
                            <items>
                                <MenuItem mnemonicParsing="false" text="Properties" />
                            </items>
