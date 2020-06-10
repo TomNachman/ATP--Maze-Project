@@ -1,5 +1,6 @@
 package Model;
 
+import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -15,4 +16,5 @@ public interface IModel {
     void SaveMaze(File file);
     void LoadMaze(File file);
     void stopServers();
+    Solution getMySolution();
 }

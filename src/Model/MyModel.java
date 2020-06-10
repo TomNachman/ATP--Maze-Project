@@ -44,6 +44,10 @@ public class MyModel implements IModel {
     public boolean isFinished() {
         return finished;
     }
+    public Solution getMySolution(){
+        solveMaze();
+        return mySolution;
+    }
 
     @Override
     public void solveMaze(){
