@@ -1,5 +1,4 @@
 package Model;
-
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import Client.Client;
@@ -45,6 +44,7 @@ public class MyModel implements IModel {
     public boolean isFinished() {
         return finished;
     }
+
     public Solution getMySolution(){
         solveMaze();
         return mySolution;
@@ -74,7 +74,6 @@ public class MyModel implements IModel {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void generateMaze(int width, int height) {
@@ -182,18 +181,35 @@ public class MyModel implements IModel {
 
     @Override
     public int GetCharacterRowPos(){ return CharacterPosRow;}
+
     @Override
     public int GetCharacterColPos(){ return CharacterPosCol;}
 
     @Override
     public void SaveMaze(File file) {
-
+        try {
+            OutputStream out = new FileOutputStream(file);
+            ObjectOutputStream objectOutput = new ObjectOutputStream(out);
+            objectOutput.writeObject(myMaze.toByteArray());
+            objectOutput.flush();
+            objectOutput.close();
+        } catch (
+                IOException var8) {
+            var8.printStackTrace();
+        }
     }
 
     @Override
     public void LoadMaze(File file) {
-
+        try {
+            InputStream in = new FileInputStream(file);
+            ObjectInputStream objectIn = new ObjectInputStream(in);
+            byte[] loadedMaze = (byte[])objectIn.readObject();
+            objectIn.close();
+            in.close();
+            myMaze = new Maze(loadedMaze);
+        } catch (IOException | ClassNotFoundException var7) {
+            var7.printStackTrace();
+        }
     }
-
-
 }

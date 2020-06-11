@@ -2,17 +2,28 @@ package View;
 
 import ViewModel.MyViewModel;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ButtonType;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import sample.Main;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Optional;
 import java.util.Random;
 
@@ -24,16 +35,21 @@ public class MyViewController implements IView {
     public Label labelCatch;
     public ImageView finishImage;
     public Pane MainPane;
-    private MyViewModel viewModel = sample.Main.vm;
-    private boolean mazeExists=false;
+    private MyViewModel viewModel;// = sample.Main.vm;
+    private boolean mazeExists = false;
     private boolean boolPhrase = false;
     private String [] phrases = new String[13];
     private Media [] sounds = new Media[13];
     private MediaPlayer [] mediaPlayers = new MediaPlayer[13];
+    private Desktop desktop = Desktop.getDesktop();
 
-    public void setPane(){
-        MainPane.setPrefHeight(Main.prim.getHeight());
-        MainPane.setPrefWidth(Main.prim.getWidth());
+
+    boolean plumbsLoaded = false;
+    Media plumbusMedia;
+    MediaPlayer plumbusPlayer;
+
+    public void setViewModel(MyViewModel vm){
+        this.viewModel = vm;
     }
 
     @Override
@@ -130,6 +146,13 @@ public class MyViewController implements IView {
         alert.show();
     }
 
+    public void showAlert(String message, String name){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(name);
+        alert.setContentText(message);
+        alert.show();
+    }
+
     public void catchPhrase(){
         // Add Music
         if(!boolPhrase){setMusic();}
@@ -140,13 +163,12 @@ public class MyViewController implements IView {
         mediaPlayers[phrase].play();
     }
 
-    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) {
+    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) throws IOException {
         switch(keyEvent.getCode()){
             case F1: GenerateMaze(); break;
-            case CONTROL: {
-                mazeDisplayer.Zoom();
-                //mazeDisplayer.requestFocus();
-            }
+            case F2: saveMaze(); break;
+            case F3: loadMaze(); break;
+            case CONTROL: { mazeDisplayer.Zoom();}
         }
     }
 
@@ -169,28 +191,135 @@ public class MyViewController implements IView {
         sounds[index] = new Media(path);
         mediaPlayers[index] = new MediaPlayer(sounds[index]);
     }
-    //---------------------------help------------------------//
-    public void openHelp(){
 
+    public void loadMaze(){
+        File chosenMaze = openFile();
+        if(chosenMaze==null)
+        {
+            showAlert("Maze loading was cancelled.", "Load Error!");
+            return;
+        }
+        this.viewModel.loadMaze(chosenMaze);
+        this.diplayMaze(this.viewModel.getMaze());
     }
+
+    private File openFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose your Rick & Morty maze");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("maze", "*.maze"));
+        File chosenFile = fileChooser.showOpenDialog(Main.prim);
+        return chosenFile;
+    }
+
+    public void saveMaze() throws IOException {
+        if(!mazeExists) {
+            showAlert("Please generate maze before saving...", "Save Error!");
+        }
+        else{
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save maze");
+            fileChooser.setInitialFileName("Rick & Morty Maze");
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("maze", "*.maze"));
+            File savedFile = fileChooser.showSaveDialog(null);
+
+            if (savedFile != null) {
+                viewModel.saveMaze(savedFile);
+
+                showAlert("Maze saved: " + savedFile.getName(), "Save Success!");
+            }
+            else {
+                showAlert("Maze save was cancelled.", "Save Error!");
+            }
+        }
+    }
+
+    //---------------------------help------------------------//
+    public void openInstructions() throws IOException {
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("Instructions");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("Instructions.fxml").openStream());
+        stage.setScene(new Scene(root, 400, 400));
+        stage.show();
+    }
+
     //---------------------------Properties------------------------//
     public void openProperties(){
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Information");
+        String genMethod = Server.Configurations.GetProp("GenerateAlgorithm").replaceAll("([A-Z])", " $1");
+        String solveMethod = Server.Configurations.GetProp("SolvingAlgorithm").replaceAll("([A-Z])", " $1");
+        alert.setContentText("Generator: " + genMethod +"\n" +
+                "Searching Algorithm: "+ solveMethod + "\n" +
+                "ThreadPool Size: " + Server.Configurations.GetProp("NumOfThreads"));
+        alert.show();
     }
+
     //-------------------------About--------------------//
-    public void openAbout(){
-
+    public void openAbout(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("About");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
+        stage.setScene(new Scene(root, 400, 400));
+        stage.show();
     }
+
     //-------------------------Exit--------------------//
-    public void Exit(){
+    public void Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Are you sure ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
+            viewModel.stopServers();
             System.exit(0);
         }
-
     }
 
+    //-------------------------Watch Rick & Morty --------------------//
+    public void Episodes() throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URL("https://www.adultswim.com/videos/rick-and-morty").toURI());
+    }
 
+    //------------------------- How They Do It: Plumbs --------------------//
+    public void Plumbus(){
+        if(!plumbsLoaded){
+            File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/Videos/Plumbus.mp4");
+            String path = file.toURI().toASCIIString();
+            plumbusMedia = new Media(path);
+            plumbusPlayer = new MediaPlayer(plumbusMedia);
+            plumbsLoaded = true;
+        }
+        plumbusPlayer.setAutoPlay(true);
+        MediaView mediaView = new MediaView (plumbusPlayer);
+
+        Group root = new Group();
+        root.getChildren().add(mediaView);
+        Scene scene = new Scene(root,1280,725);
+        Stage plumbusStage = new Stage();
+        plumbusStage.setResizable(false);
+        plumbusStage.setScene(scene);
+        plumbusStage.setTitle("Playing video: How They Do It - Plumbs");
+        plumbusStage.show();
+        plumbusPlayer.play();
+        plumbusStage.setOnCloseRequest(event -> {plumbusPlayer.stop();});
+
+        if(mediaPlayers[sounds.length-1].isAutoPlay()) mediaPlayers[sounds.length-1].stop();
+        if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();
+    }
+
+    //-------------------------Worlds--------------------//
+    public void openWorlds(ActionEvent event) throws IOException {
+        Stage stageWorld = new Stage();
+        stageWorld.setResizable(false);
+        stageWorld.setTitle("Rick And Morty Worlds");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root = fxmlLoader.load(getClass().getResource("../View/Worlds.fxml").openStream());
+        stageWorld.setScene(new Scene(root, 600, 300));
+        stageWorld.show();
+    }
 }
