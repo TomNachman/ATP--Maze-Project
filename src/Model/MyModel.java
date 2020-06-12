@@ -12,8 +12,9 @@ import javafx.scene.input.KeyCode;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Observable;
 
-public class MyModel implements IModel {
+public class MyModel extends Observable implements IModel {
 
     private Server mazeGenerateServer;
     private Server solveMazeServer;

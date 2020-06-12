@@ -1,6 +1,7 @@
 package View;
 
 import ViewModel.MyViewModel;
+import algorithms.search.Solution;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,8 +54,12 @@ public class MyViewController implements IView {
     }
 
     @Override
-    public void diplayMaze(int[][] maze) {
+    public void displayMaze(int[][] maze) {
         mazeDisplayer.setMaze(maze);
+    }
+
+    public void displaySolution(Solution sol){
+        mazeDisplayer.setSolution(sol);
     }
 
     public void setMusic() {
@@ -124,7 +129,7 @@ public class MyViewController implements IView {
                 // Logic and View
                 viewModel.generatrMaze(rows,cols);
                 mazeExists = true;
-                this.diplayMaze(viewModel.getMaze());
+                this.displayMaze(viewModel.getMaze());
             }
         }catch (NumberFormatException ex) {
             showAlert("Please enter Integers Only Bitch");
@@ -135,7 +140,7 @@ public class MyViewController implements IView {
         if (!mazeExists)
             showAlert("Please generate a maze first");
         else {
-            showAlert("Solving Maze ... ");
+            this.displaySolution(viewModel.getSolution());
         }
     }
 
@@ -200,7 +205,7 @@ public class MyViewController implements IView {
             return;
         }
         this.viewModel.loadMaze(chosenMaze);
-        this.diplayMaze(this.viewModel.getMaze());
+        this.displayMaze(this.viewModel.getMaze());
     }
 
     private File openFile() {
@@ -265,7 +270,7 @@ public class MyViewController implements IView {
         stage.setTitle("About");
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
-        stage.setScene(new Scene(root, 400, 400));
+        stage.setScene(new Scene(root, 600, 340));
         stage.show();
     }
 

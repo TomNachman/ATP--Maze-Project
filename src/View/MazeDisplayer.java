@@ -1,19 +1,32 @@
 package View;
 
+import algorithms.mazeGenerators.Position;
+import algorithms.search.AState;
+import algorithms.search.MazeState;
+import algorithms.search.Solution;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 public class MazeDisplayer extends Canvas {
 
     private int [][] maze;
+    private int characterPositionRow;
+    private int characterPositionColumn;
+    private Solution sol;
 
     public void setMaze(int[][] maze) {
         this.maze = maze;
-        draw();
+        Mazedraw();
+    }
+    public void setSolution(Solution sol){
+        this.sol=sol;
+        SolutionDraw();
     }
 
-    public void draw()
+    public void Mazedraw()
     {
         if( maze!=null)
         {
@@ -41,6 +54,21 @@ public class MazeDisplayer extends Canvas {
                 }
             }
 
+        }
+    }
+    public void SolutionDraw(){
+        double canvasHeight = getHeight();
+        double canvasWidth = getWidth();
+        double cellHeight = canvasHeight/maze.length;
+        double cellWidth = canvasWidth/maze[0].length;
+        ArrayList<AState> solArray = this.sol.getSolutionPath();
+        for(int i=0; i<solArray.size(); i++) {
+            Position state = solArray.get(i).getPosition();
+            int rowState = state.getRowIndex();
+            int colState = state.getColumnIndex();
+            GraphicsContext gc = getGraphicsContext2D();
+            gc.setFill(Color.RED);
+            gc.fillRect(colState * cellWidth, rowState * cellHeight, cellWidth, cellHeight);
         }
     }
 
