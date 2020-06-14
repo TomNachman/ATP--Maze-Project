@@ -7,13 +7,13 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="MainPane" maxHeight="800.0" maxWidth="800.0" minHeight="758.0" minWidth="800.0" onKeyPressed="#keyPressed" prefHeight="763.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<Pane fx:id="MainPane" maxHeight="800.0" maxWidth="800.0" minHeight="672.0" minWidth="800.0" onKeyPressed="#keyPressed" prefHeight="672.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <children>
-      <Pane layoutX="150.0" layoutY="168.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="500.0">
+      <Pane layoutX="150.0" layoutY="168.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="462.0" prefWidth="500.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="500.0" layoutX="-2.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
-            <MazeDisplayer fx:id="mazeDisplayer" height="500.0" layoutX="-2.0" nodeOrientation="INHERIT" width="500.0" />
-            <ImageView fx:id="finishImage" fitHeight="423.0" fitWidth="420.0" layoutX="40.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="445.0" layoutX="-2.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+            <MazeDisplayer fx:id="mazeDisplayer" height="438.0" layoutX="-5.0" layoutY="4.0" nodeOrientation="INHERIT" width="500.0" />
+            <ImageView fx:id="finishImage" fitHeight="404.0" fitWidth="420.0" layoutX="40.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@Images/finish-White.jpg" />
                </image>
@@ -89,28 +89,28 @@
             <Font name="Yellowtail" size="25.0" />
          </font>
       </Label>
-      <Button layoutX="306.0" layoutY="719.0" mnemonicParsing="false" onAction="#catchPhrase" prefHeight="25.0" prefWidth="188.0" text="Catch Phrase " />
       <ImageView fitHeight="152.0" fitWidth="134.0" layoutX="42.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/bird.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="152.0" fitWidth="122.0" layoutX="669.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="152.0" fitWidth="122.0" layoutX="669.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/mr-poopy-buttholee.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="174.0" fitWidth="165.0" layoutX="649.0" layoutY="554.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="174.0" fitWidth="165.0" layoutX="650.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/Mr_Meeseeks.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="193.0" fitWidth="101.0" layoutX="24.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="193.0" fitWidth="101.0" layoutX="24.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/ScaryTerrytransparent.gif" />
          </image>
       </ImageView>
       <Button layoutX="49.0" layoutY="218.0" mnemonicParsing="false" onAction="#finishMaze" text="bbb" />
+      <Button layoutX="306.0" layoutY="635.0" mnemonicParsing="false" onAction="#catchPhrase" prefHeight="25.0" prefWidth="188.0" text="Catch Phrase " />
 
    </children>
 </Pane>

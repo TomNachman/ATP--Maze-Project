@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="View.AboutController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="361.0" fitWidth="642.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/Images/AboutBackround.jpg" />
+            </image>
+        </ImageView>
+        <Text fill="WHITE" layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This game was created as a project in the course 'Advanced Topics in Programming, taken in 'Ben Gurion University' of Israel. as part of the 'Software and Information Systems Engineering" wrappingWidth="222.244140625" />
+        <Text fill="WHITE" layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rick &amp; Morty Maze © 2020">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="14.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About" underline="true">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="513.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Authors:" underline="true" wrappingWidth="64.30468586087227" />
+        <Text fill="lightgreen" layoutX="491.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tom Nachman " wrappingWidth="115.25879046320915">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Text>
+        <Text fill="lightgreen" layoutX="493.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asaf Salomon" wrappingWidth="97.25879046320915">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="14.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Algorithm used in game:" underline="true" wrappingWidth="160.43701171875" />
+        <Text fill="WHITE" layoutX="15.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For generating Maze:" wrappingWidth="140" />
+        <Text fill="WHITE" layoutX="15.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prim Algorithm" wrappingWidth="128.2587890625" />
+        <Text fill="WHITE" layoutX="14.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For Solving:" wrappingWidth="139.908203125" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fill="WHITE" layoutX="14.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BestFS ,DFS ,BreathFS " wrappingWidth="202.03613752126694" />
+        <Text fill="WHITE" layoutX="519.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Version 1.0.0.0" wrappingWidth="87.908203125">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Text>
+    </children>
 </AnchorPane>
