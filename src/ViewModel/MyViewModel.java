@@ -1,6 +1,7 @@
 package ViewModel;
 
 import Model.IModel;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
 
@@ -8,13 +9,12 @@ import java.io.File;
 
 public class MyViewModel {
     private IModel model;
-    public int x;
 
     public MyViewModel(IModel model) {
         this.model = model;
     }
 
-    public void generatrMaze(int rows,int cols){
+    public void generateMaze(int rows,int cols){
         model.generateMaze(rows, cols);
     }
 
@@ -50,7 +50,17 @@ public class MyViewModel {
         return model.GetCharacterColPos();
     }
 
-    public  void stopServers(){
+    public void stopServers(){
         model.stopServers();
     }
+
+    public Position getStartPosition(){
+        return model.getStartPosition();
+    }
+
+    public Position getGoalPosition(){
+        return model.getGoalPosition();
+    }
+
+
 }

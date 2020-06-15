@@ -213,4 +213,14 @@ public class MyModel extends Observable implements IModel {
             var7.printStackTrace();
         }
     }
+
+    @Override
+    public Position getStartPosition() {
+        return myMaze.getStartPosition();
+    }
+
+    @Override
+    public Position getGoalPosition() {
+        return myMaze.getGoalPosition();
+    }
 }

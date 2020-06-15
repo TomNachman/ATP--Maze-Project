@@ -1,5 +1,6 @@
 package Model;
 
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
 import java.io.File;
@@ -16,5 +17,6 @@ public interface IModel {
     void LoadMaze(File file);
     void stopServers();
     Solution getMySolution();
-
+    Position getStartPosition();
+    Position getGoalPosition();
 }

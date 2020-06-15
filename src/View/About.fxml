@@ -8,7 +8,7 @@
     <children>
         <ImageView fitHeight="361.0" fitWidth="642.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@/Images/AboutBackround.jpg" />
+                <Image url="@Images/AboutBackround.jpg" />
             </image>
         </ImageView>
         <Text fill="WHITE" layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This game was created as a project in the course 'Advanced Topics in Programming, taken in 'Ben Gurion University' of Israel. as part of the 'Software and Information Systems Engineering" wrappingWidth="222.244140625" />

@@ -1,21 +1,29 @@
 package View;
 
 import ViewModel.MyViewModel;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
@@ -35,7 +43,13 @@ public class MyViewController implements IView {
     public TextField textField_mazeColumns;
     public Label labelCatch;
     public ImageView finishImage;
+    public BorderPane BorderPane;
     public Pane MainPane;
+    public Pane MazePane;
+    public Rectangle MazeRectangle;
+    public MenuBar optionsMenu;
+    public ImageView background;
+    public ChoiceBox Level;
     private MyViewModel viewModel;// = sample.Main.vm;
     private boolean mazeExists = false;
     private boolean boolPhrase = false;
@@ -43,18 +57,79 @@ public class MyViewController implements IView {
     private Media [] sounds = new Media[13];
     private MediaPlayer [] mediaPlayers = new MediaPlayer[13];
     private Desktop desktop = Desktop.getDesktop();
+    private Position startPos;
+    private Position goalPos;
+    private double mHeight;
+    private double mWidth;
+
 
 
     boolean plumbsLoaded = false;
     Media plumbusMedia;
     MediaPlayer plumbusPlayer;
 
+    public void init(){
+        GenerateMaze();
+        mHeight = BorderPane.getHeight();
+        mWidth = BorderPane.getWidth();
+
+        dynamicResize();
+
+        BorderPane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                mHeight = newValue.doubleValue();
+                dynamicResize();
+            }
+        });
+
+        BorderPane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                mWidth = newValue.doubleValue();
+                optionsMenu.setPrefWidth(mWidth);
+                dynamicResize();
+            }
+        });
+
+
+    }
+
+    private void dynamicResize(){
+
+        double minSize = Math.min(mHeight, mWidth);
+        minSize = Math.min(minSize, 1200);
+        double recSize = minSize*0.8;
+
+        MazeRectangle.setHeight(recSize);
+        MazeRectangle.setWidth(recSize);
+
+        mazeDisplayer.setHeight(recSize);
+        mazeDisplayer.setWidth(recSize);
+
+        background.setX(0);
+        background.setY(0);
+
+        //System.out.println(String.format("minSize: (%.2f,%.2f)", mHeight, mWidth));
+    }
+
     public void setViewModel(MyViewModel vm){
         this.viewModel = vm;
     }
 
+    public void setCharacters(){
+        Image image = new Image("file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/Morty.png");
+        setCharacters(image);
+    }
+
+    public void setCharacters(Image image){
+        mazeDisplayer.setCharactersPos(viewModel.getStartPosition(), viewModel.getGoalPosition());
+        mazeDisplayer.setCharacterImage(image);
+    }
+
     @Override
     public void displayMaze(int[][] maze) {
+        setCharacters();
         mazeDisplayer.setMaze(maze);
     }
 
@@ -106,34 +181,36 @@ public class MyViewController implements IView {
     }
 
     public void GenerateMaze(){
-        try{
-            int rows = Integer.parseInt(textField_mazeRows.getText());
-            int cols = Integer.parseInt(textField_mazeColumns.getText());
-            if(rows<2 || cols<2) {
-                showAlert("please enter valid rows and cols \n rows: above 2 \n cols: above 2");
-            }
-            else{
+        int rows = 2;
+        int cols = 2;
 
-                // Add Music
-                if(!boolPhrase){setMusic();}
-
-                // Change Music
-                mediaPlayers[sounds.length-1].stop();
-                mediaPlayers[sounds.length-2].setAutoPlay(true);
-                mediaPlayers[sounds.length-2].setCycleCount(MediaPlayer.INDEFINITE);
-                mediaPlayers[sounds.length-2].play();
-
-                // Finish Image
-                finishImage.setVisible(false);
-
-                // Logic and View
-                viewModel.generatrMaze(rows,cols);
-                mazeExists = true;
-                this.displayMaze(viewModel.getMaze());
-            }
-        }catch (NumberFormatException ex) {
-            showAlert("Please enter Integers Only Bitch");
+        switch (Level.getValue().toString()){
+            case "Very Easy": rows = 5; cols = 5; break;
+            case "Easy": rows = 10; cols = 10; break;
+            case "Medium": rows = 30; cols = 30; break;
+            case "Hard": rows = 50; cols = 50; break;
+            case "Very Hard": rows = 70; cols = 70; break;
+            case "Expert": rows = 100; cols = 100; break;
+            case "Genius": rows = 150; cols = 150; break;
+            case "Rick": rows = 200; cols = 200; break;
         }
+
+            // Add Music
+            if(!boolPhrase){setMusic();}
+
+            // Change Music
+            mediaPlayers[sounds.length-1].stop();
+            mediaPlayers[sounds.length-2].setAutoPlay(true);
+            mediaPlayers[sounds.length-2].setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayers[sounds.length-2].play();
+
+            // Finish Image
+            //finishImage.setVisible(false);
+
+            // Logic and View
+            viewModel.generateMaze(rows,cols);
+            mazeExists = true;
+            this.displayMaze(viewModel.getMaze());
     }
 
     public void SolveMaze() {
@@ -240,7 +317,7 @@ public class MyViewController implements IView {
         }
     }
 
-    //---------------------------help------------------------//
+    //---- help ----//
     public void openInstructions() throws IOException {
         Stage stage = new Stage();
         stage.setResizable(false);
@@ -251,7 +328,7 @@ public class MyViewController implements IView {
         stage.show();
     }
 
-    //---------------------------Properties------------------------//
+    //---- Properties ---//
     public void openProperties(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Information");
@@ -263,7 +340,7 @@ public class MyViewController implements IView {
         alert.show();
     }
 
-    //-------------------------About--------------------//
+    //---- About ----//
     public void openAbout(ActionEvent event) throws IOException {
         Stage stage = new Stage();
         stage.setResizable(false);
@@ -274,7 +351,7 @@ public class MyViewController implements IView {
         stage.show();
     }
 
-    //-------------------------Exit--------------------//
+    //---- Exit ----//
     public void Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Are you sure ?");
@@ -285,12 +362,12 @@ public class MyViewController implements IView {
         }
     }
 
-    //-------------------------Watch Rick & Morty --------------------//
+    //---- Watch Rick & Morty ----//
     public void Episodes() throws IOException, URISyntaxException {
         Desktop.getDesktop().browse(new URL("https://www.adultswim.com/videos/rick-and-morty").toURI());
     }
 
-    //------------------------- How They Do It: Plumbs --------------------//
+    //---- How They Do It: Plumbs ----//
     public void Plumbus(){
         if(!plumbsLoaded){
             File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/Videos/Plumbus.mp4");
@@ -317,7 +394,7 @@ public class MyViewController implements IView {
         if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();
     }
 
-    //-------------------------Worlds--------------------//
+    //---- Worlds ----//
     public void openWorlds(ActionEvent event) throws IOException {
         Stage stageWorld = new Stage();
         stageWorld.setResizable(false);
