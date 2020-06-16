@@ -31,10 +31,36 @@ public class MazeDisplayer extends Canvas {
         this.maze = maze;
         drawMaze();
     }
+    /**
+     public void setCharactersPos(Position startPos, Position goalPos) {
+     this.startPosition = startPos;
+     this.goalPosition = goalPos;
+     }
+     **/
 
-    public void setCharactersPos(Position startPos, Position goalPos) {
-        this.startPosition = startPos;
-        this.goalPosition = goalPos;
+    public void ReDrawCharacter() {
+        double canvasHeight = getHeight();
+        double canvasWidth = getWidth();
+        double cellHeight = canvasHeight / maze.length;
+        double cellWidth = canvasWidth / maze[0].length;
+        GraphicsContext gc = getGraphicsContext2D();
+        gc.drawImage(characterImage, characterPositionColumn * cellWidth, characterPositionRow * cellHeight, cellWidth,cellHeight );
+    }
+
+    public void deleteCharacter(int row,int col){
+        double canvasHeight = getHeight();
+        double canvasWidth = getWidth();
+        double cellHeight = canvasHeight / maze.length;
+        double cellWidth = canvasWidth / maze[0].length;
+        GraphicsContext gc = getGraphicsContext2D();
+        gc.clearRect(col*cellWidth, row*cellHeight, cellWidth, cellHeight);
+    }
+
+    public void setCharactersPosition(int row, int col) {
+        deleteCharacter(characterPositionRow,characterPositionColumn);
+        this.characterPositionRow = row;
+        this.characterPositionColumn =col;
+        ReDrawCharacter();
     }
 
     public void setCharacterImage(Image image){
@@ -52,7 +78,7 @@ public class MazeDisplayer extends Canvas {
             double cellWidth = canvasWidth/col;
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,canvasWidth,canvasHeight);
-            graphicsContext.setFill(Color.BLACK);
+            //graphicsContext.setFill(Color.BLACK);
             double x,y;
 
             //Draw Maze
@@ -69,18 +95,22 @@ public class MazeDisplayer extends Canvas {
                             e.printStackTrace();
                         }
                     }
-
-                    if(i == this.startPosition.getRowIndex() && j == this.startPosition.getColumnIndex()){
-                        graphicsContext.drawImage(this.characterImage, x,y,cellHeight,cellWidth);
-                    }
-
-                    if(i == this.goalPosition.getRowIndex() && j == this.goalPosition.getColumnIndex()){
-                        Image image = new Image("file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/portal.png");
-                        graphicsContext.drawImage(image, x,y,cellHeight,cellWidth);
-                    }
                 }
             }
         }
+    }
+
+    public void drawPortal(){
+        double canvasHeight = getHeight();
+        double canvasWidth = getWidth();
+        double cellHeight = canvasHeight / maze.length;
+        double cellWidth = canvasWidth / maze[0].length;
+        GraphicsContext gc = getGraphicsContext2D();
+        Image portal = new Image("file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/portal.png");
+        gc.drawImage(portal, this.goalPosition.getColumnIndex() * cellWidth, this.goalPosition.getRowIndex() * cellHeight, cellWidth,cellHeight );
+
+        System.out.println(String.format("Pos: (%d,%d) ", this.goalPosition.getRowIndex(), this.goalPosition.getColumnIndex()));
+        System.out.println(String.format("%.2f, %.2f, %.2f, %.2f ", this.goalPosition.getColumnIndex() * cellWidth, this.goalPosition.getRowIndex() * cellHeight, cellWidth,cellHeight));
     }
 
     public void setSolution(Solution sol){
@@ -142,4 +172,7 @@ public class MazeDisplayer extends Canvas {
 
     public void setImageFileWall(String  imageFileWall){this.ImageFileWall.set(imageFileWall);}
 
+    public void setGoalPostion(Position goalPosition) {
+        this.goalPosition =  goalPosition;
+    }
 }

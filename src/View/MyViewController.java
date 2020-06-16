@@ -4,11 +4,9 @@ import ViewModel.MyViewModel;
 import algorithms.search.Solution;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -75,8 +73,8 @@ public class MyViewController implements IView, Observer {
         initiateCharacters();
         initiateLevels();
         setMazeLevel();
-        setCharacters();
         GenerateMaze();
+        setCharacters();
 
         mHeight = BorderPane.getHeight();
         mWidth = BorderPane.getWidth();
@@ -102,12 +100,12 @@ public class MyViewController implements IView, Observer {
         Level.setOnAction(event -> setMazeLevel());
         Character.setOnAction(event -> setCharacters());
         speaker.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> setSpeaker());
-
         viewModel.addObserver((Observer) this);
     }
 
     public void setViewModel(MyViewModel vm){
         this.viewModel = vm;
+        this.viewModel.addObserver(this);
     }
 
     private void dynamicResize(){
@@ -126,6 +124,8 @@ public class MyViewController implements IView, Observer {
         background.setY(0);
 
         mazeDisplayer.drawMaze();
+        mazeDisplayer.ReDrawCharacter();
+        mazeDisplayer.drawPortal();
     }
 
     private void setSpeaker(){
@@ -146,6 +146,8 @@ public class MyViewController implements IView, Observer {
                 new Separator(), "Mr. Meeseeks", "Mr. Poopy Buttholee"
         ));
         Character.setValue("Morty");
+        Character.setFocusTraversable(false);
+
     }
 
     private void initiateLevels(){
@@ -155,6 +157,7 @@ public class MyViewController implements IView, Observer {
                 new Separator(), "Expert", "Genius", "Rick"
         ));
         Level.setValue("Very Easy");
+        Level.setFocusTraversable(false);
     }
 
     public void setCharacters(){
@@ -171,18 +174,21 @@ public class MyViewController implements IView, Observer {
         }
         Image image = new Image(url);
         setCharacters(image);
-        mazeDisplayer.drawMaze();
+        mazeDisplayer.ReDrawCharacter();
     }
 
     public void setCharacters(Image image){
-        mazeDisplayer.setCharactersPos(viewModel.getStartPosition(), viewModel.getGoalPosition());
         mazeDisplayer.setCharacterImage(image);
+        mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());
+        //mazeDisplayer.setCharacterImage(image);
     }
 
     @Override
     public void displayMaze(int[][] maze) {
-        setCharacters();
         mazeDisplayer.setMaze(maze);
+        mazeDisplayer.setGoalPostion(viewModel.getGoalPosition());
+        mazeDisplayer.drawPortal();
+        setCharacters();
     }
 
     public void displaySolution(Solution sol){
@@ -304,7 +310,7 @@ public class MyViewController implements IView, Observer {
             case F2: saveMaze(); break;
             case F3: loadMaze(); break;
             case CONTROL: { mazeDisplayer.Zoom();}
-            default: viewModel.MoveCharacter(keyEvent.getCode());
+            default: viewModel.MoveCharacter(keyEvent.getCode());break;
         }
     }
 
@@ -465,16 +471,14 @@ public class MyViewController implements IView, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        switch((String)arg){
+            case "moved": mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());break;
+            case "notMoved": {
+                mazeDisplayer.requestFocus();
+                //TODO: Add 'bip' sound...
+            } break;
+            case "generated": displayMaze(viewModel.getMaze()); break;
+        }
     }
 
-    public void ChangeScene(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root1 = fxmlLoader.load(getClass().getResource("../View/Worlds.fxml").openStream());
-        Parent root2 = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
-        if(stage.getScene()==root1.getScene())
-            stage.setScene(root2.getScene());
-        else
-            stage.setScene(root1.getScene());
-    }
 }

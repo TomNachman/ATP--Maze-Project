@@ -96,7 +96,7 @@ public class MyModel extends Observable implements IModel {
                         CharacterPosCol = myMaze.getStartPosition().getColumnIndex();
                         CharacterPosRow = myMaze.getStartPosition().getRowIndex();
                         Goal = myMaze.getGoalPosition();
-                        notifyObservers();
+                        notifyObservers("generated");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -111,11 +111,16 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void MoveCharacter(KeyCode movement){
+        boolean flag = true;
+        System.out.println(movement.getName());
+
         switch (movement.getName()){
             case "8":
             case "Up":
                 if(CharacterPosRow-1>=0){
-                    if(!myMaze.isWall(CharacterPosRow-1,CharacterPosCol)) CharacterPosRow--;
+                    if(!myMaze.isWall(CharacterPosRow-1,CharacterPosCol)) {
+                        CharacterPosRow--;
+                    }
                 }
                 break;
 
@@ -175,7 +180,12 @@ public class MyModel extends Observable implements IModel {
                     }
                 }
                 break;
+            default:
+                flag = false;
+                break;
         }
+        setChanged();
+        notifyObservers(flag? "moved":"notMoved");
         if(CharacterPosCol==Goal.getColumnIndex() && CharacterPosRow==Goal.getRowIndex()){
             finished=true;
         }

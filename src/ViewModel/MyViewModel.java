@@ -67,7 +67,9 @@ public class MyViewModel extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o==model)
-            notifyObservers();
+        if(o==model) {
+            setChanged();
+            notifyObservers(arg);
+        }
     }
 }

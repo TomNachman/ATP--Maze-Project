@@ -28,7 +28,7 @@ public class Main extends Application {
         Parent root = loader.load();
         MyViewController view = loader.getController();
         view.setViewModel(viewModel);
-        viewModel.addObserver(view);
+        //viewModel.addObserver(view);
         primaryStage.setTitle("Rick And Morty - Maze Game");
         primaryStage.setScene(new Scene(root, 800, 750));
         primaryStage.setMinHeight(750);
