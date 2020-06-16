@@ -1,7 +1,8 @@
-/**
-.root{
-    -fx-background-color: cornsilk;
-}*/
+.root {
+    -fx-background-color: #3ea8c7;
+    -fx-background-position: center center;
+    -fx-background-size: 500,500;
+}
 
 Button {
     -fx-text-fill: white;
@@ -23,34 +24,12 @@ Button:hover{
 }
 
 .choice-box .context-menu { -fx-background-color: black; }
-.choice-box .menu-item:focused { -fx-background-color: #3ea8c7; }
+.choice-box .menu-item:focused { -fx-background-color: #f4f9fe; }
 .choice-box .menu-item > .label { -fx-text-fill: white; }
 .choice-box .menu-item:focused > .label { -fx-text-fill: black; }
 .choice-box > .label { -fx-text-fill: white; }
 .choice-box > .label { -fx-font-weight: bold; }
 .choice-box {
     -fx-background-color: black;
-    -fx-mark-color: #3ea8c7;
+    -fx-mark-color: #f4f9fe;
 }
-
-
-/**
-ChoiceBox {
-    -fx-text-fill: white;
-    -fx-highlight-text-fill: white;
-    -fx-text-origin: white;
-    -fx-font-family: "Arial Narrow";
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#000000, #234658);
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-}
-
-ChoiseBox:selected{
-    -fx-text-fill: white;
-    -fx-highlight-text-fill: white;
-    -fx-text-origin: white;
-    -fx-font-family: "Arial Narrow";
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#000000, #234658);
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-}*/

@@ -6,8 +6,11 @@ import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MyViewModel {
+public class MyViewModel extends Observable implements Observer {
+
     private IModel model;
 
     public MyViewModel(IModel model) {
@@ -62,5 +65,9 @@ public class MyViewModel {
         return model.getGoalPosition();
     }
 
-
+    @Override
+    public void update(Observable o, Object arg) {
+        if(o==model)
+            notifyObservers();
+    }
 }

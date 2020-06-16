@@ -96,6 +96,7 @@ public class MyModel extends Observable implements IModel {
                         CharacterPosCol = myMaze.getStartPosition().getColumnIndex();
                         CharacterPosRow = myMaze.getStartPosition().getRowIndex();
                         Goal = myMaze.getGoalPosition();
+                        notifyObservers();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

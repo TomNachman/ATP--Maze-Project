@@ -3,11 +3,15 @@ package View;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.Solution;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas {
@@ -19,6 +23,9 @@ public class MazeDisplayer extends Canvas {
     private Position startPosition;
     private Position goalPosition;
     private Image characterImage;
+
+    private StringProperty ImageFileWall = new SimpleStringProperty();
+    //private StringProperty ImageFileCharacter = new SimpleStringProperty();
 
     public void setMaze(int[][] maze) {
         this.maze = maze;
@@ -54,13 +61,20 @@ public class MazeDisplayer extends Canvas {
                     y = i * cellHeight;
                     x = j * cellWidth;
                     if(maze[i][j] == 1) // Wall
-                        graphicsContext.fillRect(x,y,cellHeight,cellWidth);
+                    {
+                        try {
+                            Image wallImage = new Image(new FileInputStream(ImageFileWall.get()));
+                            graphicsContext.drawImage(wallImage,x,y,cellHeight,cellWidth);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     if(i == this.startPosition.getRowIndex() && j == this.startPosition.getColumnIndex()){
                         graphicsContext.drawImage(this.characterImage, x,y,cellHeight,cellWidth);
                     }
 
                     if(i == this.goalPosition.getRowIndex() && j == this.goalPosition.getColumnIndex()){
-                        System.out.println(System.getProperty("user.dir"));
                         Image image = new Image("file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/portal.png");
                         graphicsContext.drawImage(image, x,y,cellHeight,cellWidth);
                     }
@@ -123,4 +137,9 @@ public class MazeDisplayer extends Canvas {
             }
         });
     }
+
+    public String getImageFileWall(){return ImageFileWall.get();}
+
+    public void setImageFileWall(String  imageFileWall){this.ImageFileWall.set(imageFileWall);}
+
 }

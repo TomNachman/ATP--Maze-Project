@@ -1,14 +1,14 @@
 package View;
 
 import ViewModel.MyViewModel;
-import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ObservableValueBase;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +18,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -33,48 +34,56 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Optional;
 import java.util.Random;
 
-public class MyViewController implements IView {
+public class MyViewController implements IView, Observer {
 
     public MazeDisplayer mazeDisplayer;
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public Label labelCatch;
     public ImageView finishImage;
+    public ImageView speaker;
     public BorderPane BorderPane;
     public Pane MainPane;
     public Pane MazePane;
     public Rectangle MazeRectangle;
     public MenuBar optionsMenu;
     public ImageView background;
-    public ChoiceBox Level;
-    private MyViewModel viewModel;// = sample.Main.vm;
+    public ChoiceBox<Object> Level;
+    public ChoiceBox<Object> Character;
+
+    private MyViewModel viewModel;
     private boolean mazeExists = false;
     private boolean boolPhrase = false;
     private String [] phrases = new String[13];
     private Media [] sounds = new Media[13];
     private MediaPlayer [] mediaPlayers = new MediaPlayer[13];
-    private Desktop desktop = Desktop.getDesktop();
-    private Position startPos;
-    private Position goalPos;
+    private int rows;
+    private int cols;
     private double mHeight;
     private double mWidth;
-
-
 
     boolean plumbsLoaded = false;
     Media plumbusMedia;
     MediaPlayer plumbusPlayer;
 
     public void init(){
+        initiateCharacters();
+        initiateLevels();
+        setMazeLevel();
+        setCharacters();
         GenerateMaze();
+
         mHeight = BorderPane.getHeight();
         mWidth = BorderPane.getWidth();
 
         dynamicResize();
 
+        // Dynamic Properties
         BorderPane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -82,7 +91,6 @@ public class MyViewController implements IView {
                 dynamicResize();
             }
         });
-
         BorderPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -91,8 +99,15 @@ public class MyViewController implements IView {
                 dynamicResize();
             }
         });
+        Level.setOnAction(event -> setMazeLevel());
+        Character.setOnAction(event -> setCharacters());
+        speaker.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> setSpeaker());
 
+        viewModel.addObserver((Observer) this);
+    }
 
+    public void setViewModel(MyViewModel vm){
+        this.viewModel = vm;
     }
 
     private void dynamicResize(){
@@ -110,16 +125,53 @@ public class MyViewController implements IView {
         background.setX(0);
         background.setY(0);
 
-        //System.out.println(String.format("minSize: (%.2f,%.2f)", mHeight, mWidth));
+        mazeDisplayer.drawMaze();
     }
 
-    public void setViewModel(MyViewModel vm){
-        this.viewModel = vm;
+    private void setSpeaker(){
+        if(mediaPlayers[sounds.length-2].isMute()){
+            speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOn.png"));
+            mediaPlayers[sounds.length-2].setMute(false);
+        }
+        else{
+            speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOff.png"));
+            mediaPlayers[sounds.length-2].setMute(true);
+        }
+    }
+
+    private void initiateCharacters(){
+        Character.setItems(FXCollections.observableArrayList(
+                "Morty", "Summer", "Pickle Rick", "Worm Jerry",
+                new Separator(), "Bird-Person", "Scary Terry",
+                new Separator(), "Mr. Meeseeks", "Mr. Poopy Buttholee"
+        ));
+        Character.setValue("Morty");
+    }
+
+    private void initiateLevels(){
+        Level.setItems(FXCollections.observableArrayList(
+                "Very Easy", "Easy", "Medium",
+                new Separator(), "Challenging", "Hard", "Very Hard",
+                new Separator(), "Expert", "Genius", "Rick"
+        ));
+        Level.setValue("Very Easy");
     }
 
     public void setCharacters(){
-        Image image = new Image("file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/Morty.png");
+        String url = "file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/";
+        switch (Character.getValue().toString()){
+            case "Morty": url = url.concat("Morty.png"); break;
+            case "Bird-Person": url = url.concat("Birdperson.png"); break;
+            case "Scary Terry": url = url.concat("ScaryTerrytransparent.gif"); break;
+            case "Worm Jerry": url = url.concat("Jerry.png"); break;
+            case "Mr. Meeseeks": url = url.concat("Mr_Meeseeks.png"); break;
+            case "Mr. Poopy Buttholee": url = url.concat("mr-poopy-buttholee.png"); break;
+            case "Summer": url = url.concat("Summer.png"); break;
+            case "Pickle Rick": url = url.concat("pickle.png"); break;
+        }
+        Image image = new Image(url);
         setCharacters(image);
+        mazeDisplayer.drawMaze();
     }
 
     public void setCharacters(Image image){
@@ -180,37 +232,38 @@ public class MyViewController implements IView {
         boolPhrase = true;
     }
 
-    public void GenerateMaze(){
-        int rows = 2;
-        int cols = 2;
-
+    public void setMazeLevel(){
         switch (Level.getValue().toString()){
             case "Very Easy": rows = 5; cols = 5; break;
-            case "Easy": rows = 10; cols = 10; break;
-            case "Medium": rows = 30; cols = 30; break;
+            case "Easy": rows = 8; cols = 8; break;
+            case "Medium": rows = 15; cols = 15; break;
+            case "Challenging": rows = 30; cols = 30; break;
             case "Hard": rows = 50; cols = 50; break;
             case "Very Hard": rows = 70; cols = 70; break;
             case "Expert": rows = 100; cols = 100; break;
             case "Genius": rows = 150; cols = 150; break;
             case "Rick": rows = 200; cols = 200; break;
         }
+        GenerateMaze();
+    }
 
-            // Add Music
-            if(!boolPhrase){setMusic();}
+    public void GenerateMaze(){
+        // Add Music
+        if(!boolPhrase){setMusic();}
 
-            // Change Music
-            mediaPlayers[sounds.length-1].stop();
-            mediaPlayers[sounds.length-2].setAutoPlay(true);
-            mediaPlayers[sounds.length-2].setCycleCount(MediaPlayer.INDEFINITE);
-            mediaPlayers[sounds.length-2].play();
+        // Change Music
+        mediaPlayers[sounds.length-1].stop();
+        mediaPlayers[sounds.length-2].setAutoPlay(true);
+        mediaPlayers[sounds.length-2].setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayers[sounds.length-2].play();
 
-            // Finish Image
-            //finishImage.setVisible(false);
+        // Finish Image
+        //finishImage.setVisible(false);
 
-            // Logic and View
-            viewModel.generateMaze(rows,cols);
-            mazeExists = true;
-            this.displayMaze(viewModel.getMaze());
+        // Logic and View
+        viewModel.generateMaze(rows,cols);
+        mazeExists = true;
+        this.displayMaze(viewModel.getMaze());
     }
 
     public void SolveMaze() {
@@ -251,7 +304,12 @@ public class MyViewController implements IView {
             case F2: saveMaze(); break;
             case F3: loadMaze(); break;
             case CONTROL: { mazeDisplayer.Zoom();}
+            default: viewModel.MoveCharacter(keyEvent.getCode());
         }
+    }
+
+    public void mazeMouseClicked(MouseEvent mouseEvent){
+        mazeDisplayer.requestFocus();
     }
 
     public void finishMaze(ActionEvent e) {
@@ -356,7 +414,7 @@ public class MyViewController implements IView {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Are you sure ?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             viewModel.stopServers();
             System.exit(0);
         }
@@ -403,5 +461,20 @@ public class MyViewController implements IView {
         Parent root = fxmlLoader.load(getClass().getResource("../View/Worlds.fxml").openStream());
         stageWorld.setScene(new Scene(root, 600, 300));
         stageWorld.show();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
+
+    public void ChangeScene(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent root1 = fxmlLoader.load(getClass().getResource("../View/Worlds.fxml").openStream());
+        Parent root2 = fxmlLoader.load(getClass().getResource("../View/MyView.fxml").openStream());
+        if(stage.getScene()==root1.getScene())
+            stage.setScene(root2.getScene());
+        else
+            stage.setScene(root1.getScene());
     }
 }
