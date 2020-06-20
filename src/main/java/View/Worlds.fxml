@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="278.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.WorldsController">
+   <children>
+      <Pane layoutX="6.0" layoutY="6.0" prefHeight="276.0" prefWidth="602.0">
+         <children>
+            <ImageView fx:id="PickleRick" fitHeight="423.0" fitWidth="420.0" layoutX="40.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@Images/pickle.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="play" layoutX="235.0" layoutY="236.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Start playing" />
+            <Label layoutX="181.0" layoutY="14.0" text="Choose Your World">
+               <font>
+                  <Font name="Cambria Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="53.0" layoutY="180.0" text="Pickle Rick" textAlignment="CENTER">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="483.0" layoutY="180.0" text="Evil Morty">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="194.0" layoutY="180.0" text="Worm Jerry">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="330.0" layoutY="180.0" text="Mister Mimisk">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="130.0" layoutX="22.0" layoutY="69.0" stroke="#f00404" strokeType="INSIDE" width="130.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="130.0" layoutX="165.0" layoutY="69.0" stroke="RED" strokeType="INSIDE" width="130.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="130.0" layoutX="451.0" layoutY="69.0" stroke="RED" strokeType="INSIDE" width="130.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="130.0" layoutX="309.0" layoutY="69.0" stroke="RED" strokeType="INSIDE" width="130.0" />
+
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

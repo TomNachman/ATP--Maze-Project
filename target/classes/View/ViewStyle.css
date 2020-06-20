@@ -1,0 +1,35 @@
+.root {
+    -fx-background-color: #3ea8c7;
+    -fx-background-position: center center;
+    -fx-background-size: 500,500;
+}
+
+Button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#000000, #234658);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+
+Button:hover{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: Left;
+}
+
+.choice-box .context-menu { -fx-background-color: black; }
+.choice-box .menu-item:focused { -fx-background-color: #f4f9fe; }
+.choice-box .menu-item > .label { -fx-text-fill: white; }
+.choice-box .menu-item:focused > .label { -fx-text-fill: black; }
+.choice-box > .label { -fx-text-fill: white; }
+.choice-box > .label { -fx-font-weight: bold; }
+.choice-box {
+    -fx-background-color: black;
+    -fx-mark-color: #f4f9fe;
+}

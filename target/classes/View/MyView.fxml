@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import View.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="BorderPane" prefHeight="750.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+   <center>
+      <Pane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="702.0" prefWidth="740.0" stylesheets="@ViewStyle.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <children>
+            <ImageView fx:id="background" fitHeight="728.0" fitWidth="1293.0" layoutX="-46.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/Background2.png" />
+               </image>
+            </ImageView>
+            <Pane fx:id="MazePane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="452.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <children>
+                  <Rectangle fx:id="MazeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="450.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <MazeDisplayer fx:id="mazeDisplayer" height="450.0" imageFileWall="./resources/Images/wall.jpg" nodeOrientation="INHERIT" onMouseClicked="#mazeMouseClicked" width="450.0" />
+
+               </children>
+            </Pane>
+            <Button layoutX="213.0" layoutY="617.0" mnemonicParsing="false" onAction="#GenerateMaze" prefHeight="26.0" prefWidth="154.0" text="Generate" />
+            <Button layoutX="379.0" layoutY="618.0" mnemonicParsing="false" onAction="#SolveMaze" prefHeight="26.0" prefWidth="158.0" text="Solve" />
+
+            <ChoiceBox fx:id="Level" layoutX="98.0" layoutY="618.0" value="Very Easy" />
+            <ChoiceBox fx:id="Character" layoutX="75.0" layoutY="700.0" value="Running Morty" />
+
+            <Button fx:id="finishButton" layoutX="401.0" layoutY="565.0" mnemonicParsing="false" onAction="#finishMaze" prefHeight="25.0" prefWidth="160.0" text="Finish Button" />
+            <ImageView fx:id="speaker" fitHeight="42.0" fitWidth="53.0" layoutX="623.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/soundOn.png" />
+               </image>
+            </ImageView>
+
+         </children>
+      </Pane>
+   </center>
+   <top>
+
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar fx:id="optionsMenu" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300" AnchorPane.rightAnchor="200" AnchorPane.topAnchor="0.0">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#GenerateMaze" text="New    Ctrl+F1" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveMaze" text="Save   Ctrl+F2" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadMaze" text="Load   Ctrl+F3" />
+                        <MenuItem mnemonicParsing="false" onAction="#Exit" text="Exit" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Options">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openProperties" text="Properties" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openInstructions" text="Instructions" />
+                        <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Advance">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#Episodes" text="Watch Rick &amp; Morty Episodes" />
+                       <MenuItem mnemonicParsing="false" onAction="#Plumbus" text="Learn How To Make Plumbus " />
+                    </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <Label fx:id="labelCatch" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Yellowtail" size="25.0" />
+         </font>
+      </Label>
+   </bottom>
+</BorderPane>
