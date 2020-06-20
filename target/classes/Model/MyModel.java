@@ -1,23 +1,24 @@
 package Model;
-import IO.MyDecompressorInputStream;
-import Server.Server;
+
 import Client.Client;
 import Client.IClientStrategy;
+import IO.MyDecompressorInputStream;
+import Server.Server;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
-import algorithms.mazeGenerators.*;
-import algorithms.search.*;
+import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Observable;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class MyModel extends Observable implements IModel {
 

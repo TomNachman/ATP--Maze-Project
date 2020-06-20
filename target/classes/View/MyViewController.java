@@ -11,10 +11,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -135,11 +135,13 @@ public class MyViewController implements IView, Observer {
 
     private void setSpeaker(){
         if(mediaPlayers[sounds.length-2].isMute()){
-            speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOn.png"));
+            //speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOn.png"));
+            speaker.setImage(new Image(getClass().getResource("/Images/soundOn.png").toString()));
             mediaPlayers[sounds.length-2].setMute(false);
         }
         else{
-            speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOff.png"));
+            //speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOff.png"));
+            speaker.setImage(new Image(getClass().getResource("/Images/soundOff.png").toString()));
             mediaPlayers[sounds.length-2].setMute(true);
         }
     }

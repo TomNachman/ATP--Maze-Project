@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" >
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <ImageView fitHeight="213.0" fitWidth="196.0" layoutX="404.0" layoutY="94.0" pickOnBounds="true"
                     preserveRatio="true">
-            <Image url="@/View/Images/numpad.png"/>
+            <Image url="@/Images/numpad.png"/>
          </ImageView>
          <Label contentDisplay="CENTER" layoutX="244.0" layoutY="14.0" prefHeight="21.0" prefWidth="113.0"
                 text="Instructions" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" underline="true">

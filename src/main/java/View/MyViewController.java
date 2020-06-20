@@ -3,8 +3,6 @@ package View;
 import ViewModel.MyViewModel;
 import algorithms.search.Solution;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -60,9 +57,9 @@ public class MyViewController implements IView, Observer {
     private MyViewModel viewModel;
     private boolean mazeExists = false;
     private boolean boolPhrase = false;
-    private String [] phrases = new String[13];
-    private Media [] sounds = new Media[13];
-    private MediaPlayer [] mediaPlayers = new MediaPlayer[13];
+    private final String [] phrases = new String[13];
+    private final Media [] sounds = new Media[13];
+    private final MediaPlayer [] mediaPlayers = new MediaPlayer[13];
     private int rows;
     private int cols;
     private double mHeight;
@@ -87,25 +84,19 @@ public class MyViewController implements IView, Observer {
         dynamicResize();
 
         // Dynamic Properties
-        BorderPane.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                mHeight = newValue.doubleValue();
-                dynamicResize();
-            }
+        BorderPane.heightProperty().addListener((observable, oldValue, newValue) -> {
+            mHeight = newValue.doubleValue();
+            dynamicResize();
         });
-        BorderPane.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                mWidth = newValue.doubleValue();
-                optionsMenu.setPrefWidth(mWidth);
-                dynamicResize();
-            }
+        BorderPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            mWidth = newValue.doubleValue();
+            optionsMenu.setPrefWidth(mWidth);
+            dynamicResize();
         });
         Level.setOnAction(event -> setMazeLevel());
         Character.setOnAction(event -> setCharacters());
         speaker.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> setSpeaker());
-        viewModel.addObserver((Observer) this);
+        viewModel.addObserver(this);
     }
 
     public void setViewModel(MyViewModel vm){
@@ -135,11 +126,11 @@ public class MyViewController implements IView, Observer {
 
     private void setSpeaker(){
         if(mediaPlayers[sounds.length-2].isMute()){
-            speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOn.png"));
+            speaker.setImage(new Image(getClass().getResource("/Images/soundOn.png").toString()));
             mediaPlayers[sounds.length-2].setMute(false);
         }
         else{
-            speaker.setImage(new Image("File:" + System.getProperty("user.dir").replace("\\", "/") + "./resources/Images/soundOff.png"));
+            speaker.setImage(new Image(getClass().getResource("/Images/soundOff.png").toString()));
             mediaPlayers[sounds.length-2].setMute(true);
         }
     }
@@ -311,7 +302,7 @@ public class MyViewController implements IView, Observer {
         mediaPlayers[phrase].play();
     }
 
-    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) throws IOException {
+    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) {
         switch(keyEvent.getCode()){
             case F1: GenerateMaze(); break;
             case F2: saveMaze(); break;
@@ -321,7 +312,7 @@ public class MyViewController implements IView, Observer {
         }
     }
 
-    public void mazeMouseClicked(MouseEvent mouseEvent){
+    public void mazeMouseClicked(){
         mazeDisplayer.requestFocus();
     }
 
@@ -364,8 +355,7 @@ public class MyViewController implements IView, Observer {
         fileChooser.setTitle("Choose your Rick & Morty maze");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/"));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("maze", "*.maze"));
-        File chosenFile = fileChooser.showOpenDialog(Main.prim);
-        return chosenFile;
+        return fileChooser.showOpenDialog(Main.prim);
     }
 
     public void saveMaze() {
@@ -415,7 +405,7 @@ public class MyViewController implements IView, Observer {
     }
 
     //---- About ----//
-    public void openAbout(ActionEvent event) throws IOException {
+    public void openAbout() throws IOException {
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setTitle("About");
@@ -463,7 +453,7 @@ public class MyViewController implements IView, Observer {
         plumbusStage.setTitle("Playing video: How They Do It - Plumbs");
         plumbusStage.show();
         plumbusPlayer.play();
-        plumbusStage.setOnCloseRequest(event -> {plumbusPlayer.stop();});
+        plumbusStage.setOnCloseRequest(event -> plumbusPlayer.stop());
 
         if(mediaPlayers[sounds.length-1].isAutoPlay()) mediaPlayers[sounds.length-1].stop();
         if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();

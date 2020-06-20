@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import View.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import View.MazeDisplayer?>
 <BorderPane fx:id="BorderPane" prefHeight="750.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <center>
       <Pane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="702.0" prefWidth="740.0" stylesheets="@ViewStyle.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
             <ImageView fx:id="background" fitHeight="728.0" fitWidth="1293.0" layoutX="-46.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/Background2.png" />
+                  <Image url="@/Images/Background2.png" />
                </image>
             </ImageView>
             <Pane fx:id="MazePane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="452.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -32,7 +32,7 @@
             <Button fx:id="finishButton" layoutX="401.0" layoutY="565.0" mnemonicParsing="false" onAction="#finishMaze" prefHeight="25.0" prefWidth="160.0" text="Finish Button" />
             <ImageView fx:id="speaker" fitHeight="42.0" fitWidth="53.0" layoutX="623.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/soundOn.png" />
+                  <Image url="@/Images/soundOn.png" />
                </image>
             </ImageView>
 
