@@ -128,8 +128,6 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void MoveCharacter(KeyCode movement){
         boolean flag = true;
-        System.out.println(movement.getName());
-
         switch (movement.getName()){
             case "8":
             case "Up":

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="294.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Finish">
+   <children>
+      <ImageView fx:id="FinishImage" fitHeight="257.0" fitWidth="415.0" layoutX="114.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/Images/finish-White.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="18.0" layoutY="139.0" mnemonicParsing="false" text="Next Level" onAction="#nextlevel" />
+      <Button layoutX="377.0" layoutY="145.0" mnemonicParsing="false" text="Rick Phrases" onAction="#catchPhrase"/>
+   </children>
+</AnchorPane>

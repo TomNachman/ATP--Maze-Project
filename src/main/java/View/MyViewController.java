@@ -54,12 +54,12 @@ public class MyViewController implements IView, Observer {
     public ChoiceBox<Object> Level;
     public ChoiceBox<Object> Character;
 
-    private MyViewModel viewModel;
+    protected MyViewModel viewModel;
     private boolean mazeExists = false;
     private boolean boolPhrase = false;
     private final String [] phrases = new String[13];
-    private final Media [] sounds = new Media[13];
-    private final MediaPlayer [] mediaPlayers = new MediaPlayer[13];
+    protected final Media [] sounds = new Media[13];
+    protected final MediaPlayer [] mediaPlayers = new MediaPlayer[13];
     private int rows;
     private int cols;
     private double mHeight;
@@ -176,7 +176,6 @@ public class MyViewController implements IView, Observer {
     public void setCharacters(Image image){
         mazeDisplayer.setCharacterImage(image);
         mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());
-        //mazeDisplayer.setCharacterImage(image);
     }
 
     @Override
@@ -302,7 +301,7 @@ public class MyViewController implements IView, Observer {
         mediaPlayers[phrase].play();
     }
 
-    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) {
+    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) throws IOException {
         switch(keyEvent.getCode()){
             case F1: GenerateMaze(); break;
             case F2: saveMaze(); break;
@@ -310,16 +309,19 @@ public class MyViewController implements IView, Observer {
             case CONTROL: { mazeDisplayer.Zoom();}
             default: viewModel.MoveCharacter(keyEvent.getCode());break;
         }
+        if (viewModel.getCharacterRowPos() == viewModel.getGoalPosition().getRowIndex() && viewModel.getCharacterColPos() == viewModel.getGoalPosition().getColumnIndex()){
+            finishMaze();
+        }
     }
 
     public void mazeMouseClicked(){
         mazeDisplayer.requestFocus();
     }
 
-    public void finishMaze() {
+    public void finishMaze()  {
+
         // Add Music
         if(!boolPhrase){setMusic();}
-
         finishImage.setVisible(true);
         if(mediaPlayers[sounds.length-2].isAutoPlay())
             mediaPlayers[sounds.length-2].stop();

@@ -17,26 +17,19 @@ import java.util.ArrayList;
 public class MazeDisplayer extends Canvas {
 
     private int [][] maze;
-    private int characterPositionRow;
-    private int characterPositionColumn;
+    public int characterPositionRow;
+    public int characterPositionColumn;
     private Solution sol;
     private Position startPosition;
     private Position goalPosition;
     private Image characterImage;
 
-    private StringProperty ImageFileWall = new SimpleStringProperty();
-    //private StringProperty ImageFileCharacter = new SimpleStringProperty();
+    private final StringProperty ImageFileWall = new SimpleStringProperty();
 
     public void setMaze(int[][] maze) {
         this.maze = maze;
         drawMaze();
     }
-    /**
-     public void setCharactersPos(Position startPos, Position goalPos) {
-     this.startPosition = startPos;
-     this.goalPosition = goalPos;
-     }
-     **/
 
     public void ReDrawCharacter() {
         double canvasHeight = getHeight();

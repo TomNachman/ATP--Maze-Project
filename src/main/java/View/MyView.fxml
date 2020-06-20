@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -16,6 +15,11 @@
                   <Image url="@/Images/Background2.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="finishImage" fitHeight="423.0" fitWidth="420.0" layoutX="40.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@/Images/finish-White.jpg" />
+               </image>
+            </ImageView>
             <Pane fx:id="MazePane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="452.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
                   <Rectangle fx:id="MazeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="450.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
@@ -26,8 +30,8 @@
             <Button layoutX="213.0" layoutY="617.0" mnemonicParsing="false" onAction="#GenerateMaze" prefHeight="26.0" prefWidth="154.0" text="Generate" />
             <Button layoutX="379.0" layoutY="618.0" mnemonicParsing="false" onAction="#SolveMaze" prefHeight="26.0" prefWidth="158.0" text="Solve" />
 
-            <ChoiceBox fx:id="Level" layoutX="98.0" layoutY="618.0" value="Very Easy" />
-            <ChoiceBox fx:id="Character" layoutX="75.0" layoutY="700.0" value="Running Morty" />
+            <ChoiceBox fx:id="Level" layoutX="98.0" layoutY="562.0" value="Very Easy" />
+            <ChoiceBox fx:id="Character" layoutX="97.0" layoutY="611.0" value="Running Morty" />
 
             <Button fx:id="finishButton" layoutX="401.0" layoutY="565.0" mnemonicParsing="false" onAction="#finishMaze" prefHeight="25.0" prefWidth="160.0" text="Finish Button" />
             <ImageView fx:id="speaker" fitHeight="42.0" fitWidth="53.0" layoutX="623.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
