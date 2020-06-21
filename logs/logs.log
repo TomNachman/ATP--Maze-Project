@@ -1167,3 +1167,45 @@
 2020.06.21 14:05:24.378 INFO  View.MyViewController - User generated new maze
 2020.06.21 14:05:30.076 INFO  Model.MyModel - Maze-Generating server stopped
 2020.06.21 14:05:30.077 INFO  Model.MyModel - Solve-Maze server stopped
+2020.06.21 14:07:22.968 INFO  Model.MyModel - Maze-Generating server started
+2020.06.21 14:07:22.971 INFO  Model.MyModel - Solve-Maze server started
+2020.06.21 14:07:24.393 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:07:24.501 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:07:24.502 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:07:24.534 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:07:36.243 INFO  View.MyViewController - user solved the maze
+2020.06.21 14:07:40.741 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:07:40.767 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:07:46.690 INFO  View.MyViewController - user solved the maze
+2020.06.21 14:07:51.880 INFO  Model.MyModel - Maze-Generating server stopped
+2020.06.21 14:07:51.881 INFO  Model.MyModel - Solve-Maze server stopped
+2020.06.21 14:09:08.724 INFO  Model.MyModel - Maze-Generating server started
+2020.06.21 14:09:08.728 INFO  Model.MyModel - Solve-Maze server started
+2020.06.21 14:09:10.126 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:09:10.233 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:09:10.234 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:09:10.265 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:09:31.824 INFO  Model.MyModel - Maze-Generating server stopped
+2020.06.21 14:09:31.824 INFO  Model.MyModel - Solve-Maze server stopped
+2020.06.21 14:09:42.384 INFO  Model.MyModel - Maze-Generating server started
+2020.06.21 14:09:42.391 INFO  Model.MyModel - Solve-Maze server started
+2020.06.21 14:09:43.818 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:09:43.922 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:09:43.924 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:09:43.952 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:10:00.921 INFO  Model.MyModel - Maze-Generating server stopped
+2020.06.21 14:10:00.921 INFO  Model.MyModel - Solve-Maze server stopped
+2020.06.21 14:10:08.922 INFO  Model.MyModel - Maze-Generating server started
+2020.06.21 14:10:08.926 INFO  Model.MyModel - Solve-Maze server started
+2020.06.21 14:10:10.354 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:10:10.446 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:10:10.450 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:10:10.480 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:10:35.439 INFO  Model.MyModel - Maze-Generating server stopped
+2020.06.21 14:10:35.439 INFO  Model.MyModel - Solve-Maze server stopped
+2020.06.21 14:11:24.664 INFO  Model.MyModel - Maze-Generating server started
+2020.06.21 14:11:24.668 INFO  Model.MyModel - Solve-Maze server started
+2020.06.21 14:11:26.219 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:11:26.335 INFO  View.MyViewController - User generated new maze
+2020.06.21 14:11:26.336 INFO  Model.MyModel - client connected at: Asaf-Salo/10.0.0.8 ,port: 5400
+2020.06.21 14:11:26.381 INFO  View.MyViewController - User generated new maze

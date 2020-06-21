@@ -137,7 +137,8 @@ public class MyViewController implements IView, Observer {
         finishPane.setLayoutX(mazeDisplayer.getLayoutX() + (mazeDisplayer.getWidth()-finishPane.getWidth())/2);
         finishPane.setLayoutY(mazeDisplayer.getLayoutY() + (mazeDisplayer.getHeight()-finishPane.getHeight())/2);
 
-
+        background.setX(0);
+        background.setY(0);
 
         mazeDisplayer.drawMaze();
         mazeDisplayer.ReDrawCharacter();

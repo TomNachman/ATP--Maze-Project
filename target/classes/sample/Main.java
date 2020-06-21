@@ -34,7 +34,7 @@ public class Main extends Application {
 
 
         primaryStage.setTitle("Rick And Morty - Maze Game");
-        primaryStage.setScene(new Scene(root, 800, 750));
+        primaryStage.setScene(new Scene(root, 850, 750));
         primaryStage.setMinHeight(750); primaryStage.setMinWidth(800);
         primaryStage.setOnCloseRequest(event -> {if(view.Exit()==1) event.consume();});
 
