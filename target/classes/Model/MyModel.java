@@ -131,84 +131,66 @@ public class MyModel extends Observable implements IModel {
         switch (movement.getName()){
             case "8":
             case "Up":
-                if(CharacterPosRow-1>=0){
-                    if(!myMaze.isWall(CharacterPosRow-1,CharacterPosCol)) {
-                        CharacterPosRow--;
-                    }
-                    else MusicFail();
-                }
-                else MusicFail();
+                if(CharacterPosRow-1>=0 &&!myMaze.isWall(CharacterPosRow-1,CharacterPosCol))
+                    CharacterPosRow--;
+                else flag = false;
                 break;
 
             case "2":
             case "Down":
-                if (CharacterPosRow+1 < myMaze.getMazeArray().length){
-                    if(!myMaze.isWall(CharacterPosRow+1,CharacterPosCol)) CharacterPosRow++;
-                    else MusicFail();
-                }
-                else MusicFail();
+                if (CharacterPosRow+1 < myMaze.getMazeArray().length && !myMaze.isWall(CharacterPosRow+1,CharacterPosCol))
+                    CharacterPosRow++;
+                else flag = false;
                 break;
 
             case "6":
             case "Right":
-                if (CharacterPosCol+1 < myMaze.getMazeArray()[0].length){
-                    if(!myMaze.isWall(CharacterPosRow,CharacterPosCol+1)) CharacterPosCol++;
-                    else MusicFail();
-                }
-                else MusicFail();
+                if (CharacterPosCol+1 < myMaze.getMazeArray()[0].length && !myMaze.isWall(CharacterPosRow,CharacterPosCol+1))
+                    CharacterPosCol++;
+                else flag = false;
                 break;
 
             case "4":
             case "Left":
-                if (CharacterPosCol-1 >=0){
-                    if(!myMaze.isWall(CharacterPosRow,CharacterPosCol-1)) CharacterPosCol--;
-                    else MusicFail();
-                }
-                else MusicFail();
+                if (CharacterPosCol-1 >=0 && !myMaze.isWall(CharacterPosRow,CharacterPosCol-1))
+                    CharacterPosCol--;
+                else flag = false;
                 break;
 
             case "9":
-                if(CharacterPosRow-1>=0 && CharacterPosCol+1 < myMaze.getMazeArray()[0].length){
-                    if(!(myMaze.isWall(CharacterPosRow-1,CharacterPosCol+1))){
-                        CharacterPosCol++;
-                        CharacterPosRow--;
-                    }
-                    else MusicFail();
+                if(CharacterPosRow-1>=0 && CharacterPosCol+1 < myMaze.getMazeArray()[0].length&& !(myMaze.isWall(CharacterPosRow-1,CharacterPosCol+1)))
+                {
+                    CharacterPosCol++;
+                    CharacterPosRow--;
                 }
-                else MusicFail();
+                else flag = false;
                 break;
 
             case "7":
-                if(CharacterPosRow-1>=0 && CharacterPosCol-1>=0){
-                    if(!(myMaze.isWall(CharacterPosRow-1,CharacterPosCol-1))){
-                        CharacterPosCol--;
-                        CharacterPosRow--;
-                    }
-                    else MusicFail();
+                if(CharacterPosRow-1>=0 && CharacterPosCol-1>=0 &&!(myMaze.isWall(CharacterPosRow-1,CharacterPosCol-1)))
+                {
+                    CharacterPosCol--;
+                    CharacterPosRow--;
                 }
-                else MusicFail();
+                else flag = false;
                 break;
 
             case "3":
-                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol+1 < myMaze.getMazeArray()[0].length){
-                    if(!(myMaze.isWall(CharacterPosRow+1,CharacterPosCol+1))){
+                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol+1 < myMaze.getMazeArray()[0].length &&!(myMaze.isWall(CharacterPosRow+1,CharacterPosCol+1)))
+                {
                         CharacterPosCol++;
                         CharacterPosRow++;
-                    }
-                    else MusicFail();
                 }
-                else MusicFail();
+                else flag = false;
                 break;
 
             case "1":
-                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol-1 >=0){
-                    if(!(myMaze.isWall(CharacterPosRow+1,CharacterPosCol-1))){
+                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol-1 >=0 && !(myMaze.isWall(CharacterPosRow+1,CharacterPosCol-1)))
+                {
                         CharacterPosCol--;
                         CharacterPosRow++;
-                    }
-                    else MusicFail();
                 }
-                else MusicFail();
+                else flag = false;
                 break;
             default:
                 flag = false;
@@ -262,15 +244,5 @@ public class MyModel extends Observable implements IModel {
     @Override
     public Position getGoalPosition() {
         return myMaze.getGoalPosition();
-    }
-
-    public void MusicFail(){
-        //TODO: replace loser with fail sound
-        File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/CatchPhrases/Loser.mp3");
-        String path = file.toURI().toASCIIString();
-        Media musicFile = new Media(path);
-        MediaPlayer mediaplayerBackground = new MediaPlayer(musicFile);
-        mediaplayerBackground.setVolume(0.3);
-        mediaplayerBackground.play();
     }
 }

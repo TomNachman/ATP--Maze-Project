@@ -2,7 +2,6 @@ package View;
 
 import ViewModel.MyViewModel;
 import algorithms.search.Solution;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -10,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
@@ -44,8 +44,8 @@ public class MyViewController implements IView, Observer {
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public Label labelCatch;
-    public ImageView finishImage;
     public ImageView speaker;
+    public Pane finishPane;
     public BorderPane BorderPane;
     public Pane MainPane;
     public Pane MazePane;
@@ -54,6 +54,9 @@ public class MyViewController implements IView, Observer {
     public ImageView background;
     public ChoiceBox<Object> Level;
     public ChoiceBox<Object> Character;
+    public Button NextLevel;
+    public Button generateButton;
+
 
     protected MyViewModel viewModel;
     private boolean mazeExists = false;
@@ -61,6 +64,8 @@ public class MyViewController implements IView, Observer {
     private final String [] phrases = new String[13];
     protected final Media [] sounds = new Media[13];
     protected final MediaPlayer [] mediaPlayers = new MediaPlayer[13];
+    private Media failMedia;
+    private MediaPlayer failMediaPlayer;
     private int rows;
     private int cols;
     private double mHeight;
@@ -81,7 +86,6 @@ public class MyViewController implements IView, Observer {
 
         mHeight = BorderPane.getHeight();
         mWidth = BorderPane.getWidth();
-
         dynamicResize();
 
         // Dynamic Properties
@@ -94,6 +98,7 @@ public class MyViewController implements IView, Observer {
             optionsMenu.setPrefWidth(mWidth);
             dynamicResize();
         });
+
         Level.setOnAction(event -> setMazeLevel());
         Character.setOnAction(event -> setCharacters());
         speaker.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> setSpeaker());
@@ -117,8 +122,22 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.setHeight(recSize);
         mazeDisplayer.setWidth(recSize);
 
-        background.setX(0);
-        background.setY(0);
+        // ChoiceBoxes
+        Character.setLayoutX(mazeDisplayer.getLayoutX() + (mazeDisplayer.getWidth()-560)/2);
+        Character.setLayoutY(mazeDisplayer.getLayoutY()+ mazeDisplayer.getHeight() +5);
+
+        Level.setLayoutX(Character.getLayoutX() + Character.getWidth() + 10);
+        Level.setLayoutY(mazeDisplayer.getLayoutY()+ mazeDisplayer.getHeight() +5);
+
+        // Generate Button
+        generateButton.setLayoutX(Level.getLayoutX() + Level.getWidth() + 10);
+        generateButton.setLayoutY(mazeDisplayer.getLayoutY()+ mazeDisplayer.getHeight() +5);
+
+        // Finish Pane
+        finishPane.setLayoutX(mazeDisplayer.getLayoutX() + (mazeDisplayer.getWidth()-finishPane.getWidth())/2);
+        finishPane.setLayoutY(mazeDisplayer.getLayoutY() + (mazeDisplayer.getHeight()-finishPane.getHeight())/2);
+
+
 
         mazeDisplayer.drawMaze();
         mazeDisplayer.ReDrawCharacter();
@@ -259,8 +278,8 @@ public class MyViewController implements IView, Observer {
         mediaPlayers[sounds.length-2].setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayers[sounds.length-2].play();
 
-        // Finish Image
-        //finishImage.setVisible(false);
+        // Finish Pane
+        finishPane.setVisible(false);
 
         // Logic and View
         viewModel.generateMaze(rows,cols);
@@ -319,11 +338,13 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.requestFocus();
     }
 
-    public void finishMaze() throws IOException {
+    public void finishMaze()  {
 
         // Add Music
         if(!boolPhrase){setMusic();}
-        finishImage.setVisible(true);
+        finishPane.setVisible(true);
+        if(Level.getValue().equals("Rick"))
+            NextLevel.setDisable(true);
         if(mediaPlayers[sounds.length-2].isAutoPlay())
             mediaPlayers[sounds.length-2].stop();
         mediaPlayers[sounds.length-1].setAutoPlay(true);
@@ -384,6 +405,24 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    public void nextLevel(){
+        NextLevel.setDisable(false);
+        switch (Level.getValue().toString()){
+            case "Very Easy": Level.setValue("Easy"); break;
+            case "Easy": Level.setValue("Medium"); break;
+            case "Medium": Level.setValue("Challenging"); break;
+            case "Challenging": Level.setValue("Hard"); break;
+            case "Hard": Level.setValue("Very Hard"); break;
+            case "Very Hard": Level.setValue("Expert"); break;
+            case "Expert": Level.setValue("Genius"); break;
+            case "Genius": Level.setValue("Rick"); break;
+            case "Rick":
+                NextLevel.setDisable(true);
+                NextLevel.setVisible(false);
+            break;
+        }
+    }
+
     //---- help ----//
     public void openInstructions() throws IOException {
         Stage stage = new Stage();
@@ -419,15 +458,16 @@ public class MyViewController implements IView, Observer {
     }
 
     //---- Exit ----//
-    public void Exit() {
+    public int Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Are you sure ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             viewModel.stopServers();
             Platform.exit();
-            //System.exit(0);
+            return 0;
         }
+        return 1;
     }
 
     //---- Watch Rick & Morty ----//
@@ -462,25 +502,23 @@ public class MyViewController implements IView, Observer {
         if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();
     }
 
-    //---- Worlds ----//
-    public void openWorlds(ActionEvent event) throws IOException {
-        Stage stageWorld = new Stage();
-        stageWorld.setResizable(false);
-        stageWorld.setTitle("Rick And Morty Worlds");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("../View/Worlds.fxml").openStream());
-        stageWorld.setScene(new Scene(root, 600, 300));
-        stageWorld.show();
+    private void musicFail(){
+        if(null==failMediaPlayer){
+            File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/CatchPhrases/bipSound.mp3");
+            String path = file.toURI().toASCIIString();
+            failMedia = new Media(path);
+            failMediaPlayer = new MediaPlayer(failMedia);
+        }
+        failMediaPlayer.setVolume(0.5);
+        failMediaPlayer.stop();
+        failMediaPlayer.play();
     }
 
     @Override
     public void update(Observable o, Object arg) {
         switch((String)arg){
             case "moved": mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());break;
-            case "notMoved": {
-                mazeDisplayer.requestFocus();
-                //TODO: Add 'bip' sound...
-            } break;
+            case "notMoved": musicFail(); break;
             case "generated": displayMaze(viewModel.getMaze()); break;
         }
     }
