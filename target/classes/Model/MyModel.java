@@ -157,7 +157,9 @@ public class MyModel extends Observable implements IModel {
                 break;
 
             case "9":
-                if(CharacterPosRow-1>=0 && CharacterPosCol+1 < myMaze.getMazeArray()[0].length&& !(myMaze.isWall(CharacterPosRow-1,CharacterPosCol+1)))
+                if(CharacterPosRow-1>=0 && CharacterPosCol+1 < myMaze.getMazeArray()[0].length &&
+                        !(myMaze.isWall(CharacterPosRow-1,CharacterPosCol+1)) &&
+                        (!myMaze.isWall(CharacterPosRow-1, CharacterPosCol) || !myMaze.isWall(CharacterPosRow, CharacterPosCol+1)))
                 {
                     CharacterPosCol++;
                     CharacterPosRow--;
@@ -166,7 +168,8 @@ public class MyModel extends Observable implements IModel {
                 break;
 
             case "7":
-                if(CharacterPosRow-1>=0 && CharacterPosCol-1>=0 &&!(myMaze.isWall(CharacterPosRow-1,CharacterPosCol-1)))
+                if(CharacterPosRow-1>=0 && CharacterPosCol-1>=0 &&!(myMaze.isWall(CharacterPosRow-1,CharacterPosCol-1)) &&
+                    (!myMaze.isWall(CharacterPosRow-1, CharacterPosCol) || !myMaze.isWall(CharacterPosRow, CharacterPosCol-1)))
                 {
                     CharacterPosCol--;
                     CharacterPosRow--;
@@ -175,7 +178,9 @@ public class MyModel extends Observable implements IModel {
                 break;
 
             case "3":
-                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol+1 < myMaze.getMazeArray()[0].length &&!(myMaze.isWall(CharacterPosRow+1,CharacterPosCol+1)))
+                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol+1 < myMaze.getMazeArray()[0].length &&
+                    !(myMaze.isWall(CharacterPosRow+1,CharacterPosCol+1)) &&
+                    (!myMaze.isWall(CharacterPosRow+1, CharacterPosCol) || !myMaze.isWall(CharacterPosRow, CharacterPosCol+1)))
                 {
                         CharacterPosCol++;
                         CharacterPosRow++;
@@ -184,7 +189,9 @@ public class MyModel extends Observable implements IModel {
                 break;
 
             case "1":
-                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol-1 >=0 && !(myMaze.isWall(CharacterPosRow+1,CharacterPosCol-1)))
+                if(CharacterPosRow+1 < myMaze.getMazeArray().length && CharacterPosCol-1 >=0 &&
+                    !(myMaze.isWall(CharacterPosRow+1,CharacterPosCol-1)) &&
+                    (!myMaze.isWall(CharacterPosRow+1, CharacterPosCol) || !myMaze.isWall(CharacterPosRow, CharacterPosCol-1)))
                 {
                         CharacterPosCol--;
                         CharacterPosRow++;

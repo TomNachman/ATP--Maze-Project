@@ -159,8 +159,8 @@ public class MyViewController implements IView, Observer {
         finishPane.setLayoutY(mazeDisplayer.getLayoutY() + (mazeDisplayer.getHeight()-finishPane.getHeight())/2);
 
         mazeDisplayer.drawMaze();
-        mazeDisplayer.ReDrawCharacter();
         mazeDisplayer.drawPortal();
+        mazeDisplayer.ReDrawCharacter();
     }
 
     private void setSpeaker(){
