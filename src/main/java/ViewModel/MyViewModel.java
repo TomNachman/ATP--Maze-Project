@@ -64,6 +64,13 @@ public class MyViewModel extends Observable implements Observer {
     public Position getGoalPosition(){
         return model.getGoalPosition();
     }
+    public void setSearchAlgo(String str) {
+        model.setSearchAlgo(str);
+    }
+    public void setGeneratingAlgo(String str) {
+        model.setGeneratingAlgo(str);
+    }
+
 
     @Override
     public void update(Observable o, Object arg) {
@@ -72,4 +79,7 @@ public class MyViewModel extends Observable implements Observer {
             notifyObservers(arg);
         }
     }
+
+
+
 }

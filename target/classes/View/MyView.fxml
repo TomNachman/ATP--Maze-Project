@@ -56,7 +56,7 @@
             </ImageView>
             <ImageView fx:id="RickTitle" fitHeight="56.0" fitWidth="157.0" layoutX="105.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/Images/Logo.png" />
+                  <Image url="@/Images/numpad.png" />
                </image>
             </ImageView>
 
@@ -79,7 +79,28 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Options">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#openProperties" text="Properties" />
+                        <Menu mnemonicParsing="false" text="Properties">
+                           <Menu mnemonicParsing="false" text="Search">
+                              <items>
+                                 <fx:define>
+                                    <ToggleGroup fx:id="search" />
+                                 </fx:define>
+                                 <RadioMenuItem fx:id="best" mnemonicParsing="false" onAction="#selectSearchingAlgo" selected="true" text="Best" toggleGroup="$search" />
+                                 <RadioMenuItem fx:id="BFS" mnemonicParsing="false"  onAction="#selectSearchingAlgo" text="BFS" toggleGroup="$search" />
+                                 <RadioMenuItem fx:id="DFS" mnemonicParsing="false"  onAction="#selectSearchingAlgo" text="DFS" toggleGroup="$search" />
+                              </items>
+                           </Menu>
+                           <Menu mnemonicParsing="false" text="Generate">
+                              <items>
+                                 <fx:define>
+                                    <ToggleGroup fx:id="generate" />
+                                 </fx:define>
+                                 <RadioMenuItem fx:id="empty" mnemonicParsing="false" onAction="#selectGenaratingAlgo" text="Empty Maze" toggleGroup="$generate" />
+                                 <RadioMenuItem fx:id="simple" mnemonicParsing="false" onAction="#selectGenaratingAlgo" text="Simple Maze" toggleGroup="$generate" />
+                                 <RadioMenuItem fx:id="complicated" mnemonicParsing="false" onAction="#selectGenaratingAlgo" selected="true" text="Complicated Maze" toggleGroup="$generate" />
+                              </items>
+                           </Menu>
+                        </Menu>
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Help">

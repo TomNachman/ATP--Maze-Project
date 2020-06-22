@@ -128,8 +128,6 @@ public class MyViewController implements IView, Observer {
         RickTitle.setFitHeight(40 * titleSize/2000);
         RickTitle.setFitWidth(150 * titleSize/2000);
 
-        System.out.println(Math.pow(recSize,1.3)/10);
-
         MazePane.setLayoutX(-0.5*(recSize-800));
         RickTitle.setLayoutX(MazePane.getLayoutX() + (recSize-RickTitle.getFitWidth())/2);
         RickTitle.setLayoutY(MazePane.getLayoutY()-RickTitle.getFitHeight());
@@ -158,9 +156,6 @@ public class MyViewController implements IView, Observer {
         // Finish Pane
         finishPane.setLayoutX(mazeDisplayer.getLayoutX() + (mazeDisplayer.getWidth()-finishPane.getWidth())/2);
         finishPane.setLayoutY(mazeDisplayer.getLayoutY() + (mazeDisplayer.getHeight()-finishPane.getHeight())/2);
-
-        System.out.println(BorderPane.getHeight());
-        System.out.println(BorderPane.getWidth());
 
         mazeDisplayer.drawMaze();
         mazeDisplayer.ReDrawCharacter();
@@ -473,15 +468,41 @@ public class MyViewController implements IView, Observer {
     }
 
     //---- Properties ---//
-    public void openProperties(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Information");
-        String genMethod = Server.Configurations.GetProp("GenerateAlgorithm").replaceAll("([A-Z])", " $1");
-        String solveMethod = Server.Configurations.GetProp("SolvingAlgorithm").replaceAll("([A-Z])", " $1");
-        alert.setContentText("Generator: " + genMethod +"\n" +
-                "Searching Algorithm: "+ solveMethod + "\n" +
-                "ThreadPool Size: " + Server.Configurations.GetProp("NumOfThreads"));
-        alert.show();
+    public void selectSearchingAlgo(ActionEvent event) {
+        event.consume();
+        if(event.getSource().toString().contains("BFS"))
+        {
+            viewModel.setSearchAlgo("BFS");
+            return;
+        }
+        if(event.getSource().toString().contains("DFS"))
+        {
+            viewModel.setSearchAlgo("DFS");
+            return;
+        }
+        if(event.getSource().toString().contains("best"))
+        {
+            viewModel.setSearchAlgo("best");
+            return;
+        }
+    }
+    public void selectGenaratingAlgo(ActionEvent event) {
+        event.consume();
+        if(event.getSource().toString().contains("empty"))
+        {
+            viewModel.setGeneratingAlgo("empty");
+            return;
+        }
+        if(event.getSource().toString().contains("simple"))
+        {
+            viewModel.setGeneratingAlgo("simple");
+            return;
+        }
+        if(event.getSource().toString().contains("complicated"))
+        {
+            viewModel.setGeneratingAlgo("complicated");
+            return;
+        }
     }
 
     //---- About ----//
