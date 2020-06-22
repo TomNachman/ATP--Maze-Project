@@ -28,6 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sample.Main;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -44,14 +45,15 @@ public class MyViewController implements IView, Observer {
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public Label labelCatch;
+    public Label labelSteps;
     public ImageView speaker;
+    public ImageView RickTitle;
     public Pane finishPane;
     public BorderPane BorderPane;
     public Pane MainPane;
     public Pane MazePane;
     public Rectangle MazeRectangle;
     public MenuBar optionsMenu;
-    public ImageView background;
     public ChoiceBox<Object> Level;
     public ChoiceBox<Object> Character;
     public Button NextLevel;
@@ -70,7 +72,10 @@ public class MyViewController implements IView, Observer {
     private int cols;
     private double mHeight;
     private double mWidth;
+    private Scene myScene;
+    private int stepCounter;
     private static final Logger LOG = LogManager.getLogger();
+
 
 
     boolean plumbsLoaded = false;
@@ -105,16 +110,29 @@ public class MyViewController implements IView, Observer {
         viewModel.addObserver(this);
     }
 
-    public void setViewModel(MyViewModel vm){
+    public void setViewModel(MyViewModel vm, Scene scene){
         this.viewModel = vm;
         this.viewModel.addObserver(this);
+        this.myScene = scene;
     }
 
     private void dynamicResize(){
 
         double minSize = Math.min(mHeight, mWidth);
-        minSize = Math.min(minSize, 1200);
+        minSize = Math.min(minSize, 950);
         double recSize = minSize*0.8;
+
+        double titleSize = Math.pow(recSize,1.2);
+        if(minSize>=850) titleSize*=2;
+
+        RickTitle.setFitHeight(40 * titleSize/2000);
+        RickTitle.setFitWidth(150 * titleSize/2000);
+
+        System.out.println(Math.pow(recSize,1.3)/10);
+
+        MazePane.setLayoutX(-0.5*(recSize-800));
+        RickTitle.setLayoutX(MazePane.getLayoutX() + (recSize-RickTitle.getFitWidth())/2);
+        RickTitle.setLayoutY(MazePane.getLayoutY()-RickTitle.getFitHeight());
 
         MazeRectangle.setHeight(recSize);
         MazeRectangle.setWidth(recSize);
@@ -123,22 +141,26 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.setWidth(recSize);
 
         // ChoiceBoxes
-        Character.setLayoutX(mazeDisplayer.getLayoutX() + (mazeDisplayer.getWidth()-560)/2);
-        Character.setLayoutY(mazeDisplayer.getLayoutY()+ mazeDisplayer.getHeight() +5);
+        Character.setLayoutX(MazePane.getLayoutX() + (mazeDisplayer.getWidth()-560)/2);
+        Character.setLayoutY(MazePane.getLayoutY() + mazeDisplayer.getHeight() +5);
 
         Level.setLayoutX(Character.getLayoutX() + Character.getWidth() + 10);
-        Level.setLayoutY(mazeDisplayer.getLayoutY()+ mazeDisplayer.getHeight() +5);
+        Level.setLayoutY(MazePane.getLayoutY() + mazeDisplayer.getHeight() +5);
 
         // Generate Button
         generateButton.setLayoutX(Level.getLayoutX() + Level.getWidth() + 10);
-        generateButton.setLayoutY(mazeDisplayer.getLayoutY()+ mazeDisplayer.getHeight() +5);
+        generateButton.setLayoutY(MazePane.getLayoutY() + mazeDisplayer.getHeight() +5);
+
+        // Speaker Button
+        speaker.setLayoutX(Character.getLayoutX() - 100);
+        speaker.setLayoutY(MazePane.getLayoutY() + mazeDisplayer.getHeight());
 
         // Finish Pane
         finishPane.setLayoutX(mazeDisplayer.getLayoutX() + (mazeDisplayer.getWidth()-finishPane.getWidth())/2);
         finishPane.setLayoutY(mazeDisplayer.getLayoutY() + (mazeDisplayer.getHeight()-finishPane.getHeight())/2);
 
-        background.setX(0);
-        background.setY(0);
+        System.out.println(BorderPane.getHeight());
+        System.out.println(BorderPane.getWidth());
 
         mazeDisplayer.drawMaze();
         mazeDisplayer.ReDrawCharacter();
@@ -270,6 +292,11 @@ public class MyViewController implements IView, Observer {
     }
 
     public void GenerateMaze(){
+        // enabled Buttons
+        Character.setDisable(false);
+        Level.setDisable(false);
+        generateButton.setDisable(false);
+
         // Add Music
         if(!boolPhrase){setMusic();}
 
@@ -286,6 +313,7 @@ public class MyViewController implements IView, Observer {
         viewModel.generateMaze(rows,cols);
         mazeExists = true;
         this.displayMaze(viewModel.getMaze());
+        this.stepCounter = 0;
         LOG.info("User generated new maze");
     }
 
@@ -344,6 +372,7 @@ public class MyViewController implements IView, Observer {
         // Add Music
         if(!boolPhrase){setMusic();}
         finishPane.setVisible(true);
+        labelSteps.setText(String.format("You Moved %d Steps.", this.stepCounter));
         if(Level.getValue().equals("Rick"))
             NextLevel.setDisable(true);
         if(mediaPlayers[sounds.length-2].isAutoPlay())
@@ -351,6 +380,14 @@ public class MyViewController implements IView, Observer {
         mediaPlayers[sounds.length-1].setAutoPlay(true);
         mediaPlayers[sounds.length-1].setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayers[sounds.length-1].play();
+
+        if(finishPane.isVisible())
+        {
+            Character.setDisable(true);
+            Level.setDisable(true);
+            generateButton.setDisable(true);
+        }
+
         LOG.info("user solved the maze");
 
     }
@@ -497,7 +534,11 @@ public class MyViewController implements IView, Observer {
         plumbusStage.setTitle("Playing video: How They Do It - Plumbs");
         plumbusStage.show();
         plumbusPlayer.play();
-        plumbusStage.setOnCloseRequest(event -> plumbusPlayer.stop());
+        plumbusStage.setOnCloseRequest(event ->
+        {
+            plumbusPlayer.stop();
+            mediaPlayers[sounds.length-2].play();
+        });
 
         if(mediaPlayers[sounds.length-1].isAutoPlay()) mediaPlayers[sounds.length-1].stop();
         if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();
@@ -518,7 +559,12 @@ public class MyViewController implements IView, Observer {
     @Override
     public void update(Observable o, Object arg) {
         switch((String)arg){
-            case "moved": mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());break;
+            case "moved":
+                if(!finishPane.isVisible()) {
+                    mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());
+                    stepCounter++;
+                }
+                break;
             case "notMoved": musicFail(); break;
             case "generated": displayMaze(viewModel.getMaze()); break;
         }

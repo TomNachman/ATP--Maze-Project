@@ -30,18 +30,21 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MyView.fxml"));
         Parent root = loader.load();
         MyViewController view = loader.getController();
-        view.setViewModel(viewModel);
 
 
         primaryStage.setTitle("Rick And Morty - Maze Game");
-        primaryStage.setScene(new Scene(root, 800, 750));
-        primaryStage.setMinHeight(750); primaryStage.setMinWidth(800);
+        Scene scene = new Scene(root, 800, 750);
+
+        scene.heightProperty().addListener((observable, oldValue, newValue) -> {view.BorderPane.heightProperty();});
+        scene.widthProperty().addListener((observable, oldValue, newValue) -> { view.BorderPane.widthProperty();});
+
+        view.setViewModel(viewModel, scene);
+        primaryStage.setScene(scene);
+        primaryStage.setMinWidth(800); primaryStage.setMinHeight(750);
         primaryStage.setOnCloseRequest(event -> {if(view.Exit()==1) event.consume();});
 
-        //String image = "../../../../resources/Images/Background2.png";
-        //String style = "-fx-background-image: url('"+image+"');";
-        //(root).setStyle(style);
-        //((BorderPane)root).setBackground(Background.EMPTY);
+        (root).setStyle("-fx-background-image: url('/Images/Background2.png');");
+        ((BorderPane)root).setBackground(Background.EMPTY);
 
         view.init();
 

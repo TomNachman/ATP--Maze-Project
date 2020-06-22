@@ -9,33 +9,28 @@
 
 <BorderPane fx:id="BorderPane" prefHeight="750.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <center>
-      <Pane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="702.0" prefWidth="740.0" stylesheets="@ViewStyle.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Pane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="750.0" prefWidth="800.0" stylesheets="@ViewStyle.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
-            <ImageView fx:id="background" fitHeight="728.0" fitWidth="1293.0" layoutX="-46.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/Images/Background2.png" />
-               </image>
-            </ImageView>
-            <Pane fx:id="MazePane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Pane fx:id="MazePane" layoutX="105.0" layoutY="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
                   <Rectangle fx:id="MazeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="450.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <MazeDisplayer fx:id="mazeDisplayer" height="450.0" imageFileWall="./resources/Images/wall.jpg" nodeOrientation="INHERIT" onMouseClicked="#mazeMouseClicked" width="450.0" />
                   <Pane fx:id="finishPane" layoutX="32.0" layoutY="42.0" prefHeight="367.0" prefWidth="388.0" visible="true">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000b5" height="366.0" stroke="BLACK" strokeType="INSIDE" width="387.0" />
-                        <Label layoutX="87.0" layoutY="68.0" text="Congratulations!" textFill="WHITE">
+                        <Label layoutX="41.0" layoutY="30.0" text="Congratulations!" textFill="WHITE">
                            <font>
-                              <Font name="Cambria" size="30.0" />
+                              <Font name="Cambria" size="44.0" />
                            </font>
                         </Label>
-                        <Label layoutX="135.0" layoutY="116.0" text="You are done!" textFill="WHITE">
+                        <Label layoutX="115.0" layoutY="91.0" text="You are done!" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelSteps" layoutX="107.0" layoutY="150.0" text="You Moved 82 Steps." textFill="WHITE">
                            <font>
                               <Font name="Cambria" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="136.0" layoutY="175.0" text="You Moved 82 Steps." textFill="WHITE">
-                           <font>
-                              <Font name="Cambria" size="13.0" />
                            </font>
                         </Label>
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
@@ -50,15 +45,18 @@
 
                </children>
             </Pane>
-            <Button fx:id="generateButton" layoutX="300.0" layoutY="617.0" mnemonicParsing="false" onAction="#GenerateMaze" prefHeight="26.0" prefWidth="180.0" text="Generate" />
+            <Button fx:id="generateButton" layoutX="475.0" layoutY="510.0" mnemonicParsing="false" onAction="#GenerateMaze" prefHeight="26.0" prefWidth="180.0" text="Generate" />
 
-            <ChoiceBox fx:id="Level" layoutX="190.0" layoutY="618.0" prefWidth="180.0" value="Very Easy" />
-            <ChoiceBox fx:id="Character" layoutY="618.0" prefWidth="180.0" value="Running Morty" />
-
-            <Button fx:id="finishButton" layoutX="460.0" mnemonicParsing="false" onAction="#finishMaze" prefHeight="25.0" prefWidth="160.0" text="Finish Button" />
+            <ChoiceBox fx:id="Level" layoutX="295.0" layoutY="510.0" prefWidth="180.0" value="Very Easy" />
+            <ChoiceBox fx:id="Character" layoutX="105.0" layoutY="510.0" prefHeight="25.0" prefWidth="180.0" value="Running Morty" />
             <ImageView fx:id="speaker" fitHeight="42.0" fitWidth="53.0" layoutX="623.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/Images/soundOn.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="RickTitle" fitHeight="56.0" fitWidth="157.0" layoutX="105.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/Images/Logo.png" />
                </image>
             </ImageView>
 
@@ -67,7 +65,7 @@
    </center>
    <top>
 
-      <VBox BorderPane.alignment="CENTER">
+      <VBox maxHeight="50.0" BorderPane.alignment="CENTER">
          <children>
             <MenuBar fx:id="optionsMenu" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300" AnchorPane.rightAnchor="200" AnchorPane.topAnchor="0.0">
                <menus>
@@ -102,11 +100,4 @@
          </children>
       </VBox>
    </top>
-   <bottom>
-      <Label fx:id="labelCatch" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Yellowtail" size="25.0" />
-         </font>
-      </Label>
-   </bottom>
 </BorderPane>
