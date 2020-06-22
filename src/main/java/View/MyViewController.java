@@ -84,8 +84,10 @@ public class MyViewController implements IView, Observer {
     public void init(){
         initiateCharacters();
         initiateLevels();
+
+        setMusic();
+
         setMazeLevel();
-        GenerateMaze();
         setCharacters();
 
         mHeight = BorderPane.getHeight();
@@ -165,10 +167,15 @@ public class MyViewController implements IView, Observer {
         if(mediaPlayers[sounds.length-2].isMute()){
             speaker.setImage(new Image(getClass().getResource("/Images/soundOn.png").toString()));
             mediaPlayers[sounds.length-2].setMute(false);
+            mediaPlayers[sounds.length-1].setMute(false);
+            failMediaPlayer.setMute(false);
+
         }
         else{
             speaker.setImage(new Image(getClass().getResource("/Images/soundOff.png").toString()));
             mediaPlayers[sounds.length-2].setMute(true);
+            mediaPlayers[sounds.length-1].setMute(true);
+            failMediaPlayer.setMute(true);
         }
     }
 
@@ -228,6 +235,8 @@ public class MyViewController implements IView, Observer {
     }
 
     public void setMusic() {
+
+        setFailStep();
 
         // Main Soundtracks:
         insertMedia("Evil Morty-Remix", sounds.length-2);
@@ -291,11 +300,9 @@ public class MyViewController implements IView, Observer {
         Level.setDisable(false);
         generateButton.setDisable(false);
 
-        // Add Music
-        if(!boolPhrase){setMusic();}
-
         // Change Music
         mediaPlayers[sounds.length-1].stop();
+        mediaPlayers[sounds.length-1].setVolume(1.2);
         mediaPlayers[sounds.length-2].setAutoPlay(true);
         mediaPlayers[sounds.length-2].setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayers[sounds.length-2].play();
@@ -344,7 +351,7 @@ public class MyViewController implements IView, Observer {
         mediaPlayers[phrase].play();
     }
 
-    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) throws IOException {
+    public void keyPressed(javafx.scene.input.KeyEvent keyEvent) {
         switch(keyEvent.getCode()){
             case F1: GenerateMaze(); break;
             case F2: saveMaze(); break;
@@ -371,6 +378,7 @@ public class MyViewController implements IView, Observer {
             NextLevel.setDisable(true);
         if(mediaPlayers[sounds.length-2].isAutoPlay())
             mediaPlayers[sounds.length-2].stop();
+        mediaPlayers[sounds.length-1].setVolume(0.2);
         mediaPlayers[sounds.length-1].setAutoPlay(true);
         mediaPlayers[sounds.length-1].setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayers[sounds.length-1].play();
@@ -563,15 +571,15 @@ public class MyViewController implements IView, Observer {
         if(mediaPlayers[sounds.length-1].isAutoPlay()) mediaPlayers[sounds.length-1].stop();
         if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();
     }
+    private void setFailStep(){
+        File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/CatchPhrases/bipSound.mp3");
+        String path = file.toURI().toASCIIString();
+        failMedia = new Media(path);
+        failMediaPlayer = new MediaPlayer(failMedia);
+    }
 
     private void musicFail(){
-        if(null==failMediaPlayer){
-            File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/CatchPhrases/bipSound.mp3");
-            String path = file.toURI().toASCIIString();
-            failMedia = new Media(path);
-            failMediaPlayer = new MediaPlayer(failMedia);
-        }
-        failMediaPlayer.setVolume(0.5);
+        failMediaPlayer.setVolume(0.2);
         failMediaPlayer.stop();
         failMediaPlayer.play();
     }

@@ -20,4 +20,6 @@ public interface IModel {
     Solution getMySolution();
     Position getStartPosition();
     Position getGoalPosition();
+    void setSearchAlgo(String str);
+    void setGeneratingAlgo(String str);
 }

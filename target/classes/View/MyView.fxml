@@ -1,124 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import View.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import View.MazeDisplayer?>
 <BorderPane fx:id="BorderPane" prefHeight="750.0" prefWidth="800.0" stylesheets="@ViewStyle.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <center>
-      <Pane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="750.0" prefWidth="800.0" stylesheets="@ViewStyle.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <children>
-            <Pane fx:id="MazePane" layoutX="105.0" layoutY="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <children>
-                  <Rectangle fx:id="MazeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="450.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <MazeDisplayer fx:id="mazeDisplayer" height="450.0" imageFileWall="./resources/Images/wall.jpg" nodeOrientation="INHERIT" onMouseClicked="#mazeMouseClicked" width="450.0" />
-                  <Pane fx:id="finishPane" layoutX="32.0" layoutY="42.0" prefHeight="367.0" prefWidth="388.0" visible="true">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000b5" height="366.0" stroke="BLACK" strokeType="INSIDE" width="387.0" />
-                        <Label layoutX="41.0" layoutY="30.0" text="Congratulations!" textFill="WHITE">
-                           <font>
-                              <Font name="Cambria" size="44.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="115.0" layoutY="91.0" text="You are done!" textFill="WHITE">
-                           <font>
-                              <Font name="Cambria" size="28.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labelSteps" layoutX="107.0" layoutY="150.0" text="You Moved 82 Steps." textFill="WHITE">
-                           <font>
-                              <Font name="Cambria" size="20.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/Images/dancing.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="playAgain" layoutX="145.0" layoutY="239.0" mnemonicParsing="false" onAction="#GenerateMaze" prefWidth="100.0" text="Play Again" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="NextLevel" layoutX="130.0" layoutY="278.0" mnemonicParsing="false" onAction="#nextLevel" prefHeight="25.0" prefWidth="135.0" text="Next Level" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                     </children>
-                  </Pane>
+      <Pane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="750.0"
+            prefWidth="800.0" stylesheets="@ViewStyle.css" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <Pane fx:id="MazePane" layoutX="105.0" layoutY="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0"
+               prefWidth="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <children>
+               <Rectangle fx:id="MazeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="450.0"
+                          opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="450.0" GridPane.halignment="CENTER"
+                          GridPane.valignment="CENTER"/>
+               <MazeDisplayer fx:id="mazeDisplayer" height="450.0" imageFileWall="./resources/Images/wall.jpg"
+                              nodeOrientation="INHERIT" onMouseClicked="#mazeMouseClicked" width="450.0"/>
+               <Pane fx:id="finishPane" layoutX="32.0" layoutY="42.0" prefHeight="367.0" prefWidth="388.0"
+                     visible="true">
+                  <children>
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000b5" height="366.0" stroke="BLACK"
+                                strokeType="INSIDE" width="387.0"/>
+                     <Label layoutX="41.0" layoutY="30.0" text="Congratulations!" textFill="WHITE">
+                        <font>
+                           <Font name="Cambria" size="44.0"/>
+                        </font>
+                     </Label>
+                     <Label layoutX="115.0" layoutY="91.0" text="You are done!" textFill="WHITE">
+                        <font>
+                           <Font name="Cambria" size="28.0"/>
+                        </font>
+                     </Label>
+                     <Label fx:id="labelSteps" layoutX="107.0" layoutY="150.0" text="You Moved 82 Steps."
+                            textFill="WHITE">
+                        <font>
+                           <Font name="Cambria" size="20.0"/>
+                        </font>
+                     </Label>
+                     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="203.0" pickOnBounds="true"
+                                preserveRatio="true">
+                        <Image url="@/Images/dancing.png"/>
+                     </ImageView>
+                     <Button fx:id="playAgain" layoutX="145.0" layoutY="239.0" mnemonicParsing="false"
+                             onAction="#GenerateMaze" prefWidth="100.0" text="Play Again" GridPane.halignment="CENTER"
+                             GridPane.valignment="CENTER"/>
+                     <Button fx:id="NextLevel" layoutX="130.0" layoutY="278.0" mnemonicParsing="false"
+                             onAction="#nextLevel" prefHeight="25.0" prefWidth="135.0" text="Next Level"
+                             GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                  </children>
+               </Pane>
 
-               </children>
-            </Pane>
-            <Button fx:id="generateButton" layoutX="475.0" layoutY="510.0" mnemonicParsing="false" onAction="#GenerateMaze" prefHeight="26.0" prefWidth="180.0" text="Generate" />
+            </children>
+         </Pane>
+         <Button fx:id="generateButton" layoutX="475.0" layoutY="510.0" mnemonicParsing="false" onAction="#GenerateMaze"
+                 prefHeight="26.0" prefWidth="180.0" text="Generate"/>
 
-            <ChoiceBox fx:id="Level" layoutX="295.0" layoutY="510.0" prefWidth="180.0" value="Very Easy" />
-            <ChoiceBox fx:id="Character" layoutX="105.0" layoutY="510.0" prefHeight="25.0" prefWidth="180.0" value="Running Morty" />
-            <ImageView fx:id="speaker" fitHeight="42.0" fitWidth="53.0" layoutX="623.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/Images/soundOn.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="RickTitle" fitHeight="56.0" fitWidth="157.0" layoutX="105.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/Images/numpad.png" />
-               </image>
-            </ImageView>
+         <ChoiceBox fx:id="Level" layoutX="295.0" layoutY="510.0" prefWidth="180.0" value="Very Easy"/>
+         <ChoiceBox fx:id="Character" layoutX="105.0" layoutY="510.0" prefHeight="25.0" prefWidth="180.0"
+                    value="Running Morty"/>
+         <ImageView fx:id="speaker" fitHeight="42.0" fitWidth="53.0" layoutX="623.0" layoutY="510.0" pickOnBounds="true"
+                    preserveRatio="true">
+            <Image url="@/Images/soundOn.png"/>
+         </ImageView>
+         <ImageView fx:id="RickTitle" fitHeight="56.0" fitWidth="157.0" layoutX="105.0" pickOnBounds="true"
+                    preserveRatio="true">
+            <Image url="@/Images/logo.jpg"/>
+         </ImageView>
 
-         </children>
       </Pane>
    </center>
    <top>
 
       <VBox maxHeight="50.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar fx:id="optionsMenu" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300" AnchorPane.rightAnchor="200" AnchorPane.topAnchor="0.0">
-               <menus>
-                  <Menu mnemonicParsing="false" text="File">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#GenerateMaze" text="New    Ctrl+F1" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveMaze" text="Save   Ctrl+F2" />
-                        <MenuItem mnemonicParsing="false" onAction="#loadMaze" text="Load   Ctrl+F3" />
-                        <MenuItem mnemonicParsing="false" onAction="#Exit" text="Exit" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Options">
-                     <items>
-                        <Menu mnemonicParsing="false" text="Properties">
-                           <Menu mnemonicParsing="false" text="Search">
-                              <items>
-                                 <fx:define>
-                                    <ToggleGroup fx:id="search" />
-                                 </fx:define>
-                                 <RadioMenuItem fx:id="best" mnemonicParsing="false" onAction="#selectSearchingAlgo" selected="true" text="Best" toggleGroup="$search" />
-                                 <RadioMenuItem fx:id="BFS" mnemonicParsing="false"  onAction="#selectSearchingAlgo" text="BFS" toggleGroup="$search" />
-                                 <RadioMenuItem fx:id="DFS" mnemonicParsing="false"  onAction="#selectSearchingAlgo" text="DFS" toggleGroup="$search" />
-                              </items>
-                           </Menu>
-                           <Menu mnemonicParsing="false" text="Generate">
-                              <items>
-                                 <fx:define>
-                                    <ToggleGroup fx:id="generate" />
-                                 </fx:define>
-                                 <RadioMenuItem fx:id="empty" mnemonicParsing="false" onAction="#selectGenaratingAlgo" text="Empty Maze" toggleGroup="$generate" />
-                                 <RadioMenuItem fx:id="simple" mnemonicParsing="false" onAction="#selectGenaratingAlgo" text="Simple Maze" toggleGroup="$generate" />
-                                 <RadioMenuItem fx:id="complicated" mnemonicParsing="false" onAction="#selectGenaratingAlgo" selected="true" text="Complicated Maze" toggleGroup="$generate" />
-                              </items>
-                           </Menu>
+         <MenuBar fx:id="optionsMenu" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300"
+                  AnchorPane.rightAnchor="200" AnchorPane.topAnchor="0.0">
+            <menus>
+               <Menu mnemonicParsing="false" text="File">
+                  <MenuItem mnemonicParsing="false" onAction="#GenerateMaze" text="New    Ctrl+F1"/>
+                  <MenuItem mnemonicParsing="false" onAction="#saveMaze" text="Save   Ctrl+F2"/>
+                  <MenuItem mnemonicParsing="false" onAction="#loadMaze" text="Load   Ctrl+F3"/>
+                  <MenuItem mnemonicParsing="false" onAction="#Exit" text="Exit"/>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Options">
+                  <items>
+                     <Menu mnemonicParsing="false" text="Properties">
+                        <Menu mnemonicParsing="false" text="Search">
+                           <fx:define>
+                              <ToggleGroup fx:id="search"/>
+                           </fx:define>
+                           <RadioMenuItem fx:id="best" mnemonicParsing="false" onAction="#selectSearchingAlgo"
+                                          selected="true" text="Best" toggleGroup="$search"/>
+                           <RadioMenuItem fx:id="BFS" mnemonicParsing="false" onAction="#selectSearchingAlgo"
+                                          text="BFS" toggleGroup="$search"/>
+                           <RadioMenuItem fx:id="DFS" mnemonicParsing="false" onAction="#selectSearchingAlgo"
+                                          text="DFS" toggleGroup="$search"/>
                         </Menu>
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Help">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#SolveMaze" text="Solve Maze" />
-                        <MenuItem mnemonicParsing="false" onAction="#openInstructions" text="Instructions" />
-                        <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Advance">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#Episodes" text="Watch Rick &amp; Morty Episodes" />
-                        <MenuItem mnemonicParsing="false" onAction="#Plumbus" text="Learn How To Make Plumbus " />
-                     </items>
-                  </Menu>
-               </menus>
-            </MenuBar>
-         </children>
+                        <Menu mnemonicParsing="false" text="Generate">
+                           <fx:define>
+                              <ToggleGroup fx:id="generate"/>
+                           </fx:define>
+                           <RadioMenuItem fx:id="empty" mnemonicParsing="false" onAction="#selectGenaratingAlgo"
+                                          text="Empty Maze" toggleGroup="$generate"/>
+                           <RadioMenuItem fx:id="simple" mnemonicParsing="false" onAction="#selectGenaratingAlgo"
+                                          text="Simple Maze" toggleGroup="$generate"/>
+                           <RadioMenuItem fx:id="complicated" mnemonicParsing="false"
+                                          onAction="#selectGenaratingAlgo" selected="true" text="Complicated Maze"
+                                          toggleGroup="$generate"/>
+                        </Menu>
+                     </Menu>
+                  </items>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Help">
+                  <MenuItem mnemonicParsing="false" onAction="#SolveMaze" text="Solve Maze"/>
+                  <MenuItem mnemonicParsing="false" onAction="#openInstructions" text="Instructions"/>
+                  <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About"/>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Advance">
+                  <items>
+                     <MenuItem mnemonicParsing="false" onAction="#Episodes" text="Watch Rick &amp; Morty Episodes"/>
+                     <MenuItem mnemonicParsing="false" onAction="#Plumbus" text="Learn How To Make Plumbus "/>
+                  </items>
+               </Menu>
+            </menus>
+         </MenuBar>
       </VBox>
    </top>
 </BorderPane>

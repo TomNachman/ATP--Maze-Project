@@ -104,7 +104,7 @@ public class MyModel extends Observable implements IModel {
                         toServer.flush();
                         byte[] compressedMaze = (byte[])fromServer.readObject();
                         InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                        byte[] decompressedMaze = new byte[width*height+20 /**CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/];
+                        byte[] decompressedMaze = new byte[width*height+20];
                         is.read(decompressedMaze);
                         myMaze = new Maze(decompressedMaze);
                         CharacterPosCol = myMaze.getStartPosition().getColumnIndex();
@@ -244,10 +244,10 @@ public class MyModel extends Observable implements IModel {
     public Position getGoalPosition() {
         return myMaze.getGoalPosition();
     }
+
     public void setSearchAlgo(String str) {
         Configurations.SetSearchingAlgo(str);
     }
-
     @Override
     public void setGeneratingAlgo(String str) {
         Configurations.SetGeneratingAlgo(str);

@@ -1,25 +1,19 @@
 package sample;
 
 import Model.MyModel;
-import ViewModel.MyViewModel;
 import View.MyViewController;
+import ViewModel.MyViewModel;
 import javafx.application.Application;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.util.Observer;
 
 public class Main extends Application {
     public static Stage prim;
-    Button b;
     @Override
     public void start(Stage primaryStage) throws Exception{
         MyModel model = new MyModel();
@@ -35,8 +29,8 @@ public class Main extends Application {
         primaryStage.setTitle("Rick And Morty - Maze Game");
         Scene scene = new Scene(root, 800, 750);
 
-        scene.heightProperty().addListener((observable, oldValue, newValue) -> {view.BorderPane.heightProperty();});
-        scene.widthProperty().addListener((observable, oldValue, newValue) -> { view.BorderPane.widthProperty();});
+        scene.heightProperty().addListener((observable, oldValue, newValue) -> view.BorderPane.heightProperty());
+        scene.widthProperty().addListener((observable, oldValue, newValue) -> view.BorderPane.widthProperty());
 
         view.setViewModel(viewModel, scene);
         primaryStage.setScene(scene);
