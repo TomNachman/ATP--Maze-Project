@@ -39,7 +39,6 @@ public class Main extends Application {
 
         (root).setStyle("-fx-background-image: url('/Images/Background2.png');");
         ((BorderPane)root).setBackground(Background.EMPTY);
-
         view.init();
 
         prim = primaryStage;
@@ -49,13 +48,12 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         /** Backend */
-        // TODO: Properties - 2 ChoiseBox (Generate. Solve) - Tom
-        // TODO:            - Jar + Logic - Tom
+        // TODO: Zoom !!!
+        // TODO: Empty Maze
 
         /** Frontend */
         // TODO: Instructions - design + Style - Asaf
-        // TODO: Solve - Add step number - Asaf
-        // TODO: Resize - Asaf
+        // TODO: Resize - Asaf...
 
         /** In The End */
         // TODO: Comments

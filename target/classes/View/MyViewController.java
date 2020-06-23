@@ -6,13 +6,14 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -30,13 +31,17 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sample.Main;
+import sun.security.krb5.internal.rcache.DflCache;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Optional;
+import java.util.Random;
 
 public class MyViewController implements IView, Observer {
 
@@ -57,6 +62,7 @@ public class MyViewController implements IView, Observer {
     public ChoiceBox<Object> Character;
     public Button NextLevel;
     public Button generateButton;
+    public Menu option;
 
 
     protected MyViewModel viewModel;
@@ -74,8 +80,6 @@ public class MyViewController implements IView, Observer {
     private Scene myScene;
     private int stepCounter;
     private static final Logger LOG = LogManager.getLogger();
-
-
 
     boolean plumbsLoaded = false;
     Media plumbusMedia;
@@ -226,8 +230,8 @@ public class MyViewController implements IView, Observer {
     public void displayMaze(int[][] maze) {
         mazeDisplayer.setMaze(maze);
         mazeDisplayer.setGoalPostion(viewModel.getGoalPosition());
-        mazeDisplayer.drawPortal();
         setCharacters();
+        mazeDisplayer.drawPortal();
     }
 
     public void displaySolution(Solution sol){
@@ -314,6 +318,8 @@ public class MyViewController implements IView, Observer {
         viewModel.generateMaze(rows,cols);
         mazeExists = true;
         this.displayMaze(viewModel.getMaze());
+        mazeDisplayer.drawPortal();
+
         this.stepCounter = 0;
         LOG.info("User generated new maze");
     }
@@ -463,6 +469,20 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    public void changeLevel(){
+        switch (this.viewModel.getMaze().length){
+            case 5: Level.setValue("Very Easy"); break;
+            case 8: Level.setValue("Easy"); break;
+            case 15: Level.setValue("Medium"); break;
+            case 30: Level.setValue("Challenging"); break;
+            case 50: Level.setValue("Hard"); break;
+            case 70: Level.setValue("Very Hard"); break;
+            case 100: Level.setValue("Expert"); break;
+            case 150: Level.setValue("Genius"); break;
+            case 200: Level.setValue("Rick"); break;
+        }
+    }
+
     //---- help ----//
     public void openInstructions() throws IOException {
         Stage stage = new Stage();
@@ -477,39 +497,13 @@ public class MyViewController implements IView, Observer {
     //---- Properties ---//
     public void selectSearchingAlgo(ActionEvent event) {
         event.consume();
-        if(event.getSource().toString().contains("BFS"))
-        {
-            viewModel.setSearchAlgo("BFS");
-            return;
-        }
-        if(event.getSource().toString().contains("DFS"))
-        {
-            viewModel.setSearchAlgo("DFS");
-            return;
-        }
-        if(event.getSource().toString().contains("best"))
-        {
-            viewModel.setSearchAlgo("best");
-            return;
-        }
+        viewModel.setSearchAlgo(event.getSource().toString().contains("BFS")? "BFS":
+                                event.getSource().toString().contains("DFS")? "DFS": "best");
     }
-    public void selectGenaratingAlgo(ActionEvent event) {
+
+    public void selectGeneratingAlgo(ActionEvent event) {
         event.consume();
-        if(event.getSource().toString().contains("empty"))
-        {
-            viewModel.setGeneratingAlgo("empty");
-            return;
-        }
-        if(event.getSource().toString().contains("simple"))
-        {
-            viewModel.setGeneratingAlgo("simple");
-            return;
-        }
-        if(event.getSource().toString().contains("complicated"))
-        {
-            viewModel.setGeneratingAlgo("complicated");
-            return;
-        }
+        viewModel.setGeneratingAlgo(event.getSource().toString().contains("simple")? "simple": "complicated");
     }
 
     //---- About ----//
@@ -571,6 +565,7 @@ public class MyViewController implements IView, Observer {
         if(mediaPlayers[sounds.length-1].isAutoPlay()) mediaPlayers[sounds.length-1].stop();
         if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();
     }
+
     private void setFailStep(){
         File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/CatchPhrases/bipSound.mp3");
         String path = file.toURI().toASCIIString();
@@ -584,20 +579,6 @@ public class MyViewController implements IView, Observer {
         failMediaPlayer.play();
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        switch((String)arg){
-            case "moved":
-                if(!finishPane.isVisible()) {
-                    mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());
-                    stepCounter++;
-                }
-                break;
-            case "notMoved": musicFail(); break;
-            case "Loaded": initiateCharacters(); break;
-            case "generated": displayMaze(viewModel.getMaze()); break;
-        }
-    }
     public void dragPlayer(MouseEvent mouseEvent) {
         double cellHeight = mazeDisplayer.getHeight()/ viewModel.getMaze().length;
         double cellWidth = mazeDisplayer.getWidth() / viewModel.getMaze()[0].length;
@@ -616,5 +597,21 @@ public class MyViewController implements IView, Observer {
 
         }
         else finishMaze();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        switch((String)arg){
+            case "moved":
+                if(!finishPane.isVisible()) {
+                    mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());
+                    stepCounter++;
+                }
+                break;
+            case "illegalMove": musicFail(); break;
+            case "Loaded": changeLevel(); break;
+            case "algorithmChanged": GenerateMaze(); break;
+            case "generated": displayMaze(viewModel.getMaze()); break;
+        }
     }
 }

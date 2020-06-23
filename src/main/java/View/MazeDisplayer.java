@@ -9,9 +9,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas {
@@ -63,6 +65,10 @@ public class MazeDisplayer extends Canvas {
     public void drawMaze() {
         if( maze!=null)
         {
+            Image wallImage = null;
+            try { wallImage= new Image(new FileInputStream(ImageFileWall.get())); }
+            catch (FileNotFoundException e){ e.printStackTrace();
+            }
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
             int row = maze.length;
@@ -71,6 +77,7 @@ public class MazeDisplayer extends Canvas {
             double cellWidth = canvasWidth/col;
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,canvasWidth,canvasHeight);
+            //graphicsContext.setFill(Color.BLACK);
             double x,y;
 
             //Draw Maze
@@ -80,12 +87,7 @@ public class MazeDisplayer extends Canvas {
                     x = j * cellWidth;
                     if(maze[i][j] == 1) // Wall
                     {
-                        try {
-                            Image wallImage = new Image(new FileInputStream(ImageFileWall.get()));
-                            graphicsContext.drawImage(wallImage,x,y,cellHeight,cellWidth);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                        graphicsContext.drawImage(wallImage, x,y,cellHeight,cellWidth);
                     }
                 }
             }
@@ -160,7 +162,7 @@ public class MazeDisplayer extends Canvas {
 
     public String getImageFileWall(){return ImageFileWall.get();}
 
-    public void setImageFileWall(String  imageFileWall){this.ImageFileWall.set(imageFileWall);}
+    public void setImageFileWall(String imageFileWall){this.ImageFileWall.set(imageFileWall);}
 
     public void setGoalPostion(Position goalPosition) {
         this.goalPosition =  goalPosition;

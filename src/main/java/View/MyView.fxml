@@ -16,7 +16,7 @@
                <Rectangle fx:id="MazeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="450.0"
                           opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="450.0" GridPane.halignment="CENTER"
                           GridPane.valignment="CENTER"/>
-               <MazeDisplayer fx:id="mazeDisplayer" height="450.0" imageFileWall="./resources/Images/wall.jpg"
+               <MazeDisplayer fx:id="mazeDisplayer" height="450.0" imageFileWall="./resources/Images/compress_wall.jpg"
                               nodeOrientation="INHERIT" onMouseClicked="#mazeMouseClicked" width="450.0" onMouseDragged="#dragPlayer"/>
                <Pane fx:id="finishPane" layoutX="32.0" layoutY="42.0" prefHeight="367.0" prefWidth="388.0"
                      visible="true">
@@ -83,9 +83,10 @@
                   <MenuItem mnemonicParsing="false" onAction="#loadMaze" text="Load   Ctrl+F3"/>
                   <MenuItem mnemonicParsing="false" onAction="#Exit" text="Exit"/>
                </Menu>
-               <Menu mnemonicParsing="false" text="Options">
+               <Menu fx:id="option" mnemonicParsing="false" text="Options">
                   <items>
-                     <Menu mnemonicParsing="false" text="Properties">
+                        <MenuItem mnemonicParsing="false" text="Properties"/>
+                        <SeparatorMenuItem/>
                         <Menu mnemonicParsing="false" text="Search">
                            <fx:define>
                               <ToggleGroup fx:id="search"/>
@@ -101,15 +102,13 @@
                            <fx:define>
                               <ToggleGroup fx:id="generate"/>
                            </fx:define>
-                           <RadioMenuItem fx:id="empty" mnemonicParsing="false" onAction="#selectGenaratingAlgo"
-                                          text="Empty Maze" toggleGroup="$generate"/>
-                           <RadioMenuItem fx:id="simple" mnemonicParsing="false" onAction="#selectGenaratingAlgo"
+                           <RadioMenuItem fx:id="simple" mnemonicParsing="false" onAction="#selectGeneratingAlgo"
                                           text="Simple Maze" toggleGroup="$generate"/>
                            <RadioMenuItem fx:id="complicated" mnemonicParsing="false"
-                                          onAction="#selectGenaratingAlgo" selected="true" text="Complicated Maze"
+                                          onAction="#selectGeneratingAlgo" selected="true" text="Complicated Maze"
                                           toggleGroup="$generate"/>
                         </Menu>
-                     </Menu>
+
                   </items>
                </Menu>
                <Menu mnemonicParsing="false" text="Help">
