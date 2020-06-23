@@ -10,7 +10,6 @@ import Server.ServerStrategySolveSearchProblem;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -127,34 +126,46 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void MoveCharacter(KeyCode movement){
-        boolean flag = true;
+        boolean flag = true, flag2 = false;
         switch (movement.getName()){
             case "8":
             case "Up":
                 if(CharacterPosRow-1>=0 &&!myMaze.isWall(CharacterPosRow-1,CharacterPosCol))
                     CharacterPosRow--;
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
 
             case "2":
             case "Down":
                 if (CharacterPosRow+1 < myMaze.getMazeArray().length && !myMaze.isWall(CharacterPosRow+1,CharacterPosCol))
                     CharacterPosRow++;
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
 
             case "6":
             case "Right":
                 if (CharacterPosCol+1 < myMaze.getMazeArray()[0].length && !myMaze.isWall(CharacterPosRow,CharacterPosCol+1))
                     CharacterPosCol++;
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
 
             case "4":
             case "Left":
                 if (CharacterPosCol-1 >=0 && !myMaze.isWall(CharacterPosRow,CharacterPosCol-1))
                     CharacterPosCol--;
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
 
             case "9":
@@ -165,7 +176,10 @@ public class MyModel extends Observable implements IModel {
                     CharacterPosCol++;
                     CharacterPosRow--;
                 }
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
 
             case "7":
@@ -175,7 +189,10 @@ public class MyModel extends Observable implements IModel {
                     CharacterPosCol--;
                     CharacterPosRow--;
                 }
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
 
             case "3":
@@ -186,7 +203,10 @@ public class MyModel extends Observable implements IModel {
                         CharacterPosCol++;
                         CharacterPosRow++;
                 }
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
 
             case "1":
@@ -197,14 +217,18 @@ public class MyModel extends Observable implements IModel {
                         CharacterPosCol--;
                         CharacterPosRow++;
                 }
-                else flag = false;
+                else {
+                    flag = false;
+                    flag2 = true;
+                }
                 break;
             default:
                 flag = false;
                 break;
         }
         setChanged();
-        notifyObservers(flag? "moved":"notMoved");
+        notifyObservers(flag? "moved" : flag2? "illegalMove" : "notMoved");
+
         if(CharacterPosCol==Goal.getColumnIndex() && CharacterPosRow==Goal.getRowIndex()){
             finished=true;
         }
@@ -238,6 +262,9 @@ public class MyModel extends Observable implements IModel {
             objectIn.close();
             in.close();
             myMaze = new Maze(loadedMaze);
+            this.CharacterPosRow = myMaze.getStartPosition().getRowIndex();
+            this.CharacterPosCol = myMaze.getStartPosition().getColumnIndex();
+            setChanged();
             notifyObservers("Loaded");
         } catch (IOException | ClassNotFoundException var7) {
             var7.printStackTrace();
@@ -257,9 +284,12 @@ public class MyModel extends Observable implements IModel {
     public void setSearchAlgo(String str) {
         Configurations.SetSearchingAlgo(str);
     }
+
     @Override
     public void setGeneratingAlgo(String str) {
         Configurations.SetGeneratingAlgo(str);
+        setChanged();
+        notifyObservers("algorithmChanged");
     }
 
 }

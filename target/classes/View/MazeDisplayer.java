@@ -9,9 +9,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas {
@@ -22,7 +24,7 @@ public class MazeDisplayer extends Canvas {
     private Solution sol;
     private Position startPosition;
     private Position goalPosition;
-    private Image characterImage;
+    public Image characterImage;
 
     private final StringProperty ImageFileWall = new SimpleStringProperty();
 
@@ -63,6 +65,10 @@ public class MazeDisplayer extends Canvas {
     public void drawMaze() {
         if( maze!=null)
         {
+            Image wallImage = null;
+            try { wallImage= new Image(new FileInputStream(ImageFileWall.get())); }
+            catch (FileNotFoundException e){ e.printStackTrace();
+            }
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
             int row = maze.length;
@@ -81,12 +87,7 @@ public class MazeDisplayer extends Canvas {
                     x = j * cellWidth;
                     if(maze[i][j] == 1) // Wall
                     {
-                        try {
-                            Image wallImage = new Image(new FileInputStream(ImageFileWall.get()));
-                            graphicsContext.drawImage(wallImage,x,y,cellHeight,cellWidth);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                        graphicsContext.drawImage(wallImage, x,y,cellHeight,cellWidth);
                     }
                 }
             }
@@ -143,14 +144,15 @@ public class MazeDisplayer extends Canvas {
     }
 
     public void Zoom(){
+
         setOnScroll(event -> {
             if(event.isControlDown()) {
+
                 double change = event.getDeltaY();
                 double zoomConst = 1.03;
                 if (change < 0) {
                     zoomConst = 0.97;
                 }
-
                 setScaleY(getScaleY() * zoomConst);
                 setScaleX(getScaleX() * zoomConst);
                 event.consume();
@@ -160,9 +162,10 @@ public class MazeDisplayer extends Canvas {
 
     public String getImageFileWall(){return ImageFileWall.get();}
 
-    public void setImageFileWall(String  imageFileWall){this.ImageFileWall.set(imageFileWall);}
+    public void setImageFileWall(String imageFileWall){this.ImageFileWall.set(imageFileWall);}
 
     public void setGoalPostion(Position goalPosition) {
         this.goalPosition =  goalPosition;
     }
+
 }

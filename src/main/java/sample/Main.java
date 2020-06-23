@@ -49,15 +49,13 @@ public class Main extends Application {
         launch(args);
         /** Backend */
         // TODO: Zoom !!!
-        // TODO: Empty Maze
 
         /** Frontend */
         // TODO: Instructions - design + Style - Asaf
         // TODO: Resize - Asaf...
 
         /** In The End */
-        // TODO: Comments
-        // TODO: Design Patterns
+        // TODO: Comments, functions order, Design Patterns
         // TODO: Read The instructions again
     }
 }

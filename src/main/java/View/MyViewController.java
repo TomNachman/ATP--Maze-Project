@@ -42,6 +42,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MyViewController implements IView, Observer {
 
@@ -60,6 +61,7 @@ public class MyViewController implements IView, Observer {
     public MenuBar optionsMenu;
     public ChoiceBox<Object> Level;
     public ChoiceBox<Object> Character;
+    public Button playAgain;
     public Button NextLevel;
     public Button generateButton;
     public Menu option;
@@ -280,6 +282,15 @@ public class MyViewController implements IView, Observer {
         phrases[10] = "Ha ha ha, Yeah! I say that all the time";
         insertMedia("say that all the time",10);
 
+        mediaPlayers[3].setOnEndOfMedia(() -> {
+            mediaPlayers[sounds.length-1].setVolume(0.2);
+            mediaPlayers[sounds.length-1].setAutoPlay(true);
+            mediaPlayers[sounds.length-1].setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayers[sounds.length-1].play();
+            playAgain.setDisable(false);
+            NextLevel.setDisable(false);
+        });
+
         boolPhrase = true;
     }
 
@@ -303,6 +314,8 @@ public class MyViewController implements IView, Observer {
         Character.setDisable(false);
         Level.setDisable(false);
         generateButton.setDisable(false);
+        NextLevel.setDisable(true);
+        playAgain.setDisable(true);
 
         // Change Music
         mediaPlayers[sounds.length-1].stop();
@@ -358,15 +371,18 @@ public class MyViewController implements IView, Observer {
     }
 
     public void keyPressed(javafx.scene.input.KeyEvent keyEvent) {
-        switch(keyEvent.getCode()){
-            case F1: GenerateMaze(); break;
-            case F2: saveMaze(); break;
-            case F3: loadMaze(); break;
-            case CONTROL: { mazeDisplayer.Zoom();}
-            default: viewModel.MoveCharacter(keyEvent.getCode());break;
-        }
-        if (viewModel.getCharacterRowPos() == viewModel.getGoalPosition().getRowIndex() && viewModel.getCharacterColPos() == viewModel.getGoalPosition().getColumnIndex()){
-            finishMaze();
+        if (!finishPane.isVisible()) {
+            switch(keyEvent.getCode()){
+                case F1: GenerateMaze(); break;
+                case F2: saveMaze(); break;
+                case F3: loadMaze(); break;
+                case CONTROL: { mazeDisplayer.Zoom();}
+                default: viewModel.MoveCharacter(keyEvent.getCode());break;
+            }
+
+            if (mazeDisplayer.characterPositionRow == viewModel.getGoalPosition().getRowIndex() && mazeDisplayer.characterPositionColumn == viewModel.getGoalPosition().getColumnIndex()) {
+                finishMaze();
+            }
         }
     }
 
@@ -374,27 +390,21 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.requestFocus();
     }
 
-    public void finishMaze()  {
-
+    public void finishMaze() {
         // Add Music
-        if(!boolPhrase){setMusic();}
         finishPane.setVisible(true);
         labelSteps.setText(String.format("You Moved %d Steps.", this.stepCounter));
         if(Level.getValue().equals("Rick"))
             NextLevel.setDisable(true);
         if(mediaPlayers[sounds.length-2].isAutoPlay())
             mediaPlayers[sounds.length-2].stop();
-        mediaPlayers[sounds.length-1].setVolume(0.2);
-        mediaPlayers[sounds.length-1].setAutoPlay(true);
-        mediaPlayers[sounds.length-1].setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayers[sounds.length-1].play();
 
-        if(finishPane.isVisible())
-        {
-            Character.setDisable(true);
-            Level.setDisable(true);
-            generateButton.setDisable(true);
-        }
+        Character.setDisable(true);
+        Level.setDisable(true);
+        generateButton.setDisable(true);
+
+        mediaPlayers[3].stop();
+        mediaPlayers[3].play();
 
         LOG.info("user solved the maze");
 
@@ -490,7 +500,7 @@ public class MyViewController implements IView, Observer {
         stage.setTitle("Instructions");
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("Instructions.fxml").openStream());
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, 700, 400));
         stage.show();
     }
 

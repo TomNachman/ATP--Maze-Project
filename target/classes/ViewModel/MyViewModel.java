@@ -3,7 +3,6 @@ package ViewModel;
 import Model.IModel;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -25,6 +24,7 @@ public class MyViewModel extends Observable implements Observer {
     public int[][] getMaze(){
         return model.getMaze();
     }
+
     public Solution getSolution() {
         return model.getMySolution();
     }
@@ -33,9 +33,7 @@ public class MyViewModel extends Observable implements Observer {
         model.MoveCharacter(movement);
     }
 
-    public void loadMaze(File file){
-        model.LoadMaze(file);
-    }
+    public void loadMaze(File file){ model.LoadMaze(file);}
 
     public void saveMaze(File file){
         model.SaveMaze(file);
@@ -64,12 +62,12 @@ public class MyViewModel extends Observable implements Observer {
     public Position getGoalPosition(){
         return model.getGoalPosition();
     }
+
     public void setSearchAlgo(String str) {
         model.setSearchAlgo(str);
     }
-    public void setGeneratingAlgo(String str) {
-        model.setGeneratingAlgo(str);
-    }
+
+    public void setGeneratingAlgo(String str) {model.setGeneratingAlgo(str); }
 
 
     @Override
@@ -79,7 +77,4 @@ public class MyViewModel extends Observable implements Observer {
             notifyObservers(arg);
         }
     }
-
-
-
 }
