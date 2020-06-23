@@ -51,11 +51,9 @@ public class Main extends Application {
         // TODO: Zoom !!!
 
         /** Frontend */
-        // TODO: Instructions - design + Style - Asaf
         // TODO: Resize - Asaf...
 
         /** In The End */
         // TODO: Comments, functions order, Design Patterns
-        // TODO: Read The instructions again
     }
 }

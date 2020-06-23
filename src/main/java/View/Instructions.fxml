@@ -5,32 +5,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(darkslateblue, Black)" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="400.0" prefWidth="700.0">
          <ImageView fitHeight="107.0" fitWidth="85.0" layoutX="299.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@/Images/numPad2.png" />
          </ImageView>
-         <Label contentDisplay="CENTER" layoutX="284.0" layoutY="6.0" prefHeight="32.0" prefWidth="134.0" text="Instructions" textOverrun="CENTER_WORD_ELLIPSIS" underline="true">
+         <Label contentDisplay="CENTER" layoutX="283.0" layoutY="8.0" prefHeight="32.0" prefWidth="134.0" text="Instructions" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" underline="true">
             <font>
-               <Font size="22.0" />
+               <Font name="Cambria Bold" size="22.0" />
             </font>
          </Label>
-         <Text layoutX="26.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your character is defaultly represented by Morty but you can change it as you like by choosing it in the Main Page." wrappingWidth="476.244140625">
+         <Text fill="WHITE" layoutX="26.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your character is defaultly represented by Morty but you can change it as you like by choosing it in the Main Page." wrappingWidth="476.244140625">
             <font>
                <Font name="Cambria" size="17.0" />
             </font></Text>
-         <Text layoutX="25.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The green Portal is your Target! if you can't reach it press the &quot;Solve&quot; button under &quot;Help&quot; , after pressing the path to the Portal will be shown, that option is of course for loosers." wrappingWidth="448.2441418766976">
+         <Text fill="WHITE" layoutX="25.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The green Portal is your Target! if you can't reach it press the &quot;Solve&quot; button under &quot;Help&quot; , after pressing the path to the Portal will be shown, that option is of course for loosers." wrappingWidth="448.2441418766976">
             <font>
                <Font name="Cambria" size="17.0" />
             </font></Text>
-         <Text layoutX="28.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movement Options:" wrappingWidth="164.24410712136893">
+         <Text fill="WHITE" layoutX="28.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movement Options:" wrappingWidth="164.24410712136893">
             <font>
                <Font name="Cambria" size="17.0" />
             </font></Text>
-         <Text layoutX="290.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hope you Enjoy!" textAlignment="CENTER" wrappingWidth="134.24414658546448">
+         <Text fill="WHITE" layoutX="243.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hope you will enjoy!" textAlignment="CENTER" wrappingWidth="214.24414658546448">
             <font>
-               <Font size="14.0" />
+               <Font size="18.0" />
             </font></Text>
          <Text layoutX="26.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0">
             <font>
@@ -47,19 +47,19 @@
                <Image url="@/Images/Morty.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="81.0" fitWidth="85.0" layoutX="89.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="81.0" fitWidth="85.0" layoutX="110.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@/Images/arrowKey.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="512.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="506.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@/Images/mouse.png" />
             </image>
          </ImageView>
-         <Text layoutX="292.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NumPad\Numbers" />
-         <Text layoutX="100.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrow Keys" />
-         <Text layoutX="509.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click and Drag" />
+         <Text fill="WHITE" layoutX="292.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NumPad\Numbers" />
+         <Text fill="WHITE" layoutX="121.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrow Keys" />
+         <Text fill="WHITE" layoutX="492.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click and Drag" />
       </Pane>
    </children>
 </AnchorPane>

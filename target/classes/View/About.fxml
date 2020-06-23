@@ -1,47 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fitHeight="361.0" fitWidth="642.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="441.0" fitWidth="783.0" layoutX="-28.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@Images/AboutBackround.jpg" />
+                <Image url="@/Images/AboutBackround.jpg" />
             </image>
         </ImageView>
-        <Text fill="WHITE" layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This game was created as a project in the course 'Advanced Topics in Programming, taken in 'Ben Gurion University' of Israel. as part of the 'Software and Information Systems Engineering" wrappingWidth="222.244140625" />
-        <Text fill="WHITE" layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rick &amp; Morty Maze © 2020">
+        <Text fill="WHITE" layoutX="14.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This game was created as a project in the course 'Advanced Topics in Programming, taken in 'Ben Gurion University' of Israel. as part of the 'Software and Information Systems Engineering" wrappingWidth="249.24415588378906">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font></Text>
+        <Text fill="WHITE" layoutX="257.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rick &amp; Morty Maze © 2020">
             <font>
-                <Font name="System Bold" size="12.0" />
+                <Font name="Cambria" size="16.0" />
             </font>
         </Text>
-        <Text fill="WHITE" layoutX="14.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About" underline="true">
+        <Text fill="WHITE" layoutX="44.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About" textAlignment="CENTER" underline="true" wrappingWidth="128.25878007883148">
             <font>
-                <Font size="16.0" />
+                <Font name="Cambria" size="18.0" />
             </font>
         </Text>
-        <Text fill="WHITE" layoutX="513.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Authors:" underline="true" wrappingWidth="64.30468586087227" />
-        <Text fill="lightgreen" layoutX="491.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tom Nachman " wrappingWidth="115.25879046320915">
+        <Text fill="WHITE" layoutX="571.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tom Nachman " textAlignment="CENTER" wrappingWidth="115.25879046320915">
             <font>
-                <Font name="System Bold" size="12.0" />
+                <Font name="Cambria" size="16.0" />
             </font>
         </Text>
-        <Text fill="lightgreen" layoutX="493.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asaf Salomon" wrappingWidth="97.25879046320915">
+        <Text fill="WHITE" layoutX="580.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asaf Salomon" textAlignment="CENTER" wrappingWidth="97.25879046320915">
             <font>
-                <Font name="System Bold" size="12.0" />
+                <Font name="Cambria" size="16.0" />
             </font>
         </Text>
-        <Text fill="WHITE" layoutX="14.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Algorithm used in game:" underline="true" wrappingWidth="160.43701171875" />
-        <Text fill="WHITE" layoutX="15.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For generating Maze:" wrappingWidth="140" />
-        <Text fill="WHITE" layoutX="15.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prim Algorithm" wrappingWidth="128.2587890625" />
-        <Text fill="WHITE" layoutX="14.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For Solving:" wrappingWidth="139.908203125" />
+        <Text fill="WHITE" layoutX="469.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Algorithms" textAlignment="CENTER" underline="true" wrappingWidth="160.43701171875">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font></Text>
+        <Text fill="WHITE" layoutX="442.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generating:" wrappingWidth="140">
+         <font>
+            <Font name="Cambria" size="16.0" />
+         </font></Text>
+        <Text fill="WHITE" layoutX="540.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prim Algorithm" wrappingWidth="128.2587890625">
+         <font>
+            <Font name="Cambria" size="16.0" />
+         </font></Text>
+        <Text fill="WHITE" layoutX="442.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solving:" wrappingWidth="139.908203125">
+         <font>
+            <Font name="Cambria" size="16.0" />
+         </font></Text>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-        <Text fill="WHITE" layoutX="14.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BestFS ,DFS ,BreathFS " wrappingWidth="202.03613752126694" />
-        <Text fill="WHITE" layoutX="519.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Version 1.0.0.0" wrappingWidth="87.908203125">
+        <Text fill="WHITE" layoutX="540.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BestFS ,DFS ,BreathFS " wrappingWidth="202.03613752126694">
+         <font>
+            <Font name="Cambria" size="16.0" />
+         </font></Text>
+        <Text fill="WHITE" layoutX="297.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Version 1.0.0.0" wrappingWidth="105.908203125">
             <font>
-                <Font name="System Bold" size="12.0" />
+                <Font name="Cambria" size="16.0" />
             </font>
         </Text>
     </children>

@@ -419,15 +419,13 @@ public class MyViewController implements IView, Observer {
 
     public void loadMaze(){
         File chosenMaze = openFile();
-        if(chosenMaze==null)
+        if(chosenMaze!=null)
         {
-            LOG.error("could not load maze ");
-            showAlert("Maze loading was cancelled.", "Load Error!");
-            return;
+            this.viewModel.loadMaze(chosenMaze);
+            this.displayMaze(this.viewModel.getMaze());
+            LOG.info("user loaded maze "+ chosenMaze.getName());
         }
-        this.viewModel.loadMaze(chosenMaze);
-        this.displayMaze(this.viewModel.getMaze());
-        LOG.info("user loaded maze "+ chosenMaze.getName());
+
     }
 
     private File openFile() {
@@ -449,14 +447,10 @@ public class MyViewController implements IView, Observer {
             fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/Mazes"));
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("maze", "*.maze"));
             File savedFile = fileChooser.showSaveDialog(null);
-            LOG.info("user saved maze as "+savedFile.getName());
             if (savedFile != null) {
                 viewModel.saveMaze(savedFile);
-
+                LOG.info("user saved maze as "+savedFile.getName());
                 showAlert("Maze saved: " + savedFile.getName(), "Save Success!");
-            }
-            else {
-                showAlert("Maze save was cancelled.", "Save Error!");
             }
         }
     }
@@ -523,7 +517,7 @@ public class MyViewController implements IView, Observer {
         stage.setTitle("About");
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(getClass().getResource("About.fxml").openStream());
-        stage.setScene(new Scene(root, 600, 340));
+        stage.setScene(new Scene(root, 700, 400));
         stage.show();
     }
 
@@ -569,11 +563,13 @@ public class MyViewController implements IView, Observer {
         plumbusStage.setOnCloseRequest(event ->
         {
             plumbusPlayer.stop();
-            mediaPlayers[sounds.length-2].play();
+            mediaPlayers[sounds.length-2].setMute(false);
+            mediaPlayers[sounds.length-1].setMute(false);
+
         });
 
-        if(mediaPlayers[sounds.length-1].isAutoPlay()) mediaPlayers[sounds.length-1].stop();
-        if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].stop();
+        if(mediaPlayers[sounds.length-1].isAutoPlay()) mediaPlayers[sounds.length-1].setMute(true);
+        if(mediaPlayers[sounds.length-2].isAutoPlay()) mediaPlayers[sounds.length-2].setMute(true);
     }
 
     private void setFailStep(){
