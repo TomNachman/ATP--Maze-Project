@@ -237,6 +237,7 @@ public class MyModel extends Observable implements IModel {
             objectIn.close();
             in.close();
             myMaze = new Maze(loadedMaze);
+            notifyObservers("Loaded");
         } catch (IOException | ClassNotFoundException var7) {
             var7.printStackTrace();
         }
@@ -259,4 +260,5 @@ public class MyModel extends Observable implements IModel {
     public void setGeneratingAlgo(String str) {
         Configurations.SetGeneratingAlgo(str);
     }
+
 }

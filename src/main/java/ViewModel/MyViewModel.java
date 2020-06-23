@@ -24,7 +24,6 @@ public class MyViewModel extends Observable implements Observer {
     public int[][] getMaze(){
         return model.getMaze();
     }
-
     public Solution getSolution() {
         return model.getMySolution();
     }

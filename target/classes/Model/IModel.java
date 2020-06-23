@@ -2,6 +2,7 @@ package Model;
 
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;

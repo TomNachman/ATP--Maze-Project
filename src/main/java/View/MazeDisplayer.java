@@ -22,7 +22,7 @@ public class MazeDisplayer extends Canvas {
     private Solution sol;
     private Position startPosition;
     private Position goalPosition;
-    private Image characterImage;
+    public Image characterImage;
 
     private final StringProperty ImageFileWall = new SimpleStringProperty();
 
@@ -71,7 +71,6 @@ public class MazeDisplayer extends Canvas {
             double cellWidth = canvasWidth/col;
             GraphicsContext graphicsContext = getGraphicsContext2D();
             graphicsContext.clearRect(0,0,canvasWidth,canvasHeight);
-            //graphicsContext.setFill(Color.BLACK);
             double x,y;
 
             //Draw Maze
@@ -143,14 +142,15 @@ public class MazeDisplayer extends Canvas {
     }
 
     public void Zoom(){
+
         setOnScroll(event -> {
             if(event.isControlDown()) {
+
                 double change = event.getDeltaY();
                 double zoomConst = 1.03;
                 if (change < 0) {
                     zoomConst = 0.97;
                 }
-
                 setScaleY(getScaleY() * zoomConst);
                 setScaleX(getScaleX() * zoomConst);
                 event.consume();
@@ -165,4 +165,5 @@ public class MazeDisplayer extends Canvas {
     public void setGoalPostion(Position goalPosition) {
         this.goalPosition =  goalPosition;
     }
+
 }

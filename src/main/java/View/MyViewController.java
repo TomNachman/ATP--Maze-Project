@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -417,7 +419,7 @@ public class MyViewController implements IView, Observer {
     private File openFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose your Rick & Morty maze");
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/Mazes"));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("maze", "*.maze"));
         return fileChooser.showOpenDialog(Main.prim);
     }
@@ -430,7 +432,7 @@ public class MyViewController implements IView, Observer {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save maze");
             fileChooser.setInitialFileName("Rick & Morty Maze");
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/"));
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.dir") + "/resources/Mazes"));
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("maze", "*.maze"));
             File savedFile = fileChooser.showSaveDialog(null);
             LOG.info("user saved maze as "+savedFile.getName());
@@ -594,8 +596,27 @@ public class MyViewController implements IView, Observer {
                 }
                 break;
             case "notMoved": musicFail(); break;
+            case "Loaded": initiateCharacters(); break;
             case "generated": displayMaze(viewModel.getMaze()); break;
         }
     }
+    public void dragPlayer(MouseEvent mouseEvent) {
+        double cellHeight = mazeDisplayer.getHeight()/ viewModel.getMaze().length;
+        double cellWidth = mazeDisplayer.getWidth() / viewModel.getMaze()[0].length;
+        double mouseX =(int) ((mouseEvent.getX()) / (cellWidth));
+        double mouseY =(int) ((mouseEvent.getY()) / (cellHeight));
+        //if not finished
+        if(!(viewModel.getCharacterRowPos() == viewModel.getGoalPosition().getRowIndex() && viewModel.getCharacterColPos() == viewModel.getGoalPosition().getColumnIndex())){
+            if(mouseY < viewModel.getCharacterRowPos() && mouseX==viewModel.getCharacterColPos())
+                viewModel.MoveCharacter(KeyCode.UP);
+            if(mouseY > viewModel.getCharacterRowPos() && mouseX==viewModel.getCharacterColPos())
+                viewModel.MoveCharacter(KeyCode.DOWN);
+            if(mouseX < viewModel.getCharacterColPos() && mouseY == viewModel.getCharacterRowPos())
+                viewModel.MoveCharacter(KeyCode.LEFT);
+            if(mouseX > viewModel.getCharacterColPos() && mouseY == viewModel.getCharacterRowPos())
+                viewModel.MoveCharacter(KeyCode.RIGHT);
 
+        }
+        else finishMaze();
+    }
 }
