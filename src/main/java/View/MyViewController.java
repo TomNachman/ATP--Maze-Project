@@ -5,8 +5,8 @@ import algorithms.search.Solution;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,9 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,14 +27,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sample.Main;
-import sun.security.krb5.internal.rcache.DflCache;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -45,29 +41,42 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class MyViewController implements IView, Observer {
 
+    @FXML
     public MazeDisplayer mazeDisplayer;
-    public TextField textField_mazeRows;
-    public TextField textField_mazeColumns;
-    public Label labelCatch;
+    @FXML
     public Label labelSteps;
+    @FXML
     public ImageView speaker;
+    @FXML
     public ImageView RickTitle;
+    @FXML
     public Pane finishPane;
+    @FXML
     public BorderPane BorderPane;
+    @FXML
     public Pane MainPane;
+    @FXML
     public Pane MazePane;
+    @FXML
     public Rectangle MazeRectangle;
+    @FXML
     public MenuBar optionsMenu;
+    @FXML
     public ChoiceBox<Object> Level;
+    @FXML
     public ChoiceBox<Object> Character;
+    @FXML
     public Button playAgain;
+    @FXML
     public Button NextLevel;
+    @FXML
     public Button generateButton;
+    @FXML
     public Menu option;
+    @FXML
     public ScrollPane scrollPane;
 
 
@@ -152,8 +161,6 @@ public class MyViewController implements IView, Observer {
     }
 
     private void dynamicResize(){
-
-        System.out.println("Resize");
 
         double minSize = Math.min(mHeight, mWidth);
         minSize = Math.min(minSize, 950);
@@ -572,12 +579,14 @@ public class MyViewController implements IView, Observer {
         insertMedia("say that all the time",10);
 
         mediaPlayers[3].setOnEndOfMedia(() -> {
-            mediaPlayers[sounds.length-1].setVolume(0.2);
-            mediaPlayers[sounds.length-1].setAutoPlay(true);
-            mediaPlayers[sounds.length-1].setCycleCount(MediaPlayer.INDEFINITE);
-            mediaPlayers[sounds.length-1].play();
-            playAgain.setDisable(false);
-            NextLevel.setDisable(false);
+            if(finishPane.isVisible()){
+                mediaPlayers[sounds.length-1].setVolume(0.5);
+                mediaPlayers[sounds.length-1].setAutoPlay(true);
+                mediaPlayers[sounds.length-1].setCycleCount(MediaPlayer.INDEFINITE);
+                mediaPlayers[sounds.length-1].play();
+                playAgain.setDisable(false);
+                NextLevel.setDisable(false);
+            }
         });
 
         for(MediaPlayer mediaPlayer: mediaPlayers)
