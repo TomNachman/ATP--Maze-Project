@@ -12,7 +12,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-
 public class Main extends Application {
     public static Stage prim;
     @Override

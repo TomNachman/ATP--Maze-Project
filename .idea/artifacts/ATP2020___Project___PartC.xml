@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/ATP2020___Project___PartC</output-path>
     <properties id="javafx-properties">
       <options>
-        <option name="appClass" value="sample.Main" />
+        <option name="appClass" value="View.Main" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
         <option name="nativeBundle" value="all" />
@@ -16,6 +16,11 @@
       <element id="archive" name="ATP2020___Project___PartC.jar">
         <element id="module-output" name="ATP2020 - Project - PartC" />
       </element>
+      <element id="library" level="project" name="ATPProjectJAR" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.3.2" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.9.1" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.9.1" />
+      <element id="library" level="project" name="Maven: commons-io:commons-io:2.5" />
     </root>
   </artifact>
 </component>

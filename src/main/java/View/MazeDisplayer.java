@@ -147,15 +147,28 @@ public class MazeDisplayer extends Canvas {
 
         setOnScroll(event -> {
             if(event.isControlDown()) {
-
                 double change = event.getDeltaY();
                 double zoomConst = 1.03;
                 if (change < 0) {
                     zoomConst = 0.97;
                 }
-                setScaleY(getScaleY() * zoomConst);
-                setScaleX(getScaleX() * zoomConst);
-                event.consume();
+
+                if(getScaleY() * zoomConst >= 1 && getScaleX() * zoomConst >= 1){
+                    setScaleY(getScaleY() * zoomConst);
+                    setScaleX(getScaleX() * zoomConst);
+
+                    setHeight(getHeight()+ change);
+                    setWidth(getWidth()+change);
+
+                    drawMaze();
+                    drawPortal();
+                    ReDrawCharacter();
+                }
+
+                System.out.println("Get Scale Y:" + getScaleY());
+                System.out.println("Height -" + getHeight());
+                System.out.println("width -" + getWidth());
+                //event.consume();
             }
         });
     }

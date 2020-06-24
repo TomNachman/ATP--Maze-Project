@@ -32,15 +32,13 @@ public class MyModel extends Observable implements IModel {
     private static final Logger LOG = LogManager.getLogger();
 
     public void StartServers() {
-        mazeGenerateServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
-        solveMazeServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        mazeGenerateServer = new Server(5421, 1000, new ServerStrategyGenerateMaze());
+        solveMazeServer = new Server(5422, 1000, new ServerStrategySolveSearchProblem());
         mazeGenerateServer.start();
         //Configurator.setRootLevel(Level.INFO);
         LOG.info("Maze-Generating server started");
         solveMazeServer.start();
         LOG.info("Solve-Maze server started");
-
-
     }
 
     public void stopServers() {
