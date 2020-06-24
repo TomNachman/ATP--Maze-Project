@@ -25,14 +25,11 @@ public class Main extends Application {
         Parent root = loader.load();
         MyViewController view = loader.getController();
 
-
         primaryStage.setTitle("Rick And Morty - Maze Game");
         Scene scene = new Scene(root, 800, 750);
 
-        scene.heightProperty().addListener((observable, oldValue, newValue) -> view.BorderPane.heightProperty());
-        scene.widthProperty().addListener((observable, oldValue, newValue) -> view.BorderPane.widthProperty());
 
-        view.setViewModel(viewModel, scene);
+        view.setViewModel(viewModel);
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(800); primaryStage.setMinHeight(750);
         primaryStage.setOnCloseRequest(event -> {if(view.Exit()==1) event.consume();});
@@ -51,11 +48,8 @@ public class Main extends Application {
         // TODO: Zoom !!!
 
         /** Frontend */
-        // TODO: Instructions -
-        // TODO: Resize - Asaf...
 
         /** In The End */
-        // TODO: Comments, functions order, Design Patterns
-        // TODO: Read The instructions again
+        // TODO: Comments
     }
 }
