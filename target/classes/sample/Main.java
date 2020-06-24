@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ public class Main extends Application {
         primaryStage.setTitle("Rick And Morty - Maze Game");
         Scene scene = new Scene(root, 800, 750);
 
+        String url = "file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/pickle.png";
+        primaryStage.getIcons().add(new Image(url));
 
         view.setViewModel(viewModel);
         primaryStage.setScene(scene);

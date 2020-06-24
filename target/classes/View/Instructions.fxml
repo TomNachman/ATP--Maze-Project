@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(darkslateblue, Black)" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(Black, darkslateblue)" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="400.0" prefWidth="700.0">
          <ImageView fitHeight="107.0" fitWidth="85.0" layoutX="299.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
@@ -16,15 +16,20 @@
                <Font name="Cambria Bold" size="22.0" />
             </font>
          </Label>
-         <Text fill="WHITE" layoutX="26.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your character is defaultly represented by Morty but you can change it as you like by choosing it in the Main Page." wrappingWidth="476.244140625">
+         <Text fill="WHITE" layoutX="26.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your character is defaultly represented by Morty -&gt; " wrappingWidth="476.244140625">
             <font>
                <Font name="Cambria" size="17.0" />
             </font></Text>
-         <Text fill="WHITE" layoutX="25.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The green Portal is your Target! if you can't reach it press the &quot;Solve&quot; button under &quot;Help&quot; , after pressing the path to the Portal will be shown, that option is of course for loosers." wrappingWidth="448.2441418766976">
+         <Text fill="WHITE" layoutX="26.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="But! you can change it as you like by choosing it in the Main Page." wrappingWidth="483.1367130279541">
+            <font>
+               <Font name="Cambria" size="17.0" />
+            </font>
+         </Text>
+         <Text fill="WHITE" layoutX="26.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The green Portal is your Target! if you can't reach it press the &quot;Solve&quot; button under &quot;Help&quot;. after pressing the path to the Portal will be shown. (that option is of course for loosers)." wrappingWidth="448.2441418766976">
             <font>
                <Font name="Cambria" size="17.0" />
             </font></Text>
-         <Text fill="WHITE" layoutX="28.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movement Options:" wrappingWidth="164.24410712136893">
+         <Text fill="WHITE" layoutX="26.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movement Options:" wrappingWidth="164.24410712136893">
             <font>
                <Font name="Cambria" size="17.0" />
             </font></Text>
@@ -37,22 +42,22 @@
                <Font name="Cambria" size="18.0" />
             </font>
          </Text>
-         <ImageView fitHeight="49.0" fitWidth="45.0" layoutX="525.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="41.0" fitWidth="38.0" layoutX="530.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@/Images/portal.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="518.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="525.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@/Images/Morty.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="81.0" fitWidth="85.0" layoutX="110.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="72.0" fitWidth="99.0" layoutX="101.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@/Images/arrowKey.png" />
             </image>
          </ImageView>
-         <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="506.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="511.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@/Images/mouse.png" />
             </image>
