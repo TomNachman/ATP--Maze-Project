@@ -7432,3 +7432,5 @@
 2020.06.25 21:34:28.011 INFO  View.MyViewController - User generated new maze
 2020.06.25 21:34:31.825 INFO  Model.MyModel - Maze-Generating server stopped
 2020.06.25 21:34:31.825 INFO  Model.MyModel - Solve-Maze server stopped
+2020.06.25 21:37:10.497 INFO  Model.MyModel - Maze-Generating server started
+2020.06.25 21:37:10.499 INFO  Model.MyModel - Solve-Maze server started

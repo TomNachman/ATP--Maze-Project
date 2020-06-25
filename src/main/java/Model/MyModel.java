@@ -50,8 +50,8 @@ public class MyModel extends Observable implements IModel {
         LOG.info("Solve-Maze server stopped");
     }
 
-    @Override
     /** getMaze: Function return the array represent of the maze */
+    @Override
     public int[][] getMaze() {
         return myMaze.getMazeArray();
     }
