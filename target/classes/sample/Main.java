@@ -47,10 +47,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         /** Backend */
-        // TODO: Zoom !!!
-
         /** Frontend */
-
         /** In The End */
         // TODO: Comments
     }

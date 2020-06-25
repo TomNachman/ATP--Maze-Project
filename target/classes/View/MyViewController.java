@@ -94,6 +94,7 @@ public class MyViewController implements IView, Observer {
     private Scene myScene;
     private int stepCounter;
     private static final Logger LOG = LogManager.getLogger();
+    private double scrollSize = 0;
 
     boolean plumbsLoaded = false;
     Media plumbusMedia;
@@ -328,6 +329,9 @@ public class MyViewController implements IView, Observer {
 
         this.stepCounter = 0;
         LOG.info("User generated new maze");
+        mazeDisplayer.setWidth(scrollPane.getWidth()-3);
+        mazeDisplayer.setHeight(scrollPane.getHeight()-3);
+
     }
 
     public void SolveMaze() {
@@ -383,7 +387,26 @@ public class MyViewController implements IView, Observer {
                 case F1: GenerateMaze(); break;
                 case F2: saveMaze(); break;
                 case F3: loadMaze(); break;
-                case CONTROL: { mazeDisplayer.Zoom();}
+                case CONTROL: {
+                    if(scrollSize == 0) scrollSize = mazeDisplayer.getHeight();
+                    mazeDisplayer.getScene().setOnScroll(event -> {
+                        if(event.isControlDown()){
+                            if(mazeDisplayer.getHeight() >= scrollSize){
+                                mazeDisplayer.setHeight(mazeDisplayer.getHeight()*(event.getDeltaY()>0?1.03: mazeDisplayer.getHeight() == scrollSize? 1: 0.97));
+                                mazeDisplayer.setWidth(mazeDisplayer.getWidth()*(event.getDeltaY()>0?1.03: mazeDisplayer.getHeight() == scrollSize? 1: 0.97));
+                                mazeDisplayer.drawMaze();
+                                mazeDisplayer.drawPortal();
+                                mazeDisplayer.ReDrawCharacter();
+                            }
+                            else{
+                                mazeDisplayer.setHeight(scrollPane.getHeight()-3);
+                                mazeDisplayer.setWidth(scrollPane.getWidth()-3);
+                            }
+                            mazeDisplayer.requestFocus();
+                            event.consume();
+                        }
+                    });
+                }
                 default: viewModel.MoveCharacter(keyEvent.getCode());break;
             }
 

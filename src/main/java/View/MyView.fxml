@@ -13,7 +13,7 @@
          <Pane fx:id="MazePane" layoutX="105.0" layoutY="50.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <children>
                <Rectangle fx:id="MazeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ebf5ff" height="450.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="450.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-               <ScrollPane fx:id="scrollPane" opacity="0.5" prefHeight="600.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitToWidth="true" fitToHeight="true" onKeyPressed="#keyPressed">
+               <ScrollPane fx:id="scrollPane" opacity="0.7" prefHeight="600.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" fitToWidth="true" fitToHeight="true" onKeyPressed="#keyPressed">
                   <MazeDisplayer fx:id="mazeDisplayer" height="450.0" imageFileWall="./resources/Images/compress_wall.jpg" nodeOrientation="INHERIT" onMouseClicked="#mazeMouseClicked" onMouseDragged="#dragPlayer" width="450.0" />
                </ScrollPane>
                <Pane fx:id="finishPane" layoutX="32.0" layoutY="42.0" prefHeight="367.0" prefWidth="388.0">
