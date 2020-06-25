@@ -76,7 +76,7 @@
                            <fx:define>
                               <ToggleGroup fx:id="search" />
                            </fx:define>
-                           <RadioMenuItem fx:id="best" mnemonicParsing="false" onAction="#selectSearchingAlgo" selected="true" text="Best"/>
+                           <RadioMenuItem fx:id="best" mnemonicParsing="false" onAction="#selectSearchingAlgo" selected="true" text="Best" toggleGroup="$search"/>
                            <RadioMenuItem fx:id="BFS" mnemonicParsing="false" onAction="#selectSearchingAlgo" text="BFS" toggleGroup="$search" />
                            <RadioMenuItem fx:id="DFS" mnemonicParsing="false" onAction="#selectSearchingAlgo" text="DFS" toggleGroup="$search" />
                         </Menu>
@@ -84,7 +84,7 @@
                            <fx:define>
                               <ToggleGroup fx:id="generate" />
                            </fx:define>
-                           <RadioMenuItem fx:id="simple" mnemonicParsing="false" onAction="#selectGeneratingAlgo" text="Simple Maze"/>
+                           <RadioMenuItem fx:id="simple" mnemonicParsing="false" onAction="#selectGeneratingAlgo" text="Simple Maze" toggleGroup="$generate"/>
                            <RadioMenuItem fx:id="complicated" mnemonicParsing="false" onAction="#selectGeneratingAlgo" selected="true" text="Complicated Maze" toggleGroup="$generate" />
                         </Menu>
 

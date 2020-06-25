@@ -31,6 +31,7 @@ public class MyModel extends Observable implements IModel {
     private Solution mySolution;
     private static final Logger LOG = LogManager.getLogger();
 
+    /** StartServers: Function start the Servers generate the maze and solve it */
     public void StartServers() {
         mazeGenerateServer = new Server(5420, 1000, new ServerStrategyGenerateMaze());
         solveMazeServer = new Server(5421, 1000, new ServerStrategySolveSearchProblem());
@@ -41,6 +42,7 @@ public class MyModel extends Observable implements IModel {
         LOG.info("Solve-Maze server started");
     }
 
+    /** stopServers: Function stop the Servers */
     public void stopServers() {
         mazeGenerateServer.stop();
         LOG.info("Maze-Generating server stopped");
@@ -49,19 +51,23 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
+    /** getMaze: Function return the array represent of the maze */
     public int[][] getMaze() {
         return myMaze.getMazeArray();
     }
 
+    /** isFinished: Function return if the player finished the game */
     public boolean isFinished() {
         return finished;
     }
 
+    /** getMySolution: Function return the solution of the maze */
     public Solution getMySolution(){
         solveMaze();
         return mySolution;
     }
 
+    /** solveMaze: Function solve the maze */
     @Override
     public void solveMaze(){
         try {
@@ -88,6 +94,7 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
+    /** generateMaze: Function generate the maze */
     @Override
     public void generateMaze(int width, int height) {
         try {
@@ -122,6 +129,7 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
+    /** MoveCharacter: Function move the Character on the maze (if the movement is legal) */
     @Override
     public void MoveCharacter(KeyCode movement){
         boolean flag = true, flag2 = false;
@@ -232,12 +240,15 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
+    /** GetCharacterRowPos: Function return the Row index position of the Character in the maze */
     @Override
     public int GetCharacterRowPos(){ return CharacterPosRow;}
 
+    /** GetCharacterRowPos: Function return the Col index position of the Character in the maze */
     @Override
     public int GetCharacterColPos(){ return CharacterPosCol;}
 
+    /** SaveMaze: Function save the maze */
     @Override
     public void SaveMaze(File file) {
         try {
@@ -251,6 +262,7 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
+    /** LoadMaze: Function load a '.Maze' the maze */
     @Override
     public void LoadMaze(File file) {
         try {
@@ -269,20 +281,24 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
+    /** getStartPosition: Function return the start Position of the maze */
     @Override
     public Position getStartPosition() {
         return myMaze.getStartPosition();
     }
 
+    /** getGoalPosition: Function return the goal Position of the maze */
     @Override
     public Position getGoalPosition() {
         return myMaze.getGoalPosition();
     }
 
+    /** setSearchAlgo: Function change the configuration file according to input (search part) */
     public void setSearchAlgo(String str) {
         Configurations.SetSearchingAlgo(str);
     }
 
+    /** setSearchAlgo: Function change the configuration file according to input (generate part) */
     @Override
     public void setGeneratingAlgo(String str) {
         Configurations.SetGeneratingAlgo(str);

@@ -30,6 +30,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sample.Main;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -41,6 +42,9 @@ import java.util.Observer;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ *      Class MyViewController: the 'Main' controller of the View (MyView.fxml)
+ */
 public class MyViewController implements IView, Observer {
 
     @FXML
@@ -78,7 +82,6 @@ public class MyViewController implements IView, Observer {
     @FXML
     public ScrollPane scrollPane;
 
-
     protected MyViewModel viewModel;
     private boolean mazeExists = false;
     private final String [] phrases = new String[13];
@@ -99,13 +102,17 @@ public class MyViewController implements IView, Observer {
     Media plumbusMedia;
     MediaPlayer plumbusPlayer;
 
+
+    /** setViewModel: Function get a viewModel and set it as the view model of the class */
     public void setViewModel(MyViewModel vm){
         this.viewModel = vm;
         this.viewModel.addObserver(this);
     }
 
-    /** Initiate:
-     * all those functions should be called to initialize the Game at the beginning*/
+
+    // Initiate: All These functions should be called to initialize the Game at the beginning
+
+    /** init: The function initiate the important functions and declaration for the Game in the first time */
     public void init(){
 
         // initiate
@@ -139,6 +146,7 @@ public class MyViewController implements IView, Observer {
         BorderPane.getScene().getWindow().setHeight(750);
     }
 
+    /** initiateCharacters: The function initiate the 'Characters' options */
     private void initiateCharacters(){
         Character.setItems(FXCollections.observableArrayList(
                 "Morty", "Summer", "Pickle Rick", "Worm Jerry",
@@ -150,6 +158,7 @@ public class MyViewController implements IView, Observer {
 
     }
 
+    /** initiateLevels: The function initiate the 'Level' options */
     private void initiateLevels(){
         Level.setItems(FXCollections.observableArrayList(
                 "Very Easy", "Easy", "Medium",
@@ -160,6 +169,7 @@ public class MyViewController implements IView, Observer {
         Level.setFocusTraversable(false);
     }
 
+    /** dynamicResize: The function change dynamic all the properties that have to be change while changing window's size */
     private void dynamicResize(){
 
         double minSize = Math.min(mHeight, mWidth);
@@ -211,8 +221,9 @@ public class MyViewController implements IView, Observer {
     }
 
 
-    /** Characters:
-     * functions that control the characters of the game */
+    //Characters: These functions control the characters of the game
+
+    /** setCharacters: The function set the Character according to the player's decision. default - Morty */
     public void setCharacters(){
         String url = "file:" + System.getProperty("user.dir").replace("\\", "/") + "/resources/Images/";
         switch (Character.getValue().toString()){
@@ -230,14 +241,16 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.ReDrawCharacter();
     }
 
+    /** setCharacters(Image): The function set the Character according to'Image' input */
     public void setCharacters(Image image){
         mazeDisplayer.setCharacterImage(image);
         mazeDisplayer.setCharactersPosition(viewModel.getCharacterRowPos(), viewModel.getCharacterColPos());
     }
 
 
-    /** Level:
-     * functions that control the Level of the Game */
+    // Level: These functions control the Level of the Game
+
+    /** setMazeLevel: Function set the Level of the game according to player decision */
     public void setMazeLevel(){
         switch (Level.getValue().toString()){
             case "Very Easy": rows = 5; cols = 5; break;
@@ -253,6 +266,7 @@ public class MyViewController implements IView, Observer {
         GenerateMaze();
     }
 
+    /** changeLevel: Function set the Level of the game according to Loaded Maze */
     public void changeLevel(){
         switch (this.viewModel.getMaze().length){
             case 5: Level.setValue("Very Easy"); break;
@@ -267,6 +281,7 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    /** nextLevel: Function set the Level of the game according to Previous Level */
     public void nextLevel(){
         NextLevel.setDisable(false);
         switch (Level.getValue().toString()){
@@ -286,8 +301,9 @@ public class MyViewController implements IView, Observer {
     }
 
 
-    /** display:
-     * functions that control the Game Displayer */
+    // Display: These functions control the Game display
+
+    /** displayMaze: Function get array represent the maze and display it on the canvas */
     @Override
     public void displayMaze(int[][] maze) {
         mazeDisplayer.setMaze(maze);
@@ -296,13 +312,15 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.drawPortal();
     }
 
+    /** displaySolution: Function get solution and display it on the canvas */
     public void displaySolution(Solution sol){
         mazeDisplayer.setSolution(sol);
     }
 
 
-    /** Maze:
-     * functions that control the Game (Generate, Solve, Finish) */
+    // Maze: These functions control the Game (Generate, Solve, Finish)
+
+    /** GenerateMaze: Function generate new maze, according to level, character */
     public void GenerateMaze(){
         // enabled Buttons
         Character.setDisable(false);
@@ -334,6 +352,7 @@ public class MyViewController implements IView, Observer {
 
     }
 
+    /** SolveMaze: Function solve maze and represent it by calling 'displaySolution' */
     public void SolveMaze() {
         if (!mazeExists)
             showAlert("Please generate a maze first");
@@ -343,6 +362,7 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    /** finishMaze: Function finish maze, start music, show 'finishPane' and give options to continue */
     public void finishMaze() {
         // Add Music
         finishPane.setVisible(true);
@@ -362,8 +382,9 @@ public class MyViewController implements IView, Observer {
     }
 
 
-    /** Alert:
-     * functions that helps showing alert like you want */
+    // Alert: These functions helps showing alert like we want
+
+    /** showAlert: Function that helps us show a message */
     public void showAlert(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Invalid Input");
@@ -371,6 +392,7 @@ public class MyViewController implements IView, Observer {
         alert.show();
     }
 
+    /** showAlert: Function that helps us show a message and change the header */
     public void showAlert(String message, String name){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(name);
@@ -379,8 +401,9 @@ public class MyViewController implements IView, Observer {
     }
 
 
-    /** Movement and Controller:
-     * functions that control the movement and keyboard effect */
+    // Movement and Controller: These functions control the movement and keyboard effect
+
+    /** keyPressed: Function help us control the player key pressed and chose function accord to his choise */
     public void keyPressed(javafx.scene.input.KeyEvent keyEvent) {
         if (!finishPane.isVisible()) {
             switch(keyEvent.getCode()){
@@ -416,6 +439,7 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    /** dragPlayer: Function allowed us to move the 'Character' by hold and drag it with the mouse */
     public void dragPlayer(MouseEvent mouseEvent) {
         double cellHeight = mazeDisplayer.getHeight()/ viewModel.getMaze().length;
         double cellWidth = mazeDisplayer.getWidth() / viewModel.getMaze()[0].length;
@@ -436,14 +460,15 @@ public class MyViewController implements IView, Observer {
         else finishMaze();
     }
 
+    /** mazeMouseClicked: Function request focus to the mazeDisplayer */
     public void mazeMouseClicked(){
         mazeDisplayer.requestFocus();
     }
 
 
-    /** Menu Bar:
-     * all the options you can chose from the Menu Bar */
-    //---- Save ---//
+    //Menu Bar: These functions are options chose from the Menu Bar
+
+    /** saveMaze: Function save the current Maze to a file in a '.Maze' format */
     public void saveMaze() {
         if(!mazeExists) {
             showAlert("Please generate maze before saving...", "Save Error!");
@@ -463,7 +488,7 @@ public class MyViewController implements IView, Observer {
         }
     }
 
-    //---- Open ---//
+    /** openFile: Function open a chosen file ('.maze' file) */
     private File openFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose your Rick & Morty maze");
@@ -472,7 +497,7 @@ public class MyViewController implements IView, Observer {
         return fileChooser.showOpenDialog(Main.prim);
     }
 
-    //---- Load ---//
+    /** loadMaze: Function Load the chosen file into the canvas as a new Maze */
     public void loadMaze(){
         File chosenMaze = openFile();
         if(chosenMaze!=null)
@@ -484,19 +509,20 @@ public class MyViewController implements IView, Observer {
 
     }
 
-    //---- Properties ---//
+    /** selectSearchingAlgo: Function change the configuration file (search mode) according the player decision */
     public void selectSearchingAlgo(ActionEvent event) {
         event.consume();
         viewModel.setSearchAlgo(event.getSource().toString().contains("BFS")? "BFS":
                                 event.getSource().toString().contains("DFS")? "DFS": "best");
     }
 
+    /** selectSearchingAlgo: Function change the configuration file (generate mode) according the player decision */
     public void selectGeneratingAlgo(ActionEvent event) {
         event.consume();
         viewModel.setGeneratingAlgo(event.getSource().toString().contains("simple")? "simple": "complicated");
     }
 
-    //---- help ----//
+    /** openInstructions: Function open the basic Instructions of the maze */
     public void openInstructions() throws IOException {
         Stage stage = new Stage();
         stage.setResizable(false);
@@ -507,7 +533,7 @@ public class MyViewController implements IView, Observer {
         stage.show();
     }
 
-    //---- About ----//
+    /** openAbout: Function open the about of the maze */
     public void openAbout() throws IOException {
         Stage stage = new Stage();
         stage.setResizable(false);
@@ -518,7 +544,7 @@ public class MyViewController implements IView, Observer {
         stage.show();
     }
 
-    //---- Exit ----//
+    /** Exit: Function will exit the program according to player decision */
     public int Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Are you sure ?");
@@ -532,8 +558,9 @@ public class MyViewController implements IView, Observer {
     }
 
 
-    /** Music:
-     *  soundtracks and Catchphrases, control and fail music */
+    // Music: These functions related to soundtracks and Catchphrases, control and fail music */
+
+    /** insertMedia: Function get an name of a music file an index and insert the music to an array of mediaPlayer */
     private void insertMedia(String name, int index){
         File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/CatchPhrases/" + name + ".mp3");
         String path = file.toURI().toASCIIString();
@@ -541,6 +568,7 @@ public class MyViewController implements IView, Observer {
         mediaPlayers[index] = new MediaPlayer(sounds[index]);
     }
 
+    /** setSpeaker: Function determine if mute music or not according the previous state */
     private void setSpeaker(){
         if(mediaPlayers[sounds.length-2].isMute()){
             speaker.setImage(new Image(getClass().getResource("/Images/soundOn.png").toString()));
@@ -559,6 +587,7 @@ public class MyViewController implements IView, Observer {
         }
     }
 
+    /** setMusic: Function initiate the Music the game will need */
     public void setMusic() {
 
         setFailMusic();
@@ -616,6 +645,7 @@ public class MyViewController implements IView, Observer {
             mediaPlayer.setVolume(1.3);
     }
 
+    /** setFailMusic: Function set the fail music */
     private void setFailMusic(){
         File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/CatchPhrases/bipSound.mp3");
         String path = file.toURI().toASCIIString();
@@ -623,12 +653,14 @@ public class MyViewController implements IView, Observer {
         failMediaPlayer = new MediaPlayer(failMedia);
     }
 
+    /** musicFail: Function play the music of a fail movement */
     private void musicFail(){
         failMediaPlayer.setVolume(0.2);
         failMediaPlayer.stop();
         failMediaPlayer.play();
     }
 
+    /** catchPhrase: Function randomize catchPhrase */
     public void catchPhrase(){
         Random random = new Random();
         for(int i = 0 ; i<mediaPlayers.length-2;i++)
@@ -638,14 +670,13 @@ public class MyViewController implements IView, Observer {
     }
 
 
-    /** Extra:
-     * fun menu items*/
-    //---- Watch Rick & Morty ----//
+    // Extra: These functions are fun menu items*/
+    /** Episodes: Function connect the player to the 'Rick and Morty Episodes' online */
     public void Episodes() throws IOException, URISyntaxException {
         Desktop.getDesktop().browse(new URL("https://www.adultswim.com/videos/rick-and-morty").toURI());
     }
 
-    //---- How They Do It: Plumbs ----//
+    /** Plumbs: Function show the player the famous video 'Plumbs, How they do it' */
     public void Plumbus(){
         if(!plumbsLoaded){
             File file = new File(System.getProperty("user.dir").replace("\\", "/") + "/resources/Videos/Plumbus.mp4");
@@ -679,8 +710,7 @@ public class MyViewController implements IView, Observer {
     }
 
 
-    /** Observer Design Pattern:
-     * update of the Observer Override here */
+    /** update: Observer Design Pattern - update of the Observer Override here */
     @Override
     public void update(Observable o, Object arg) {
         switch((String)arg){

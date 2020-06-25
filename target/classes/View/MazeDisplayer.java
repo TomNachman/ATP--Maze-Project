@@ -28,11 +28,13 @@ public class MazeDisplayer extends Canvas {
 
     private final StringProperty ImageFileWall = new SimpleStringProperty();
 
+    /** setMaze: Function set the maze to the given maze */
     public void setMaze(int[][] maze) {
         this.maze = maze;
         drawMaze();
     }
 
+    /** ReDrawCharacter: Function draw again the character on the maze in the right position */
     public void ReDrawCharacter() {
         double canvasHeight = getHeight();
         double canvasWidth = getWidth();
@@ -42,6 +44,7 @@ public class MazeDisplayer extends Canvas {
         gc.drawImage(characterImage, characterPositionColumn * cellWidth, characterPositionRow * cellHeight, cellWidth,cellHeight );
     }
 
+    /** deleteCharacter: Function delete the character on the maze in the curr position */
     public void deleteCharacter(int row,int col){
         double canvasHeight = getHeight();
         double canvasWidth = getWidth();
@@ -51,6 +54,7 @@ public class MazeDisplayer extends Canvas {
         gc.clearRect(col*cellWidth, row*cellHeight, cellWidth, cellHeight);
     }
 
+    /** setCharactersPosition: Function set the character's position on the maze according the given row and col indexes */
     public void setCharactersPosition(int row, int col) {
         deleteCharacter(characterPositionRow,characterPositionColumn);
         this.characterPositionRow = row;
@@ -58,10 +62,12 @@ public class MazeDisplayer extends Canvas {
         ReDrawCharacter();
     }
 
+    /** setCharacterImage: Function set the character's Image according the given image */
     public void setCharacterImage(Image image){
         this.characterImage = image;
     }
 
+    /** drawMaze: Function draw the maze on the canvas */
     public void drawMaze() {
         if( maze!=null)
         {
@@ -94,6 +100,7 @@ public class MazeDisplayer extends Canvas {
         }
     }
 
+    /** drawPortal: Function draw the portal (target) on the canvas */
     public void drawPortal(){
         double canvasHeight = getHeight();
         double canvasWidth = getWidth();
@@ -104,11 +111,13 @@ public class MazeDisplayer extends Canvas {
         gc.drawImage(portal, this.goalPosition.getColumnIndex() * cellWidth, this.goalPosition.getRowIndex() * cellHeight, cellWidth,cellHeight );
     }
 
+    /** setSolution: Function set the solution to this */
     public void setSolution(Solution sol){
         this.sol=sol;
         drawSolution();
     }
 
+    /** drawSolution: Function draw the solution on the canvas */
     public void drawSolution(){
         double canvasHeight = getHeight();
         double canvasWidth = getWidth();
@@ -125,59 +134,13 @@ public class MazeDisplayer extends Canvas {
         }
     }
 
-    public void print() {
-        for(int i = 0; i < this.maze.length; ++i) {
-            for(int j = 0; j < this.maze[0].length; ++j) {
-                if (i == this.startPosition.getRowIndex() && j == this.startPosition.getColumnIndex()) {
-                    System.out.print('S');
-                } else if (i == this.goalPosition.getRowIndex() && j == this.goalPosition.getColumnIndex()) {
-                    System.out.print('E');
-                } else {
-                    System.out.print(this.maze[i][j] + "");
-                }
-
-                if (j == this.maze[0].length - 1) {
-                    System.out.println("");
-                }
-            }
-        }
-    }
-
-    public void Zoom(){
-
-        setOnScroll(event -> {
-            if(event.isControlDown()) {
-                double change = event.getDeltaY();
-                double zoomConst = 1.03;
-                if (change < 0) {
-                    zoomConst = 0.97;
-                }
-
-                if(getScaleY() * zoomConst >= 1 && getScaleX() * zoomConst >= 1){
-                    setScaleY(getScaleY() * zoomConst);
-                    setScaleX(getScaleX() * zoomConst);
-
-                    setHeight(getHeight()+ change);
-                    setWidth(getWidth()+change);
-
-                    drawMaze();
-                    drawPortal();
-                    ReDrawCharacter();
-                }
-
-                System.out.println("Get Scale Y:" + getScaleY());
-                System.out.println("Height -" + getHeight());
-                System.out.println("width -" + getWidth());
-                //event.consume();
-
-            }
-        });
-    }
-
+    /** getImageFileWall: Function get the image of the wall */
     public String getImageFileWall(){return ImageFileWall.get();}
 
+    /** setImageFileWall: Function set the image of the wall */
     public void setImageFileWall(String imageFileWall){this.ImageFileWall.set(imageFileWall);}
 
+    /** setGoalPostion: Function set the goal position */
     public void setGoalPostion(Position goalPosition) {
         this.goalPosition =  goalPosition;
     }
