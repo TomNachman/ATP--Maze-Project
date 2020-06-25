@@ -9,11 +9,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas {
@@ -22,7 +19,6 @@ public class MazeDisplayer extends Canvas {
     public int characterPositionRow;
     public int characterPositionColumn;
     private Solution sol;
-    private Position startPosition;
     private Position goalPosition;
     public Image characterImage;
 

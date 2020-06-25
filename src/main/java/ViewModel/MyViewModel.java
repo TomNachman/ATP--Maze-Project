@@ -10,7 +10,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MyViewModel extends Observable implements Observer {
-
     private IModel model;
 
     /** MyViewModel: Constructor - initiate the model */
