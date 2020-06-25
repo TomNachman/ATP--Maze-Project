@@ -169,6 +169,7 @@ public class MazeDisplayer extends Canvas {
                 System.out.println("Height -" + getHeight());
                 System.out.println("width -" + getWidth());
                 //event.consume();
+
             }
         });
     }
