@@ -30,7 +30,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sample.Main;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -208,6 +207,7 @@ public class MyViewController implements IView, Observer {
         mazeDisplayer.drawMaze();
         mazeDisplayer.drawPortal();
         mazeDisplayer.ReDrawCharacter();
+        scrollSize = mazeDisplayer.getHeight();
     }
 
 

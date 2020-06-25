@@ -32,8 +32,8 @@ public class MyModel extends Observable implements IModel {
     private static final Logger LOG = LogManager.getLogger();
 
     public void StartServers() {
-        mazeGenerateServer = new Server(5421, 1000, new ServerStrategyGenerateMaze());
-        solveMazeServer = new Server(5422, 1000, new ServerStrategySolveSearchProblem());
+        mazeGenerateServer = new Server(5420, 1000, new ServerStrategyGenerateMaze());
+        solveMazeServer = new Server(5421, 1000, new ServerStrategySolveSearchProblem());
         mazeGenerateServer.start();
         //Configurator.setRootLevel(Level.INFO);
         LOG.info("Maze-Generating server started");
@@ -65,7 +65,7 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void solveMaze(){
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+            Client client = new Client(InetAddress.getLocalHost(), 5421, new IClientStrategy() {
                 @Override
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
@@ -91,7 +91,7 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void generateMaze(int width, int height) {
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
+            Client client = new Client(InetAddress.getLocalHost(), 5420, new IClientStrategy() {
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
