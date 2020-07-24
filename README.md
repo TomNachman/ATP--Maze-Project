@@ -7,9 +7,10 @@
 ## About
 
 - The Maze Generating functuin is based on Prim algorithm
-- if the user cant solve the maze,he/she can choose with which Algorithm the App solver will solve the maze
-  -Solution Based on BFS
-  -Solution Based on DFS
-  -Solution Based on BestFirstSearch
+- if the user cant solve the maze,he/she can choose with which Algorithm the App solver will solve the maze.
+    * Solution Based on BFS
+    * Solution Based on DFS
+    * Solution Based on BestFirstSearch
+  
   
  Have Fun!
