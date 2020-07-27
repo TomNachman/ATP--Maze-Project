@@ -3,7 +3,6 @@
 # Rick And Morty Maze
 
 > This Maze App was build as a part of Advanced Topic In Programming taken
-in asdasdasdasd
 > The app was built in Java and uses Search Algorithms,Design Patterns,Client-Server programming, Multithreading and JavaFX GUI
 
 ## About
