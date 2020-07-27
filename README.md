@@ -2,7 +2,9 @@
 
 # Rick And Morty Maze
 
-> This Maze was build as a part of Advanced Topic In Programming Course
+> This Maze App was build as a part of Advanced Topic In Programming taken
+in asdasdasdasd
+> The app was built in Java and uses Search Algorithms,Design Patterns,Client-Server programming, Multithreading and JavaFX GUI
 
 ## About
 
@@ -11,6 +13,12 @@
     * Solution Based on BFS
     * Solution Based on DFS
     * Solution Based on BestFirstSearch
+ - Design Patterns Used:
+    * Bridge
+    * Startegy
+    * Observer
+    * Factory
+  - Multithreading was used to to create and solve mazes concurrently
   
   
  Have Fun!
