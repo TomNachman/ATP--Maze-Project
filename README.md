@@ -18,7 +18,8 @@
     * Observer
     * Factory
   - Multithreading was used to to create and solve mazes concurrently
-  - Using Maven and Log4j2 
+  - Used Maven repositories manager include log4j2 LogManager
+  - SOLID coding guidelines
   
 
 ![First](https://i.imgur.com/Yy4VwbF.jpg)
