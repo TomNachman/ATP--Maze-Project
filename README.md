@@ -3,7 +3,7 @@
 # Rick And Morty Maze
 
 * This Maze App was build as a part of Advanced Topic In Programming Course, taken in Ben Gurion University, Information System Engineering Faculty.
-* The app was built in Java and uses Search Algorithms,Design Patterns,Client-Server programming, Multithreading and JavaFX GUI
+* The app was built in Java accoriding to MVVM architecture and uses Search Algorithms,Design Patterns,Client-Server programming, Multithreading and JavaFX GUI
 
 ## About
 
