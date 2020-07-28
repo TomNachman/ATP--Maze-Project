@@ -19,5 +19,10 @@
     * Factory
   - Multithreading was used to to create and solve mazes concurrently
   
-  
- Have Fun!
+
+![First](https://i.imgur.com/Yy4VwbF.jpg)
+
+![Second](https://i.imgur.com/88Eka4C.png)
+
+
+Have Fun!
